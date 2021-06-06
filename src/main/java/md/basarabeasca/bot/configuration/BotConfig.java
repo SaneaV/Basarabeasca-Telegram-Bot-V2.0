@@ -6,5 +6,4 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "telegrambot")
 public class BotConfig {
-
 }

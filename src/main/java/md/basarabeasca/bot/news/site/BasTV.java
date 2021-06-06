@@ -2,7 +2,7 @@ package md.basarabeasca.bot.news.site;
 
 import lombok.Data;
 import md.basarabeasca.bot.news.model.News;
-import md.basarabeasca.bot.news.parser.Parser;
+import md.basarabeasca.bot.news.parser.NewsSiteParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Data
 @Component
-public class BasTV implements Parser {
+public class BasTV implements NewsSiteParser {
 
     @Value("${site.bastv}")
     private String siteLink;
