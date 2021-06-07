@@ -11,10 +11,12 @@ public class KeyBoardUtil {
     public static ReplyKeyboardMarkup getMainReplyKeyboardMarkup() {
         KeyboardRow keyboardRowOne = new KeyboardRow();
         KeyboardRow keyboardRowTwo = new KeyboardRow();
+        KeyboardRow keyboardRowThree = new KeyboardRow();
 
         keyboardRowOne.addAll(List.of("FeedBack", "BasTV"));
-        keyboardRowTwo.addAll(List.of("Погода на 5 дней"));
-        List<KeyboardRow> keyboardRowList = new ArrayList<>(List.of(keyboardRowOne, keyboardRowTwo));
+        keyboardRowTwo.addAll(List.of("Погода на неделю"));
+        keyboardRowThree.addAll(List.of("Полезные номера"));
+        List<KeyboardRow> keyboardRowList = new ArrayList<>(List.of(keyboardRowOne, keyboardRowTwo, keyboardRowThree));
 
         return ReplyKeyboardMarkup.builder()
                 .resizeKeyboard(true)

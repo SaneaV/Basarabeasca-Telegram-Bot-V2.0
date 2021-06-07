@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.weather.dto;
+package md.basarabeasca.bot.feature.weather.dto;
 
 import lombok.Builder;
 import lombok.Data;

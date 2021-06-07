@@ -1,8 +1,8 @@
-package md.basarabeasca.bot.news.site;
+package md.basarabeasca.bot.feature.news.site;
 
 import lombok.Data;
-import md.basarabeasca.bot.news.model.News;
-import md.basarabeasca.bot.news.parser.NewsSiteParser;
+import md.basarabeasca.bot.feature.news.model.News;
+import md.basarabeasca.bot.feature.news.parser.NewsSiteParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;

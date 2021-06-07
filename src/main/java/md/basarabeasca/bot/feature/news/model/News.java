@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.news.model;
+package md.basarabeasca.bot.feature.news.model;
 
 import lombok.Builder;
 import lombok.Data;

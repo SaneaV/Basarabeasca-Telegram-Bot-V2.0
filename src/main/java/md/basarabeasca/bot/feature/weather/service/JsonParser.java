@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.weather.service;
+package md.basarabeasca.bot.feature.weather.service;
 
 import md.basarabeasca.bot.settings.Parser;
 
