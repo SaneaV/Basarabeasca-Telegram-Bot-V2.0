@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import md.basarabeasca.bot.command.impl.BasTVCommand;
 import md.basarabeasca.bot.command.impl.FeedBackCommand;
 import md.basarabeasca.bot.command.impl.StartCommand;
+import md.basarabeasca.bot.command.impl.WeatherCommand;
 import md.basarabeasca.bot.keyboard.KeyBoardUtil;
 import md.basarabeasca.bot.settings.Command;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,7 @@ public class DispatcherCommand {
     private final StartCommand startCommand;
     private final BasTVCommand basTVCommand;
     private final FeedBackCommand feedBackCommand;
+    private final WeatherCommand weatherCommand;
 
     public SendMessage execute(final Update update) throws IOException {
         final Message message = update.getMessage();
@@ -33,6 +35,9 @@ public class DispatcherCommand {
             }
             case Command.FEEDBACK: {
                 return feedBackCommand.execute(update);
+            }
+            case Command.WEATHER: {
+                return weatherCommand.execute(update);
             }
         }
 

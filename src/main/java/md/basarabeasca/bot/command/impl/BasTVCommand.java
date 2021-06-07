@@ -6,6 +6,7 @@ import md.basarabeasca.bot.command.ICommand;
 import md.basarabeasca.bot.keyboard.KeyBoardUtil;
 import md.basarabeasca.bot.news.model.News;
 import md.basarabeasca.bot.news.site.BasTV;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
@@ -25,6 +26,7 @@ import java.util.List;
 public class BasTVCommand implements ICommand {
 
     private final BasTV basTV;
+    @Lazy
     private final BasarabeascaBot basarabeascaBot;
 
     @Override

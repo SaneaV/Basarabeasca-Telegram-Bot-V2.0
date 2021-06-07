@@ -8,4 +8,5 @@ public class Command {
 
     public static final String BASTV = "BasTV";
     public static final String FEEDBACK = "FeedBack";
+    public static final String WEATHER = "Погода на неделю";
 }

@@ -9,11 +9,12 @@ import java.util.List;
 public class KeyBoardUtil {
 
     public static ReplyKeyboardMarkup getMainReplyKeyboardMarkup() {
-        List<KeyboardRow> keyboardRowList = new ArrayList<>();
-        KeyboardRow keyboardRow = new KeyboardRow();
+        KeyboardRow keyboardRowOne = new KeyboardRow();
+        KeyboardRow keyboardRowTwo = new KeyboardRow();
 
-        keyboardRow.addAll(List.of("FeedBack", "BasTV"));
-        keyboardRowList.add(keyboardRow);
+        keyboardRowOne.addAll(List.of("FeedBack", "BasTV"));
+        keyboardRowTwo.addAll(List.of("Погода на 5 дней"));
+        List<KeyboardRow> keyboardRowList = new ArrayList<>(List.of(keyboardRowOne, keyboardRowTwo));
 
         return ReplyKeyboardMarkup.builder()
                 .resizeKeyboard(true)
