@@ -40,11 +40,10 @@ public class DispatcherCommand {
     }
 
     private SendMessage sendHelpMessage(final Message message) {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.enableMarkdown(true);
-        sendMessage.setText("Чтобы воспользоваться ботом выберите команду из ниже предложенного меню.");
-        sendMessage.setChatId(message.getChatId().toString());
-        sendMessage.setReplyMarkup(KeyBoardUtil.getMainReplyKeyboardMarkup(message));
-        return sendMessage;
+        return SendMessage.builder()
+                .text("Чтобы воспользоваться ботом выберите команду из ниже предложенного меню.")
+                .chatId(message.getChatId().toString())
+                .replyMarkup(KeyBoardUtil.getMainReplyKeyboardMarkup())
+                .build();
     }
 }

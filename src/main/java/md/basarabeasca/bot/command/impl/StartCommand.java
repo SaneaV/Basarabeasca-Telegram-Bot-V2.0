@@ -16,11 +16,11 @@ public class StartCommand implements ICommand {
     }
 
     private SendMessage sendStartMessage(final Message message) {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(message.getChatId().toString());
-        sendMessage.setText("Добро пожаловать в Бессарабка бот V2.0. " +
-                "Воспользуйтесь клавишами меню, чтобы узнать о новостях в нашем городе.");
-        sendMessage.setReplyMarkup(KeyBoardUtil.getMainReplyKeyboardMarkup(message));
-        return sendMessage;
+        return SendMessage.builder()
+                .chatId(message.getChatId().toString())
+                .text("Добро пожаловать в Бессарабка бот V2.0. " +
+                        "Воспользуйтесь клавишами меню, чтобы узнать о новостях в нашем городе.")
+                .replyMarkup(KeyBoardUtil.getMainReplyKeyboardMarkup())
+                .build();
     }
 }

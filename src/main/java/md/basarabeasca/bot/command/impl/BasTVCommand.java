@@ -37,18 +37,22 @@ public class BasTVCommand implements ICommand {
 
         assert list != null;
         for (News news : list) {
-            SendPhoto sendPhoto = new SendPhoto();
-            sendPhoto.setChatId(message.getChatId().toString());
-            sendPhoto.setPhoto(new InputFile(news.getImage()));
-            sendPhoto.setParseMode("markdown");
-            sendPhoto.setCaption("*" + news.getName() + "*" + "\n\n" + news.getDescription());
+
+            SendPhoto sendPhoto = SendPhoto.builder()
+                    .chatId(message.getChatId().toString())
+                    .photo(new InputFile(news.getImage()))
+                    .parseMode("markdown")
+                    .caption("*" + news.getName() + "*" + "\n\n" + news.getDescription())
+                    .build();
 
             InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
             List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
             List<InlineKeyboardButton> rowInline = new ArrayList<>();
-            InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
-            inlineKeyboardButton.setUrl(news.getLink());
-            inlineKeyboardButton.setText("Продолжить чтение");
+
+            InlineKeyboardButton inlineKeyboardButton = InlineKeyboardButton.builder()
+                    .url(news.getLink())
+                    .text("Продолжить чтение")
+                    .build();
 
             rowInline.add(inlineKeyboardButton);
             rowsInline.add(rowInline);
@@ -61,10 +65,11 @@ public class BasTVCommand implements ICommand {
                 e.printStackTrace();
             }
         }
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(message.getChatId().toString());
-        sendMessage.setText("Последние " + list.size() + " новостей с сайта https://bas-tv.md/");
-        sendMessage.setReplyMarkup(KeyBoardUtil.getMainReplyKeyboardMarkup(message));
-        return sendMessage;
+
+        return SendMessage.builder()
+                .chatId(message.getChatId().toString())
+                .text("Последние " + list.size() + " новостей с сайта https://bas-tv.md/")
+                .replyMarkup(KeyBoardUtil.getMainReplyKeyboardMarkup())
+                .build();
     }
 }
