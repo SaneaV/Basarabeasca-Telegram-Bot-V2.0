@@ -1,6 +1,6 @@
-package md.basarabeasca.bot.weather.service;
+package md.basarabeasca.bot.feature.weather.service;
 
-import md.basarabeasca.bot.weather.dto.Weather;
+import md.basarabeasca.bot.feature.weather.dto.Weather;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

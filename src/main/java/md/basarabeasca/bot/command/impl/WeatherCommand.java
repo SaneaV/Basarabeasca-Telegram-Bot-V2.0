@@ -3,7 +3,7 @@ package md.basarabeasca.bot.command.impl;
 import lombok.AllArgsConstructor;
 import md.basarabeasca.bot.command.ICommand;
 import md.basarabeasca.bot.keyboard.KeyBoardUtil;
-import md.basarabeasca.bot.weather.service.ParseWeather;
+import md.basarabeasca.bot.feature.weather.service.ParseWeather;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
