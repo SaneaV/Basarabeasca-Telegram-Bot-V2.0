@@ -56,12 +56,12 @@ public class BasTV implements NewsSiteParser {
         Elements images = getNewsImage();
 
         for (int i = 0; i < 10; i++) {
-            News news = new News();
-
-            news.setName(names.get(i).text());
-            news.setDescription(descriptions.get(i).text());
-            news.setLink(links.get(i).attr("href"));
-            news.setImage(images.get(i).attr("data-src"));
+            News news = News.builder()
+                    .name(names.get(i).text())
+                    .description(descriptions.get(i).text())
+                    .image(images.get(i).attr("data-src"))
+                    .link(links.get(i).attr("href"))
+                    .build();
 
             newsList.add(news);
         }
