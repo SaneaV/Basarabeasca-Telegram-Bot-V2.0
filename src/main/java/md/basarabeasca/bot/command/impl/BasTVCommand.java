@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static md.basarabeasca.bot.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboard;
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithInlineKeyboard;
+import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendPhoto;
 
 @Component
@@ -54,7 +54,7 @@ public class BasTVCommand implements ICommand {
             }
         }
 
-        return getSendMessageWithInlineKeyboard(message.getChatId().toString(),
+        return getSendMessageWithReplyKeyboardMarkup(message.getChatId().toString(),
                 "Последние " + list.size() + " новостей с сайта https://bas-tv.md/",
                 ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
     }

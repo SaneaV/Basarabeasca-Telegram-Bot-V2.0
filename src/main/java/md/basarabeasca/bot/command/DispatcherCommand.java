@@ -5,6 +5,7 @@ import md.basarabeasca.bot.command.impl.AddNumberCommand;
 import md.basarabeasca.bot.command.impl.BasTVCommand;
 import md.basarabeasca.bot.command.impl.DeleteNumberCommand;
 import md.basarabeasca.bot.command.impl.FeedBackCommand;
+import md.basarabeasca.bot.command.impl.SearchNumberByDescriptionCommand;
 import md.basarabeasca.bot.command.impl.ShowNumberCommand;
 import md.basarabeasca.bot.command.impl.StartCommand;
 import md.basarabeasca.bot.command.impl.WeatherCommand;
@@ -18,7 +19,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.io.IOException;
 
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithInlineKeyboard;
+import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 @Component
 @AllArgsConstructor
@@ -38,6 +39,8 @@ public class DispatcherCommand {
     private final AddNumberCommand addNumberCommand;
     @Lazy
     private final DeleteNumberCommand deleteNumberCommand;
+    @Lazy
+    private final SearchNumberByDescriptionCommand searchNumberByDescriptionCommand;
 
     public SendMessage execute(final Update update) throws IOException {
         final Message message = update.getMessage();
@@ -49,6 +52,10 @@ public class DispatcherCommand {
             if (message.getText().contains("/deleteNumber")) {
                 return deleteNumberCommand.execute(update);
             }
+        }
+
+        if (message.getText().contains("/searchNumber")) {
+            return searchNumberByDescriptionCommand.execute(update);
         }
 
         switch (message.getText()) {
@@ -67,6 +74,12 @@ public class DispatcherCommand {
             case Command.SHOW_NUMBERS: {
                 return showNumberCommand.execute(update);
             }
+            case Command.SEARCH_NUMBER_BY_DESCRIPTION: {
+                return searchNumberByDescriptionCommand.execute(update);
+            }
+            case Command.MAIN_MENU: {
+                return sendHelpMessage(message);
+            }
         }
 
         return sendHelpMessage(message);
@@ -74,7 +87,7 @@ public class DispatcherCommand {
 
 
     private SendMessage sendHelpMessage(final Message message) {
-        return getSendMessageWithInlineKeyboard(message.getChatId().toString(),
+        return getSendMessageWithReplyKeyboardMarkup(message.getChatId().toString(),
                 "Чтобы воспользоваться ботом выберите команду из ниже предложенного меню.",
                 ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
     }

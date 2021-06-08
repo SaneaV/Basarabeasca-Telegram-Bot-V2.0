@@ -11,4 +11,6 @@ public interface PhoneNumberService {
     String addNumber(String number, String description);
 
     String deleteNumber(String number);
+
+    List<PhoneNumberDto> findByDescription(String description);
 }

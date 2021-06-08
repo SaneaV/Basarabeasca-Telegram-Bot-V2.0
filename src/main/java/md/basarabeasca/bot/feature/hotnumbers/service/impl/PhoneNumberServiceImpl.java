@@ -54,6 +54,19 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
         return "Номер был удалён";
     }
 
+    @Override
+    public List<PhoneNumberDto> findByDescription(String description) {
+        try {
+            return phoneNumberRepository.findByDescriptionIgnoreCaseContaining(description)
+                    .stream()
+                    .map(this::convertToDTO)
+                    .sorted(Comparator.comparing(PhoneNumberDto::getDescription))
+                    .collect(Collectors.toList());
+        } catch (Exception exception) {
+            return null;
+        }
+    }
+
     public PhoneNumberDto convertToDTO(PhoneNumber phoneNumber) {
         return modelMapper.map(phoneNumber, PhoneNumberDto.class);
     }
