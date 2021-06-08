@@ -8,8 +8,8 @@ import md.basarabeasca.bot.command.impl.FeedBackCommand;
 import md.basarabeasca.bot.command.impl.ShowNumberCommand;
 import md.basarabeasca.bot.command.impl.StartCommand;
 import md.basarabeasca.bot.command.impl.WeatherCommand;
-import md.basarabeasca.bot.keyboard.KeyBoardUtil;
 import md.basarabeasca.bot.settings.Command;
+import md.basarabeasca.bot.util.keyboard.ReplyKeyboardMarkupUtil;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -17,6 +17,8 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.io.IOException;
+
+import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithInlineKeyboard;
 
 @Component
 @AllArgsConstructor
@@ -40,11 +42,11 @@ public class DispatcherCommand {
     public SendMessage execute(final Update update) throws IOException {
         final Message message = update.getMessage();
 
-        if(message.getFrom().getId().toString().equals("353461713")){
-            if(message.getText().contains("/addNumber")){
+        if (message.getFrom().getId().toString().equals("353461713")) {
+            if (message.getText().contains("/addNumber")) {
                 return addNumberCommand.execute(update);
             }
-            if(message.getText().contains("/deleteNumber")){
+            if (message.getText().contains("/deleteNumber")) {
                 return deleteNumberCommand.execute(update);
             }
         }
@@ -70,11 +72,10 @@ public class DispatcherCommand {
         return sendHelpMessage(message);
     }
 
+
     private SendMessage sendHelpMessage(final Message message) {
-        return SendMessage.builder()
-                .text("Чтобы воспользоваться ботом выберите команду из ниже предложенного меню.")
-                .chatId(message.getChatId().toString())
-                .replyMarkup(KeyBoardUtil.getMainReplyKeyboardMarkup())
-                .build();
+        return getSendMessageWithInlineKeyboard(message.getChatId().toString(),
+                "Чтобы воспользоваться ботом выберите команду из ниже предложенного меню.",
+                ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
     }
 }
