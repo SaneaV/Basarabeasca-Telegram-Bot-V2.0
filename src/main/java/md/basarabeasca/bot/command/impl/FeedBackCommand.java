@@ -23,10 +23,10 @@ import static md.basarabeasca.bot.util.message.MessageUtil.getSendPhoto;
 
 @Component
 @AllArgsConstructor
+@Lazy
 public class FeedBackCommand implements ICommand {
 
     private final FeedBack feedBack;
-    @Lazy
     private final BasarabeascaBot basarabeascaBot;
 
     @Override
