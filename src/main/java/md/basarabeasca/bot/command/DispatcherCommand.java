@@ -23,24 +23,17 @@ import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithRep
 
 @Component
 @AllArgsConstructor
+@Lazy
 public class DispatcherCommand {
 
-    @Lazy
     private final StartCommand startCommand;
-    @Lazy
-    private final BasTVCommand basTVCommand;
-    @Lazy
-    private final FeedBackCommand feedBackCommand;
-    @Lazy
     private final WeatherCommand weatherCommand;
-    @Lazy
     private final ShowNumberCommand showNumberCommand;
-    @Lazy
     private final AddNumberCommand addNumberCommand;
-    @Lazy
     private final DeleteNumberCommand deleteNumberCommand;
-    @Lazy
     private final SearchNumberByDescriptionCommand searchNumberByDescriptionCommand;
+    private final BasTVCommand basTVCommand;
+    private final FeedBackCommand feedBackCommand;
 
     public SendMessage execute(final Update update) throws IOException {
         final Message message = update.getMessage();

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import md.basarabeasca.bot.command.ICommand;
 import md.basarabeasca.bot.feature.hotnumbers.service.impl.PhoneNumberServiceImpl;
 import md.basarabeasca.bot.util.keyboard.ReplyKeyboardMarkupUtil;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -17,6 +18,7 @@ import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithRep
 
 @Component
 @AllArgsConstructor
+@Lazy
 public class AddNumberCommand implements ICommand {
 
     PhoneNumberServiceImpl phoneNumberService;

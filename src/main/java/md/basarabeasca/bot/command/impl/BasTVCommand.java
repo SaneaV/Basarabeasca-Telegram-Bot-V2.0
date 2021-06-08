@@ -23,10 +23,10 @@ import static md.basarabeasca.bot.util.message.MessageUtil.getSendPhoto;
 
 @Component
 @AllArgsConstructor
+@Lazy
 public class BasTVCommand implements ICommand {
 
     private final BasTV basTV;
-    @Lazy
     private final BasarabeascaBot basarabeascaBot;
 
     @Override
