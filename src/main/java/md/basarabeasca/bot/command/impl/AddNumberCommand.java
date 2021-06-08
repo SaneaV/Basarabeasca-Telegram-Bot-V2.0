@@ -13,7 +13,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import java.io.IOException;
 
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessage;
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithInlineKeyboard;
+import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 @Component
 @AllArgsConstructor
@@ -32,7 +32,7 @@ public class AddNumberCommand implements ICommand {
 
         String number = numberArray[1];
         if (!number.matches("0\\d{8}")) {
-            return getSendMessageWithInlineKeyboard(message.getChatId().toString(),
+            return getSendMessageWithReplyKeyboardMarkup(message.getChatId().toString(),
                     "Номер некоректен", ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
         }
 

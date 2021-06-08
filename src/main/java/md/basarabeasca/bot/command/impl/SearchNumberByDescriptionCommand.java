@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import md.basarabeasca.bot.command.ICommand;
 import md.basarabeasca.bot.feature.hotnumbers.dto.PhoneNumberDto;
 import md.basarabeasca.bot.feature.hotnumbers.service.impl.PhoneNumberServiceImpl;
+import md.basarabeasca.bot.util.keyboard.ReplyKeyboardMarkupUtil;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -12,24 +13,25 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import java.io.IOException;
 import java.util.List;
 
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessage;
+import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
-@AllArgsConstructor
 @Component
-public class ShowNumberCommand implements ICommand {
+@AllArgsConstructor
+public class SearchNumberByDescriptionCommand implements ICommand {
 
     private final PhoneNumberServiceImpl phoneNumberService;
 
     @Override
     public SendMessage execute(Update update) throws IOException {
-        return sendShowNumbers(update.getMessage());
+        return sendSearchNumber(update.getMessage());
     }
 
-    private SendMessage sendShowNumbers(final Message message) {
+    private SendMessage sendSearchNumber(final Message message) {
+        List<PhoneNumberDto> phoneNumberDtos = phoneNumberService.findByDescription(message
+                .getText()
+                .replaceFirst("/searchNumber ", ""));
 
-        List<PhoneNumberDto> phoneNumberDtos = phoneNumberService.getAllNumbers();
         StringBuilder stringBuilder = new StringBuilder();
-
         if (phoneNumberDtos.isEmpty()) {
             stringBuilder.append("Список номеров пуст");
         } else {
@@ -44,12 +46,9 @@ public class ShowNumberCommand implements ICommand {
                         .append(phone.getDescription())
                         .append("\n");
             }
-
-            stringBuilder.append("\nЧтобы найти номер воспользуйтесь коммандой: \n" +
-                    "/searchNumber \"Чей номер ищите\"");
         }
 
-        return getSendMessage(message.getChatId().toString(),
-                stringBuilder.toString());
+        return getSendMessageWithReplyKeyboardMarkup(message.getChatId().toString(),
+                stringBuilder.toString(), ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
     }
 }

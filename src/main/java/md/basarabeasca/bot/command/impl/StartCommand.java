@@ -7,7 +7,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithInlineKeyboard;
+import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 @Component
 public class StartCommand implements ICommand {
@@ -18,7 +18,7 @@ public class StartCommand implements ICommand {
     }
 
     private SendMessage sendStartMessage(final Message message) {
-        return getSendMessageWithInlineKeyboard(message.getChatId().toString(),
+        return getSendMessageWithReplyKeyboardMarkup(message.getChatId().toString(),
                 "Добро пожаловать в Бессарабка бот V2.0. Воспользуйтесь клавишами меню, чтобы узнать о новостях в " +
                         "нашем городе.", ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
     }
