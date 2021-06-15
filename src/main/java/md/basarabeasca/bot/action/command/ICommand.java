@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.command;
+package md.basarabeasca.bot.action.command;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;

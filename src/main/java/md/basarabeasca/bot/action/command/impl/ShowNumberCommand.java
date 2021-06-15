@@ -1,7 +1,7 @@
-package md.basarabeasca.bot.command.impl;
+package md.basarabeasca.bot.action.command.impl;
 
 import lombok.AllArgsConstructor;
-import md.basarabeasca.bot.command.ICommand;
+import md.basarabeasca.bot.action.command.ICommand;
 import md.basarabeasca.bot.feature.hotnumbers.dto.PhoneNumberDto;
 import md.basarabeasca.bot.feature.hotnumbers.service.impl.PhoneNumberServiceImpl;
 import org.springframework.context.annotation.Lazy;
@@ -13,7 +13,11 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import java.io.IOException;
 import java.util.List;
 
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessage;
+import static md.basarabeasca.bot.action.callback.CallbackQueryType.FIND_NUMBER;
+import static md.basarabeasca.bot.settings.StringUtil.PHONE_NUMBER_LIST_IS_EMPTY;
+import static md.basarabeasca.bot.settings.StringUtil.SEARCH_NUMBER;
+import static md.basarabeasca.bot.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardCallBackData;
+import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithInlineKeyboardMarkup;
 
 @AllArgsConstructor
 @Component
@@ -33,7 +37,7 @@ public class ShowNumberCommand implements ICommand {
         StringBuilder stringBuilder = new StringBuilder();
 
         if (phoneNumberDtos.isEmpty()) {
-            stringBuilder.append("Список номеров пуст");
+            stringBuilder.append(PHONE_NUMBER_LIST_IS_EMPTY);
         } else {
             int i = 0;
             for (PhoneNumberDto phone :
@@ -46,12 +50,9 @@ public class ShowNumberCommand implements ICommand {
                         .append(phone.getDescription())
                         .append("\n");
             }
-
-            stringBuilder.append("\nЧтобы найти номер воспользуйтесь коммандой: \n" +
-                    "/searchNumber \"Чей номер ищите\"");
         }
 
-        return getSendMessage(message.getChatId().toString(),
-                stringBuilder.toString());
+        return getSendMessageWithInlineKeyboardMarkup(message.getChatId().toString(),
+                stringBuilder.toString(), getSendInlineKeyboardCallBackData(SEARCH_NUMBER, FIND_NUMBER.name()));
     }
 }

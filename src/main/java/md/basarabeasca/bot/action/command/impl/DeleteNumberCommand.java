@@ -1,7 +1,7 @@
-package md.basarabeasca.bot.command.impl;
+package md.basarabeasca.bot.action.command.impl;
 
 import lombok.AllArgsConstructor;
-import md.basarabeasca.bot.command.ICommand;
+import md.basarabeasca.bot.action.command.ICommand;
 import md.basarabeasca.bot.feature.hotnumbers.service.impl.PhoneNumberServiceImpl;
 import md.basarabeasca.bot.util.keyboard.ReplyKeyboardMarkupUtil;
 import org.springframework.context.annotation.Lazy;

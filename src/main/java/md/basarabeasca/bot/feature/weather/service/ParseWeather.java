@@ -22,6 +22,11 @@ import java.util.List;
 import java.util.Objects;
 
 import static java.lang.Math.round;
+import static md.basarabeasca.bot.settings.StringUtil.DATE;
+import static md.basarabeasca.bot.settings.StringUtil.TEMPERATURE_DAY;
+import static md.basarabeasca.bot.settings.StringUtil.TEMPERATURE_NIGHT;
+import static md.basarabeasca.bot.settings.StringUtil.WEATHER_DESCRIPTION;
+import static md.basarabeasca.bot.settings.StringUtil.WEATHER_IS_UNAVAILABLE;
 
 @Component
 public class ParseWeather implements JsonParser {
@@ -42,19 +47,19 @@ public class ParseWeather implements JsonParser {
 
     private String parseToSendMessage(List<Weather> forecast) {
         if (forecast.isEmpty()) {
-            return "Погода недоступна. Обратитесь к администратору бота: @SaneaV";
+            return WEATHER_IS_UNAVAILABLE;
         } else {
             StringBuilder stringBuilder = new StringBuilder();
             for (Weather weather :
                     forecast) {
                 stringBuilder
-                        .append("Дата: *")
+                        .append(DATE)
                         .append(weather.getDate())
-                        .append("*\nТемпература днём: ")
+                        .append(TEMPERATURE_DAY)
                         .append(weather.getTempDay())
-                        .append("\nТемпература ночью: ")
+                        .append(TEMPERATURE_NIGHT)
                         .append(weather.getTempNight())
-                        .append("\nОписание: ")
+                        .append(WEATHER_DESCRIPTION)
 
                         .append(Character
                                 .toUpperCase(weather
