@@ -12,6 +12,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static md.basarabeasca.bot.settings.StringUtil.ERROR;
+import static md.basarabeasca.bot.settings.StringUtil.NUMBER_WAS_ADDED;
+import static md.basarabeasca.bot.settings.StringUtil.NUMBER_WAS_DELETED;
+
 @AllArgsConstructor
 @Service
 public class PhoneNumberServiceImpl implements PhoneNumberService {
@@ -38,10 +42,10 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
         try {
             phoneNumberRepository.save(phoneNumber);
         } catch (Exception ex) {
-            return "Ошибка!";
+            return ERROR;
         }
 
-        return "Номер был добавлен";
+        return NUMBER_WAS_ADDED;
     }
 
     @Override
@@ -49,9 +53,9 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
         try {
             phoneNumberRepository.delete(phoneNumberRepository.findByNumber(number));
         } catch (Exception ex) {
-            return "Ошибка!";
+            return ERROR;
         }
-        return "Номер был удалён";
+        return NUMBER_WAS_DELETED;
     }
 
     @Override

@@ -1,8 +1,8 @@
-package md.basarabeasca.bot.command.impl;
+package md.basarabeasca.bot.action.command.impl;
 
 import com.google.common.base.Joiner;
 import lombok.AllArgsConstructor;
-import md.basarabeasca.bot.command.ICommand;
+import md.basarabeasca.bot.action.command.ICommand;
 import md.basarabeasca.bot.feature.hotnumbers.service.impl.PhoneNumberServiceImpl;
 import md.basarabeasca.bot.util.keyboard.ReplyKeyboardMarkupUtil;
 import org.springframework.context.annotation.Lazy;
@@ -13,6 +13,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.io.IOException;
 
+import static md.basarabeasca.bot.settings.StringUtil.INCORRECT_NUMBER;
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessage;
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
@@ -35,7 +36,7 @@ public class AddNumberCommand implements ICommand {
         String number = numberArray[1];
         if (!number.matches("0\\d{8}")) {
             return getSendMessageWithReplyKeyboardMarkup(message.getChatId().toString(),
-                    "Номер некоректен", ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
+                    INCORRECT_NUMBER, ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
         }
 
         numberArray[1] = null;

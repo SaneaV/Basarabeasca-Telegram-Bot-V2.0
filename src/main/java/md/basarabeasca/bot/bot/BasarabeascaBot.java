@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
-import md.basarabeasca.bot.command.DispatcherCommand;
+import md.basarabeasca.bot.action.DispatcherCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -27,13 +27,17 @@ public class BasarabeascaBot extends TelegramWebhookBot {
     @Value("${telegrambot.botToken}")
     private String botToken;
 
-    @Autowired
     private DispatcherCommand dispatcherCommand;
+
+    @Autowired
+    public void setDispatcherCommand(DispatcherCommand dispatcherCommand) {
+        this.dispatcherCommand = dispatcherCommand;
+    }
 
     @SneakyThrows
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
-        if (update.hasMessage() && update.getMessage().hasText()) {
+        if (update.hasMessage() && update.getMessage().hasText() || update.hasCallbackQuery()) {
             return dispatcherCommand.execute(update);
         }
         return null;
