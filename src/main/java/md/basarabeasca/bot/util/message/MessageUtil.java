@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 
+import static md.basarabeasca.bot.settings.StringUtil.TO_MUCH_REQUESTS;
 import static md.basarabeasca.bot.settings.StringUtil.UNKNOWN_MESSAGE;
 import static org.telegram.telegrambots.meta.api.methods.ParseMode.MARKDOWN;
 
@@ -53,5 +54,10 @@ public class MessageUtil {
     public static SendMessage getSendMessageUnknown(String chatId) {
         return getSendMessageWithReplyKeyboardMarkup(chatId,
                 UNKNOWN_MESSAGE, ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
+    }
+
+    public static SendMessage getSendMessageToMuchRequests(String chatId) {
+        return getSendMessageWithReplyKeyboardMarkup(chatId,
+                TO_MUCH_REQUESTS, ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
     }
 }

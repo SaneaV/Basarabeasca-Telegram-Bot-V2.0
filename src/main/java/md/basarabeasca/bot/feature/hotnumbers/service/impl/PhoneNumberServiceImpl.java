@@ -8,6 +8,7 @@ import md.basarabeasca.bot.feature.hotnumbers.service.PhoneNumberService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +31,16 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
                 .map(this::convertToDTO)
                 .sorted(Comparator.comparing(PhoneNumberDto::getDescription))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PhoneNumber> getNextPage(Long lastId) {
+        return new ArrayList<>(phoneNumberRepository.getNextPage(lastId));
+    }
+
+    @Override
+    public List<PhoneNumber> getPreviousPage(Long lastId) {
+        return new ArrayList<>(phoneNumberRepository.getPreviousPage(lastId));
     }
 
     @Override

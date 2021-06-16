@@ -26,4 +26,5 @@ public class StringUtil {
     public final static String UNKNOWN_MESSAGE = "Чтобы воспользоваться ботом выберите команду из ниже предложенного меню.";
     public final static String WELCOME_MESSAGE = "Добро пожаловать в Бессарабка бот V2.0. Воспользуйтесь клавишами меню, чтобы узнать о новостях в нашем городе.";
     public final static String ERROR = "Ошибка";
+    public final static String TO_MUCH_REQUESTS = "Слишком много запросов. Повторите поптыку позже.";
 }
