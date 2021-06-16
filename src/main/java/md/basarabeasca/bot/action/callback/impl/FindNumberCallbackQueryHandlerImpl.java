@@ -8,12 +8,13 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ForceReplyKeyboard;
 
+import static md.basarabeasca.bot.action.callback.CallbackQueryType.FIND_NUMBER;
 import static md.basarabeasca.bot.settings.StringUtil.SEARCH_NUMBER_CALLBACK_DATA;
 
 @AllArgsConstructor
 @Component
 public class FindNumberCallbackQueryHandlerImpl implements CallbackQueryHandler {
-    private static final CallbackQueryType HANDLER_QUERY_TYPE = CallbackQueryType.FIND_NUMBER;
+    private static final CallbackQueryType HANDLER_QUERY_TYPE = FIND_NUMBER;
 
     @Override
     public SendMessage handleCallbackQuery(CallbackQuery callbackQuery) {
