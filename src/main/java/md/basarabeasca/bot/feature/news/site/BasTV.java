@@ -56,8 +56,6 @@ public class BasTV implements NewsSiteParser {
         final Elements[] links = new Elements[1];
         final Elements[] images = new Elements[1];
 
-        long start = System.currentTimeMillis();
-
         Thread threadName = new Thread(() -> {
             try {
                 names[0] = getNewsName();
@@ -96,8 +94,6 @@ public class BasTV implements NewsSiteParser {
         threadDescription.join();
         threadLinks.join();
         threadImages.join();
-
-        System.out.println(System.currentTimeMillis() - start);
 
         for (int i = 0; i < 10; i++) {
             News news = News.builder()
