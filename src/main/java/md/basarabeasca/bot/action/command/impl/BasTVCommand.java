@@ -33,11 +33,11 @@ public class BasTVCommand implements ICommand {
     private final BasarabeascaBot basarabeascaBot;
 
     @Override
-    public SendMessage execute(Update update) throws IOException {
+    public SendMessage execute(Update update) throws IOException, InterruptedException {
         return sendBasTVNews(update.getMessage());
     }
 
-    private SendMessage sendBasTVNews(final Message message) throws IOException {
+    private SendMessage sendBasTVNews(final Message message) throws IOException, InterruptedException {
         List<News> list = basTV.getLastNews();
 
         assert list != null;
