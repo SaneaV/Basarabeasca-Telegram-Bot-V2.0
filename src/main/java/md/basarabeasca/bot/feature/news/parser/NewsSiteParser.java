@@ -20,5 +20,5 @@ public interface NewsSiteParser extends Parser {
 
     Document getDocument() throws IOException;
 
-    List<News> getLastNews() throws IOException;
+    List<News> getLastNews() throws IOException, InterruptedException;
 }

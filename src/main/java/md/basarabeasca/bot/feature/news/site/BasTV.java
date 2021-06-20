@@ -1,6 +1,7 @@
 package md.basarabeasca.bot.feature.news.site;
 
 import lombok.Data;
+import lombok.SneakyThrows;
 import md.basarabeasca.bot.feature.news.model.News;
 import md.basarabeasca.bot.feature.news.parser.NewsSiteParser;
 import org.jsoup.Jsoup;
@@ -47,20 +48,59 @@ public class BasTV implements NewsSiteParser {
     }
 
     @Override
-    public List<News> getLastNews() throws IOException {
+    public List<News> getLastNews() throws InterruptedException {
         List<News> newsList = new ArrayList<>();
 
-        Elements names = getNewsName();
-        Elements descriptions = getNewsDescription();
-        Elements links = getNewsLink();
-        Elements images = getNewsImage();
+        final Elements[] names = new Elements[1];
+        final Elements[] descriptions = new Elements[1];
+        final Elements[] links = new Elements[1];
+        final Elements[] images = new Elements[1];
+
+        Thread threadName = new Thread(() -> {
+            try {
+                names[0] = getNewsName();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        Thread threadDescription = new Thread(() -> {
+            try {
+                descriptions[0] = getNewsDescription();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        Thread threadLinks = new Thread(() -> {
+            try {
+                links[0] = getNewsLink();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        Thread threadImages = new Thread(() -> {
+            try {
+                images[0] = getNewsImage();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        threadName.start();
+        threadDescription.start();
+        threadLinks.start();
+        threadImages.start();
+
+        threadName.join();
+        threadDescription.join();
+        threadLinks.join();
+        threadImages.join();
 
         for (int i = 0; i < 10; i++) {
             News news = News.builder()
-                    .name(names.get(i).text())
-                    .description(descriptions.get(i).text())
-                    .image(images.get(i).attr("data-src"))
-                    .link(links.get(i).attr("href"))
+                    .name(names[0].get(i).text())
+                    .description(descriptions[0].get(i).text())
+                    .image(images[0].get(i).attr("data-src"))
+                    .link(links[0].get(i).attr("href"))
                     .build();
 
             newsList.add(news);

@@ -33,11 +33,11 @@ public class FeedBackCommand implements ICommand {
     private final BasarabeascaBot basarabeascaBot;
 
     @Override
-    public SendMessage execute(Update update) throws IOException {
+    public SendMessage execute(Update update) throws IOException, InterruptedException {
         return sendFeedBackNews(update.getMessage());
     }
 
-    private SendMessage sendFeedBackNews(final Message message) throws IOException {
+    private SendMessage sendFeedBackNews(final Message message) throws InterruptedException {
         List<News> list = feedBack.getLastNews();
 
         assert list != null;
