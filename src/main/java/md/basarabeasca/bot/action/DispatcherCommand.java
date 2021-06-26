@@ -43,7 +43,7 @@ public class DispatcherCommand {
     @Value("${telegrambot.adminId}")
     public String adminId;
 
-    public SendMessage execute(final Update update) throws Exception {
+    public SendMessage execute(final Update update) throws IOException, InterruptedException {
 
         //CallBack Options
         if (update.hasCallbackQuery()) {
