@@ -13,6 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 @Data
 @Component
@@ -47,59 +51,38 @@ public class FeedBack implements NewsSiteParser{
     }
 
     @Override
-    public List<News> getLastNews() throws InterruptedException {
+    public List<News> getLastNews() {
         List<News> newsList = new ArrayList<>();
 
-        final Elements[] names = new Elements[1];
-        final Elements[] descriptions = new Elements[1];
-        final Elements[] links = new Elements[1];
-        final Elements[] images = new Elements[1];
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
 
-        Thread threadName = new Thread(() -> {
-            try {
-                names[0] = getNewsName();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        Thread threadDescription = new Thread(() -> {
-            try {
-                descriptions[0] = getNewsDescription();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        Thread threadLinks = new Thread(() -> {
-            try {
-                links[0] = getNewsLink();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        Thread threadImages = new Thread(() -> {
-            try {
-                images[0] = getNewsImage();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        Future<Elements> namesFuture = executorService.submit(this::getNewsName);
+        Future<Elements> descriptionsFuture = executorService.submit(this::getNewsDescription);
+        Future<Elements> linksFuture = executorService.submit(this::getNewsLink);
+        Future<Elements> imagesFuture = executorService.submit(this::getNewsImage);
 
-        threadName.start();
-        threadDescription.start();
-        threadLinks.start();
-        threadImages.start();
+        executorService.shutdown();
 
-        threadName.join();
-        threadDescription.join();
-        threadLinks.join();
-        threadImages.join();
+        Elements names = null;
+        Elements descriptions = null;
+        Elements links = null;
+        Elements images = null;
+
+        try {
+            names = namesFuture.get();
+            descriptions = descriptionsFuture.get();
+            links = linksFuture.get();
+            images = imagesFuture.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
 
         for (int i = 0; i < 10; i++) {
             News news = News.builder()
-                    .name(names[0].get(i).text())
-                    .description(descriptions[0].get(i).text())
-                    .image(images[0].get(i).attr("src"))
-                    .link(links[0].get(i).attr("href"))
+                    .name(names.get(i).text())
+                    .description(descriptions.get(i).text())
+                    .image(images.get(i).attr("src"))
+                    .link(links.get(i).attr("href"))
                     .build();
 
             newsList.add(news);
