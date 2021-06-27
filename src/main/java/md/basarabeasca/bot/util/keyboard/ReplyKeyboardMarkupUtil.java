@@ -8,8 +8,6 @@ import java.util.List;
 
 import static md.basarabeasca.bot.settings.Command.BASTV;
 import static md.basarabeasca.bot.settings.Command.FEEDBACK;
-import static md.basarabeasca.bot.settings.Command.MAIN_MENU;
-import static md.basarabeasca.bot.settings.Command.SEARCH_NUMBER_BY_DESCRIPTION;
 import static md.basarabeasca.bot.settings.Command.SHOW_NUMBERS;
 import static md.basarabeasca.bot.settings.Command.WEATHER;
 

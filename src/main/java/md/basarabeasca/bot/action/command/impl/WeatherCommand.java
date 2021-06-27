@@ -12,6 +12,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.io.IOException;
 
+import static md.basarabeasca.bot.settings.Command.WEATHER;
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 @Component
@@ -24,6 +25,11 @@ public class WeatherCommand implements ICommand {
     @Override
     public SendMessage execute(Update update) throws IOException {
         return sendWeather(update.getMessage());
+    }
+
+    @Override
+    public String getCommand() {
+        return WEATHER;
     }
 
     private SendMessage sendWeather(final Message message) throws IOException {

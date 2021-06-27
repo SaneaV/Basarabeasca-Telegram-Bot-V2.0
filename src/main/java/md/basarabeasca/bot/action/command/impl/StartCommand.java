@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import static md.basarabeasca.bot.settings.Command.START_COMMAND;
 import static md.basarabeasca.bot.settings.StringUtil.WELCOME_MESSAGE;
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
@@ -18,6 +19,11 @@ public class StartCommand implements ICommand {
     @Override
     public SendMessage execute(Update update) {
         return sendStartMessage(update.getMessage());
+    }
+
+    @Override
+    public String getCommand() {
+        return START_COMMAND;
     }
 
     private SendMessage sendStartMessage(final Message message) {

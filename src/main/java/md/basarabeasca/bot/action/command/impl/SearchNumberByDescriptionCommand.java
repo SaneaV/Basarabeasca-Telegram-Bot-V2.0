@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static md.basarabeasca.bot.settings.StringUtil.PHONE_NUMBER_LIST_IS_EMPTY_OR_NUMBER_WAS_NOT_FOUND;
+import static md.basarabeasca.bot.settings.StringUtil.SEARCH_NUMBER;
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 @Component
@@ -27,6 +28,11 @@ public class SearchNumberByDescriptionCommand implements ICommand {
     @Override
     public SendMessage execute(Update update) throws IOException {
         return sendSearchNumber(update.getMessage());
+    }
+
+    @Override
+    public String getCommand() {
+        return SEARCH_NUMBER;
     }
 
     private SendMessage sendSearchNumber(final Message message) {
