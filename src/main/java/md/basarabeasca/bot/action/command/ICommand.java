@@ -7,4 +7,6 @@ import java.io.IOException;
 
 public interface ICommand {
     SendMessage execute(final Update update) throws IOException, InterruptedException;
+
+    String getCommand();
 }

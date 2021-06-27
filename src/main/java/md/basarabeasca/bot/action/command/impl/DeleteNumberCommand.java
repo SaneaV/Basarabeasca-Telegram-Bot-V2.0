@@ -12,6 +12,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.io.IOException;
 
+import static md.basarabeasca.bot.settings.Command.DELETE_NUMBER;
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessage;
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
@@ -25,6 +26,11 @@ public class DeleteNumberCommand implements ICommand {
     @Override
     public SendMessage execute(Update update) throws IOException {
         return sendDeleteNumber(update.getMessage());
+    }
+
+    @Override
+    public String getCommand() {
+        return DELETE_NUMBER;
     }
 
     private SendMessage sendDeleteNumber(final Message message) {

@@ -12,5 +12,4 @@ public class Command {
     public static final String WEATHER = "Погода на неделю";
     public static final String SHOW_NUMBERS = "Полезные номера";
     public static final String SEARCH_NUMBER_BY_DESCRIPTION = "Найти номер";
-    public static final String MAIN_MENU = "Меню";
 }

@@ -13,6 +13,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.io.IOException;
 
+import static md.basarabeasca.bot.settings.Command.ADD_NUMBER;
 import static md.basarabeasca.bot.settings.StringUtil.ERROR;
 import static md.basarabeasca.bot.settings.StringUtil.INCORRECT_NUMBER;
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessage;
@@ -28,6 +29,11 @@ public class AddNumberCommand implements ICommand {
     @Override
     public SendMessage execute(Update update) throws IOException {
         return sendAddNumber(update.getMessage());
+    }
+
+    @Override
+    public String getCommand() {
+        return ADD_NUMBER;
     }
 
     private SendMessage sendAddNumber(final Message message) {

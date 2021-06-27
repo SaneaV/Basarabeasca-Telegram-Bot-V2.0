@@ -20,7 +20,6 @@ import static md.basarabeasca.bot.action.callback.CallbackQueryType.NEXT_PAGE;
 import static md.basarabeasca.bot.settings.StringUtil.SEARCH_NUMBER;
 import static md.basarabeasca.bot.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardForShowNumber;
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageToMuchRequests;
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageUnknown;
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithInlineKeyboardMarkup;
 
 @AllArgsConstructor
@@ -38,7 +37,7 @@ public class NextNumberPageCallBackQueryHandlerImpl implements CallbackQueryHand
 
         List<PhoneNumber> phoneNumber = getNextPageNumbers(Long.valueOf(callbackQuery.getData().split(" ")[1]));
         StringBuilder stringBuilder = new StringBuilder();
-        Long lastId = 0L;
+        long lastId = 0L;
 
         if (phoneNumber.isEmpty()) {
             phoneNumber = getNextPageNumbers(lastId);
@@ -57,14 +56,14 @@ public class NextNumberPageCallBackQueryHandlerImpl implements CallbackQueryHand
         }
         lastId = phoneNumber.get(phoneNumber.size() - 1).getId() + 1;
 
-        try{
+        try {
             basarabeascaBot.execute(DeleteMessage.builder()
                     .chatId(chatId)
                     .messageId(callbackQuery.getMessage().getMessageId())
                     .build());
             return getSendMessageWithInlineKeyboardMarkup(chatId,
                     stringBuilder.toString(), getSendInlineKeyboardForShowNumber(SEARCH_NUMBER, FIND_NUMBER.name(), lastId));
-        }catch (Exception exception){
+        } catch (Exception exception) {
             return getSendMessageToMuchRequests(chatId);
         }
     }

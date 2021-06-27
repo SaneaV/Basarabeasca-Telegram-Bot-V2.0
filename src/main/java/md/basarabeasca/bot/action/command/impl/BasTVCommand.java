@@ -17,6 +17,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.io.IOException;
 import java.util.List;
 
+import static md.basarabeasca.bot.settings.Command.BASTV;
 import static md.basarabeasca.bot.settings.StringUtil.CONTINUE_READING;
 import static md.basarabeasca.bot.settings.StringUtil.LAST_10_NEWS_BASTV;
 import static md.basarabeasca.bot.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardWithUrl;
@@ -37,7 +38,12 @@ public class BasTVCommand implements ICommand {
         return sendBasTVNews(update.getMessage());
     }
 
-    private SendMessage sendBasTVNews(final Message message) throws IOException, InterruptedException {
+    @Override
+    public String getCommand() {
+        return BASTV;
+    }
+
+    private SendMessage sendBasTVNews(final Message message) {
         List<News> list = basTV.getLastNews();
 
         assert list != null;

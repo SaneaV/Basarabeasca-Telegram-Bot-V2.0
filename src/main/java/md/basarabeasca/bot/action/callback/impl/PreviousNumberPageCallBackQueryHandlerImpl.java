@@ -20,7 +20,6 @@ import static md.basarabeasca.bot.action.callback.CallbackQueryType.PREVIOUS_PAG
 import static md.basarabeasca.bot.settings.StringUtil.SEARCH_NUMBER;
 import static md.basarabeasca.bot.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardForShowNumber;
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageToMuchRequests;
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageUnknown;
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithInlineKeyboardMarkup;
 
 @Component
@@ -38,7 +37,7 @@ public class PreviousNumberPageCallBackQueryHandlerImpl implements CallbackQuery
 
         List<PhoneNumber> phoneNumber = getNextPageNumbers(Long.valueOf(callbackQuery.getData().split(" ")[1]));
         StringBuilder stringBuilder = new StringBuilder();
-        Long lastId = Long.valueOf(callbackQuery.getData().split(" ")[1]);
+        long lastId = Long.parseLong(callbackQuery.getData().split(" ")[1]);
 
         if (phoneNumber.isEmpty()) {
             phoneNumber = getNextPageNumbers(lastId);
