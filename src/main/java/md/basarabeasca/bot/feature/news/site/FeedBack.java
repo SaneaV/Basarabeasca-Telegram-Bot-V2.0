@@ -13,14 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 @Data
 @Component
-public class FeedBack implements NewsSiteParser{
+public class FeedBack implements NewsSiteParser {
 
     @Value("${site.feedback}")
     private String siteLink;
@@ -50,32 +46,15 @@ public class FeedBack implements NewsSiteParser{
         return Jsoup.connect(siteLink).get();
     }
 
-    @Override
-    public List<News> getLastNews() {
+    private List<News> getListNews() {
+        List<Elements> list = getNewsFromThreads();
+
+        Elements names = list.get(0);
+        Elements descriptions = list.get(1);
+        Elements links = list.get(2);
+        Elements images = list.get(3);
+
         List<News> newsList = new ArrayList<>();
-
-        ExecutorService executorService = Executors.newFixedThreadPool(4);
-
-        Future<Elements> namesFuture = executorService.submit(this::getNewsName);
-        Future<Elements> descriptionsFuture = executorService.submit(this::getNewsDescription);
-        Future<Elements> linksFuture = executorService.submit(this::getNewsLink);
-        Future<Elements> imagesFuture = executorService.submit(this::getNewsImage);
-
-        executorService.shutdown();
-
-        Elements names = null;
-        Elements descriptions = null;
-        Elements links = null;
-        Elements images = null;
-
-        try {
-            names = namesFuture.get();
-            descriptions = descriptionsFuture.get();
-            links = linksFuture.get();
-            images = imagesFuture.get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
 
         for (int i = 0; i < 10; i++) {
             News news = News.builder()
@@ -87,7 +66,14 @@ public class FeedBack implements NewsSiteParser{
 
             newsList.add(news);
         }
-        Collections.reverse(newsList);
+
         return newsList;
+    }
+
+    @Override
+    public List<News> getLastNews() {
+        List<News> list = getListNews();
+        Collections.reverse(list);
+        return list;
     }
 }
