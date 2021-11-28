@@ -1,14 +1,16 @@
 package md.basarabeasca.bot.feature.news.model;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Data
+@Getter
 @Builder
+@RequiredArgsConstructor
 public class News {
 
-    private String name;
-    private String description;
-    private String image;
-    private String link;
+    private final String name;
+    private final String description;
+    private final String image;
+    private final String link;
 }

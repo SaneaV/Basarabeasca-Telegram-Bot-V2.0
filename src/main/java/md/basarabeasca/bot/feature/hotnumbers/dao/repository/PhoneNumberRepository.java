@@ -9,13 +9,13 @@ import java.util.List;
 
 public interface PhoneNumberRepository extends JpaRepository<PhoneNumber, Long> {
 
-    @Query(value = "SELECT * FROM phone_numbers WHERE id >= :lastId LIMIT 10", nativeQuery = true)
+    @Query(value = "SELECT * FROM phone_numbers WHERE phone_id >= :lastId LIMIT 10", nativeQuery = true)
     List<PhoneNumber> getNextPage(@Param("lastId") Long lastId);
 
-    @Query(value = "SELECT * FROM phone_numbers WHERE id <= :lastId LIMIT 10", nativeQuery = true)
+    @Query(value = "SELECT * FROM phone_numbers WHERE phone_id <= :lastId LIMIT 10", nativeQuery = true)
     List<PhoneNumber> getPreviousPage(@Param("lastId") Long lastId);
 
-    PhoneNumber findByNumber(String number);
+    PhoneNumber findByPhoneNumber(String number);
 
     List<PhoneNumber> findByDescriptionIgnoreCaseContaining(String description);
 }

@@ -6,12 +6,12 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import java.util.ArrayList;
 import java.util.List;
 
-import static md.basarabeasca.bot.settings.Command.BASTV;
-import static md.basarabeasca.bot.settings.Command.FEEDBACK;
-import static md.basarabeasca.bot.settings.Command.SHOW_NUMBERS;
-import static md.basarabeasca.bot.settings.Command.WEATHER;
-
 public class ReplyKeyboardMarkupUtil {
+
+    private static final String BASTV = "BasTV";
+    private static final String FEEDBACK = "FeedBack";
+    private static final String SHOW_NUMBERS = "Полезные номера";
+    private static final String WEATHER = "Погода на неделю";
 
     public static ReplyKeyboardMarkup getMainReplyKeyboardMarkup() {
         KeyboardRow keyboardRowOne = new KeyboardRow();

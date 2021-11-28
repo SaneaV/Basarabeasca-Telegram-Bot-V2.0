@@ -1,6 +1,5 @@
 package md.basarabeasca.bot.feature.news.site;
 
-import lombok.Data;
 import md.basarabeasca.bot.feature.news.model.News;
 import md.basarabeasca.bot.feature.news.parser.NewsSiteParser;
 import org.jsoup.Jsoup;
@@ -14,31 +13,40 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Data
 @Component
 public class BasTV implements NewsSiteParser {
 
-    @Value("${site.bastv}")
-    private String siteLink;
+    private static final String TITLE = "title";
+    private static final String POST_SUMMARY = "post-summary";
+    private static final String A = "a";
+    private static final String FEATURED_CLEARFIX = "featured clearfix";
+    private static final String DATA_SRC = "data-src";
+    private static final String HREF = "href";
+
+    private final String siteLink;
+
+    public BasTV(@Value("${site.bastv}") String siteLink) {
+        this.siteLink = siteLink;
+    }
 
     @Override
     public Elements getNewsName() throws IOException {
-        return getDocument().getElementsByClass("title");
+        return getDocument().getElementsByClass(TITLE);
     }
 
     @Override
     public Elements getNewsDescription() throws IOException {
-        return getDocument().getElementsByClass("post-summary");
+        return getDocument().getElementsByClass(POST_SUMMARY);
     }
 
     @Override
     public Elements getNewsLink() throws IOException {
-        return getDocument().getElementsByClass("title").select("a");
+        return getDocument().getElementsByClass(TITLE).select(A);
     }
 
     @Override
     public Elements getNewsImage() throws IOException {
-        return getDocument().getElementsByClass("featured clearfix").select("a");
+        return getDocument().getElementsByClass(FEATURED_CLEARFIX).select(A);
     }
 
     @Override
@@ -60,8 +68,8 @@ public class BasTV implements NewsSiteParser {
             News news = News.builder()
                     .name(names.get(i).text())
                     .description(descriptions.get(i).text())
-                    .image(images.get(i).attr("data-src"))
-                    .link(links.get(i).attr("href"))
+                    .image(images.get(i).attr(DATA_SRC))
+                    .link(links.get(i).attr(HREF))
                     .build();
 
             newsList.add(news);

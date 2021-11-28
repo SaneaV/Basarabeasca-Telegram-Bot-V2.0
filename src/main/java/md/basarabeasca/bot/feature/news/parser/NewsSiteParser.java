@@ -1,7 +1,7 @@
 package md.basarabeasca.bot.feature.news.parser;
 
 import md.basarabeasca.bot.feature.news.model.News;
-import md.basarabeasca.bot.settings.Parser;
+import md.basarabeasca.bot.feature.Parser;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 

@@ -9,5 +9,4 @@ class BasarabeascaBotApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

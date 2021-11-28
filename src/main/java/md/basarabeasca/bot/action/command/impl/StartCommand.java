@@ -1,24 +1,28 @@
 package md.basarabeasca.bot.action.command.impl;
 
-import md.basarabeasca.bot.action.command.ICommand;
+import md.basarabeasca.bot.action.command.Command;
 import md.basarabeasca.bot.util.keyboard.ReplyKeyboardMarkupUtil;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import static md.basarabeasca.bot.settings.Command.START_COMMAND;
-import static md.basarabeasca.bot.settings.StringUtil.WELCOME_MESSAGE;
+import java.util.List;
+
+import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 @Component
-@Lazy
-public class StartCommand implements ICommand {
+public class StartCommand implements Command {
+
+    private static final String WELCOME_MESSAGE = "Добро пожаловать в Бессарабка бот V2.0. Воспользуйтесь клавишами " +
+            "меню, чтобы узнать о новостях в нашем городе.";
+    private static final String START_COMMAND = "/start";
 
     @Override
-    public SendMessage execute(Update update) {
-        return sendStartMessage(update.getMessage());
+    public List<? super PartialBotApiMethod<?>> execute(Update update) {
+        return singletonList(sendStartMessage(update.getMessage()));
     }
 
     @Override
@@ -26,7 +30,7 @@ public class StartCommand implements ICommand {
         return START_COMMAND;
     }
 
-    private SendMessage sendStartMessage(final Message message) {
+    private SendMessage sendStartMessage(Message message) {
         return getSendMessageWithReplyKeyboardMarkup(message.getChatId().toString(),
                 WELCOME_MESSAGE, ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
     }

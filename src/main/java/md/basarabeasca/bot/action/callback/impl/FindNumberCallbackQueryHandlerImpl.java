@@ -1,27 +1,30 @@
 package md.basarabeasca.bot.action.callback.impl;
 
-import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import md.basarabeasca.bot.action.callback.CallbackQueryHandler;
 import md.basarabeasca.bot.action.callback.CallbackQueryType;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ForceReplyKeyboard;
 
-import static md.basarabeasca.bot.action.callback.CallbackQueryType.FIND_NUMBER;
-import static md.basarabeasca.bot.settings.StringUtil.SEARCH_NUMBER_CALLBACK_DATA;
+import java.util.List;
 
-@AllArgsConstructor
+import static java.util.Collections.singletonList;
+import static md.basarabeasca.bot.action.callback.CallbackQueryType.FIND_NUMBER;
+
 @Component
 public class FindNumberCallbackQueryHandlerImpl implements CallbackQueryHandler {
-    private static final CallbackQueryType HANDLER_QUERY_TYPE = FIND_NUMBER;
+
+    public final static String SEARCH_NUMBER_CALLBACK_DATA = "Введите имя/организацию/заведение, чей номер вы ищите";
 
     @Override
-    public SendMessage handleCallbackQuery(CallbackQuery callbackQuery) {
+    public List<? super PartialBotApiMethod<?>> handleCallbackQuery(CallbackQuery callbackQuery) {
         final String chatId = callbackQuery.getMessage().getChatId().toString();
         final Integer messageIdForReply = callbackQuery.getMessage().getMessageId();
 
-        return SendMessage.builder()
+        final SendMessage sendMessage = SendMessage.builder()
                 .text(SEARCH_NUMBER_CALLBACK_DATA)
                 .chatId(chatId)
                 .replyToMessageId(messageIdForReply)
@@ -29,10 +32,12 @@ public class FindNumberCallbackQueryHandlerImpl implements CallbackQueryHandler 
                         .forceReply(true)
                         .build())
                 .build();
+
+        return singletonList(sendMessage);
     }
 
     @Override
     public CallbackQueryType getHandlerQueryType() {
-        return HANDLER_QUERY_TYPE;
+        return FIND_NUMBER;
     }
 }
