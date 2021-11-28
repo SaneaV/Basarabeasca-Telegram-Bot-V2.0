@@ -1,6 +1,6 @@
 package md.basarabeasca.bot.feature.weather.service;
 
-import md.basarabeasca.bot.settings.Parser;
+import md.basarabeasca.bot.feature.Parser;
 
 import java.io.IOException;
 

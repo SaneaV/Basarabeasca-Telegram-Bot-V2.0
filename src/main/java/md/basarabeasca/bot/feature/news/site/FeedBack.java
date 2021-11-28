@@ -1,6 +1,5 @@
 package md.basarabeasca.bot.feature.news.site;
 
-import lombok.Data;
 import md.basarabeasca.bot.feature.news.model.News;
 import md.basarabeasca.bot.feature.news.parser.NewsSiteParser;
 import org.jsoup.Jsoup;
@@ -14,31 +13,42 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Data
 @Component
 public class FeedBack implements NewsSiteParser {
 
-    @Value("${site.feedback}")
-    private String siteLink;
+    private static final String TITLE = "entry-title entry-title-big";
+    private static final String CONTENT_WRAPPER = "twp-content-wrapper";
+    private static final String P = "p";
+    private static final String A = "a";
+    private static final String READ_MORE = "twp-read-more";
+    private static final String ATTACHEMENT = "attachment-jumla-normal-post size-jumla-normal-post wp-post-image";
+    private static final String SRC = "src";
+    private static final String HREF = "href";
+
+    private final String siteLink;
+
+    public FeedBack(@Value("${site.feedback}") String siteLink) {
+        this.siteLink = siteLink;
+    }
 
     @Override
     public Elements getNewsName() throws IOException {
-        return getDocument().getElementsByClass("entry-title entry-title-big");
+        return getDocument().getElementsByClass(TITLE);
     }
 
     @Override
     public Elements getNewsDescription() throws IOException {
-        return getDocument().getElementsByClass("twp-content-wrapper").select("p");
+        return getDocument().getElementsByClass(CONTENT_WRAPPER).select(P);
     }
 
     @Override
     public Elements getNewsLink() throws IOException {
-        return getDocument().getElementsByClass("twp-read-more").select("a");
+        return getDocument().getElementsByClass(READ_MORE).select(A);
     }
 
     @Override
     public Elements getNewsImage() throws IOException {
-        return getDocument().getElementsByClass("attachment-jumla-normal-post size-jumla-normal-post wp-post-image");
+        return getDocument().getElementsByClass(ATTACHEMENT);
     }
 
     @Override
@@ -60,8 +70,8 @@ public class FeedBack implements NewsSiteParser {
             News news = News.builder()
                     .name(names.get(i).text())
                     .description(descriptions.get(i).text())
-                    .image(images.get(i).attr("src"))
-                    .link(links.get(i).attr("href"))
+                    .image(images.get(i).attr(SRC))
+                    .link(links.get(i).attr(HREF))
                     .build();
 
             newsList.add(news);

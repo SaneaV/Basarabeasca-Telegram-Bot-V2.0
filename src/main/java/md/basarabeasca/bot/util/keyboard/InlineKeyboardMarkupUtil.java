@@ -11,7 +11,11 @@ import static md.basarabeasca.bot.action.callback.CallbackQueryType.PREVIOUS_PAG
 
 public class InlineKeyboardMarkupUtil {
 
-    public static InlineKeyboardMarkup getSendInlineKeyboardWithUrl(final String text, final String url) {
+    private static final String LEFT_ARROW = "⬅️";
+    private static final String RIGHT_ARROW = "➡️";
+    private static final String SPACE = " ";
+
+    public static InlineKeyboardMarkup getSendInlineKeyboardWithUrl(String text, String url) {
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
@@ -27,17 +31,17 @@ public class InlineKeyboardMarkupUtil {
         return markupInline;
     }
 
-    public static InlineKeyboardMarkup getSendInlineKeyboardForShowNumber(final String text, final String callBackData, Long page) {
+    public static InlineKeyboardMarkup getSendInlineKeyboardForShowNumber(String text, String callBackData, Long page) {
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
 
         InlineKeyboardButton previousPage = InlineKeyboardButton.builder()
-                .callbackData(PREVIOUS_PAGE.name() + " " + page)
-                .text("⬅️")
+                .callbackData(PREVIOUS_PAGE.name() + SPACE + page)
+                .text(LEFT_ARROW)
                 .build();
 
         InlineKeyboardButton nextPage = InlineKeyboardButton.builder()
-                .callbackData(NEXT_PAGE.name() + " " + page)
-                .text("➡️")
+                .callbackData(NEXT_PAGE.name() + SPACE + page)
+                .text(RIGHT_ARROW)
                 .build();
 
         InlineKeyboardButton findNumber = InlineKeyboardButton.builder()

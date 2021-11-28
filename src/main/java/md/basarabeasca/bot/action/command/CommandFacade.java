@@ -1,36 +1,42 @@
 package md.basarabeasca.bot.action.command;
 
-import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Lazy;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageUnknown;
+import static java.util.Collections.singletonList;
+import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessage;
 
-@AllArgsConstructor
-@Lazy
 @Component
+@RequiredArgsConstructor
 public class CommandFacade {
-    private final List<ICommand> commands;
 
-    public SendMessage processCommand(Update update) {
-        Optional<ICommand> userCommand = commands.stream().
-                filter(commandTemp -> commandTemp.getCommand().equals(update.getMessage().getText())).findFirst();
+    private static final String ERROR = "Произошла ошибка при отправлении сообщения. Пожалуйста, обратитесь к @SaneaV";
 
-        Optional<SendMessage> sendMessage = userCommand.map(commandTemp -> {
-            try {
-                return commandTemp.execute(update);
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
-            }
-            return null;
-        });
+    private final List<Command> commands;
 
-        return sendMessage.orElse(getSendMessageUnknown(update.getMessage().getChatId().toString()));
+    public List<? super PartialBotApiMethod<?>> processCommand(Update update) {
+        try {
+            Optional<Command> userCommand = commands.stream().
+                    filter(commandTemp ->
+                            update.getMessage().getText().contains(commandTemp.getCommand()) ||
+                                    (update.getMessage().isReply() &&
+                                            update.getMessage().getReplyToMessage().getText().contains(commandTemp.getCommand())
+                                    )
+                    )
+                    .findFirst();
+
+            return userCommand.map(commandTemp ->
+                    commandTemp.execute(update))
+                    .orElseThrow(Exception::new);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return singletonList(getSendMessage(update.getMessage().getChatId().toString(), ERROR));
+        }
     }
 }

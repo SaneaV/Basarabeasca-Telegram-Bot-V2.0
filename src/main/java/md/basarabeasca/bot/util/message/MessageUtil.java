@@ -7,13 +7,13 @@ import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 
-import static md.basarabeasca.bot.settings.StringUtil.TO_MUCH_REQUESTS;
-import static md.basarabeasca.bot.settings.StringUtil.UNKNOWN_MESSAGE;
 import static org.telegram.telegrambots.meta.api.methods.ParseMode.MARKDOWN;
 
 public class MessageUtil {
 
-    public static SendMessage getSendMessage(final String chatId, final String text) {
+    public final static String TO_MUCH_REQUESTS = "Слишком много запросов. Повторите попытку позже.";
+
+    public static SendMessage getSendMessage(String chatId, String text) {
         return SendMessage.builder()
                 .chatId(chatId)
                 .parseMode(MARKDOWN)
@@ -21,18 +21,8 @@ public class MessageUtil {
                 .build();
     }
 
-    public static SendMessage getSendMessageWithReplyKeyboardMarkup(final String chatId, final String text,
-                                                                    final ReplyKeyboardMarkup keyboardMarkup) {
-        return SendMessage.builder()
-                .chatId(chatId)
-                .text(text)
-                .parseMode(MARKDOWN)
-                .replyMarkup(keyboardMarkup)
-                .build();
-    }
-
-    public static SendMessage getSendMessageWithInlineKeyboardMarkup(final String chatId, final String text,
-                                                                     final InlineKeyboardMarkup keyboardMarkup) {
+    public static SendMessage getSendMessageWithReplyKeyboardMarkup(String chatId, String text,
+                                                                    ReplyKeyboardMarkup keyboardMarkup) {
         return SendMessage.builder()
                 .chatId(chatId)
                 .text(text)
@@ -41,19 +31,24 @@ public class MessageUtil {
                 .build();
     }
 
-    public static SendPhoto getSendPhoto(final String chatId, final String caption,
-                                         final String photo, final String parseMode) {
+    public static SendMessage getSendMessageWithInlineKeyboardMarkup(String chatId, String text,
+                                                                     InlineKeyboardMarkup keyboardMarkup) {
+        return SendMessage.builder()
+                .chatId(chatId)
+                .text(text)
+                .parseMode(MARKDOWN)
+                .replyMarkup(keyboardMarkup)
+                .build();
+    }
+
+    public static SendPhoto getSendPhoto(String chatId, String caption,
+                                         String photo, String parseMode) {
         return SendPhoto.builder()
                 .chatId(chatId)
                 .photo(new InputFile(photo))
                 .parseMode(parseMode)
                 .caption(caption)
                 .build();
-    }
-
-    public static SendMessage getSendMessageUnknown(String chatId) {
-        return getSendMessageWithReplyKeyboardMarkup(chatId,
-                UNKNOWN_MESSAGE, ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
     }
 
     public static SendMessage getSendMessageToMuchRequests(String chatId) {

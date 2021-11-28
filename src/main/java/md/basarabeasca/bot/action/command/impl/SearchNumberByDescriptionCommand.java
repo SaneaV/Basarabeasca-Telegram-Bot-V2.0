@@ -1,45 +1,43 @@
 package md.basarabeasca.bot.action.command.impl;
 
-import lombok.AllArgsConstructor;
-import md.basarabeasca.bot.action.command.ICommand;
+import lombok.RequiredArgsConstructor;
+import md.basarabeasca.bot.action.command.Command;
 import md.basarabeasca.bot.feature.hotnumbers.dto.PhoneNumberDto;
 import md.basarabeasca.bot.feature.hotnumbers.service.impl.PhoneNumberServiceImpl;
 import md.basarabeasca.bot.util.keyboard.ReplyKeyboardMarkupUtil;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.io.IOException;
 import java.util.List;
 
-import static md.basarabeasca.bot.settings.StringUtil.PHONE_NUMBER_LIST_IS_EMPTY_OR_NUMBER_WAS_NOT_FOUND;
-import static md.basarabeasca.bot.settings.StringUtil.SEARCH_NUMBER;
+import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 @Component
-@AllArgsConstructor
-@Lazy
-public class SearchNumberByDescriptionCommand implements ICommand {
+@RequiredArgsConstructor
+public class SearchNumberByDescriptionCommand implements Command {
+
+    public final static String SEARCH_NUMBER = "Введите имя/организацию/заведение, чей номер вы ищите";
+    public final static String PHONE_NUMBER_LIST_IS_EMPTY_OR_NUMBER_WAS_NOT_FOUND =
+            "Список номеров пуст или запрашиваемый вами номер не был найден";
+    public final static String POINT = ". ";
+    public final static String HYPHEN = " - ";
+    public final static String NEW_LINE = "\n";
 
     private final PhoneNumberServiceImpl phoneNumberService;
 
     @Override
-    public SendMessage execute(Update update) throws IOException {
-        return sendSearchNumber(update.getMessage());
+    public List<? super PartialBotApiMethod<?>> execute(Update update) {
+        return singletonList(sendSearchNumber(update.getMessage()));
     }
 
-    @Override
-    public String getCommand() {
-        return SEARCH_NUMBER;
-    }
+    private BotApiMethod<?> sendSearchNumber(Message message) {
+        final List<PhoneNumberDto> phoneNumberDtos = phoneNumberService.findByDescription(message.getText());
 
-    private SendMessage sendSearchNumber(final Message message) {
-        List<PhoneNumberDto> phoneNumberDtos = phoneNumberService.findByDescription(message
-                .getText());
-
-        StringBuilder stringBuilder = new StringBuilder();
+        final StringBuilder stringBuilder = new StringBuilder();
         if (phoneNumberDtos.isEmpty()) {
             stringBuilder.append(PHONE_NUMBER_LIST_IS_EMPTY_OR_NUMBER_WAS_NOT_FOUND);
         } else {
@@ -48,15 +46,20 @@ public class SearchNumberByDescriptionCommand implements ICommand {
                     phoneNumberDtos) {
                 stringBuilder
                         .append(++i)
-                        .append(". ")
-                        .append(phone.getNumber())
-                        .append(" - ")
+                        .append(POINT)
+                        .append(phone.getPhoneNumber())
+                        .append(HYPHEN)
                         .append(phone.getDescription())
-                        .append("\n");
+                        .append(NEW_LINE);
             }
         }
 
         return getSendMessageWithReplyKeyboardMarkup(message.getChatId().toString(),
                 stringBuilder.toString(), ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
+    }
+
+    @Override
+    public String getCommand() {
+        return SEARCH_NUMBER;
     }
 }
