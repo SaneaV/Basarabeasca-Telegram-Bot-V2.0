@@ -12,6 +12,7 @@ import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
@@ -57,6 +58,20 @@ public class PreviousNumberPageCallBackQueryHandlerImpl implements CallbackQuery
         } catch (Exception exception) {
             return singletonList(getSendMessageToMuchRequests(chatId));
         }
+    }
+
+    private StringBuilder formatPhoneNumbers(List<PhoneNumberDto> phoneNumber, StringBuilder formattedPhones) {
+        AtomicInteger i = new AtomicInteger();
+        phoneNumber.forEach(
+                number -> formattedPhones
+                        .append(i.incrementAndGet())
+                        .append(POINT)
+                        .append(number.getPhoneNumber())
+                        .append(HYPHEN)
+                        .append(number.getDescription())
+                        .append(NEW_LINE)
+        );
+        return formattedPhones;
     }
 
     private List<PhoneNumberDto> getNextPageNumbers(Long lastId) {

@@ -16,7 +16,7 @@ import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessage;
 public class CallbackQueryFacade {
 
     public final static String EMPTY_REGEX = " ";
-    public final static String ERROR = "Ошибка";
+    private static final String ERROR = "Произошла ошибка при отправлении сообщения. Пожалуйста, обратитесь к @SaneaV";
 
     private final List<CallbackQueryHandler> callbackQueryHandlers;
 
