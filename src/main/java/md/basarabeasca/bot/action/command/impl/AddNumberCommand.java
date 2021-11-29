@@ -22,7 +22,7 @@ import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithRep
 @Component
 public class AddNumberCommand implements Command {
 
-    private static final String REGEX = "(/addNumber)\\s(0\\d{8})\\s([A-Za-z0-9-А-Яа-я,.\\s]+)";
+    private static final String REGEX = "(/addNumber)\\s(0\\d{8})\\s([A-Za-z0-9-А-Яа-я,.()ĂÂÎȘȚăâîșț\\s]+)";
     private static final String ADD_NUMBER = "/addNumber";
     private static final String INCORRECT_NUMBER = "Номер некоректен";
     private static final String NO_ACCESS = "У вас нет подходящих прав для этой команды. Обратитесь к @SaneaV";
