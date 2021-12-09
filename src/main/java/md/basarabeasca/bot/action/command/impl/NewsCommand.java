@@ -11,16 +11,16 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
-import static md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup;
+import static md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil.getNewsReplyKeyboardMarkup;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 @Getter
 @Component
-public class StartCommand implements Command {
+public class NewsCommand implements Command {
 
-    private static final String WELCOME_MESSAGE = "Добро пожаловать в Бессарабка бот V2.0. Воспользуйтесь клавишами " +
-            "меню, чтобы узнать о новостях в нашем городе.";
-    private static final String START_COMMAND = "/start";
+    private static final String WELCOME_MESSAGE = "Воспользуйтесь клавишами ниже, чтобы получить новости с нужного " +
+            "вам сайта.";
+    private static final String CITY_NEWS = "Новости города";
 
     @Override
     public List<? super PartialBotApiMethod<?>> execute(Update update) {
@@ -29,11 +29,11 @@ public class StartCommand implements Command {
 
     @Override
     public String getCommand() {
-        return START_COMMAND;
+        return CITY_NEWS;
     }
 
     private SendMessage sendStartMessage(Message message) {
         return getSendMessageWithReplyKeyboardMarkup(message.getChatId().toString(),
-                WELCOME_MESSAGE, getMainReplyKeyboardMarkup());
+                WELCOME_MESSAGE, getNewsReplyKeyboardMarkup());
     }
 }

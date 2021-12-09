@@ -10,45 +10,45 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-@Component
-public class FeedBack implements NewsSiteParser {
+import static com.google.common.collect.Lists.reverse;
 
-    private static final String TITLE = "entry-title entry-title-big";
-    private static final String CONTENT_WRAPPER = "twp-content-wrapper";
-    private static final String P = "p";
+@Component
+public class DistrictCouncil implements NewsSiteParser {
+
+    private static final String ITEMPROP_NAME = "span[itemprop=\"name\"]";
+    private static final String ITEMPROP_ARTICLE_SECTION = "p[itemprop=\"articleSection\"]";
+    private static final String THUMB = "thumb";
     private static final String A = "a";
-    private static final String READ_MORE = "twp-read-more";
-    private static final String ATTACHEMENT = "attachment-jumla-normal-post size-jumla-normal-post wp-post-image";
+    private static final String IMG = "img";
     private static final String SRC = "src";
     private static final String HREF = "href";
 
     private final String siteLink;
 
-    public FeedBack(@Value("${site.feedback}") String siteLink) {
+    public DistrictCouncil(@Value("${site.districtCouncil}") String siteLink) {
         this.siteLink = siteLink;
     }
 
     @Override
     public Elements getNewsTitle() throws IOException {
-        return getDocument().getElementsByClass(TITLE);
+        return getDocument().select(ITEMPROP_NAME);
     }
 
     @Override
     public Elements getNewsDescription() throws IOException {
-        return getDocument().getElementsByClass(CONTENT_WRAPPER).select(P);
+        return getDocument().select(ITEMPROP_ARTICLE_SECTION).next();
     }
 
     @Override
     public Elements getNewsLink() throws IOException {
-        return getDocument().getElementsByClass(READ_MORE).select(A);
+        return getDocument().getElementsByClass(THUMB).select(A);
     }
 
     @Override
     public Elements getNewsImage() throws IOException {
-        return getDocument().getElementsByClass(ATTACHEMENT);
+        return getDocument().getElementsByClass(THUMB).select(A).select(IMG);
     }
 
     @Override
@@ -82,8 +82,6 @@ public class FeedBack implements NewsSiteParser {
 
     @Override
     public List<News> getLastNews() {
-        List<News> list = getListNews();
-        Collections.reverse(list);
-        return list;
+        return reverse(getListNews());
     }
 }

@@ -1,6 +1,6 @@
-package md.basarabeasca.bot.util.message;
+package md.basarabeasca.bot.action.util.message;
 
-import md.basarabeasca.bot.util.keyboard.ReplyKeyboardMarkupUtil;
+import md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.action.command.Command;
 import md.basarabeasca.bot.feature.news.model.News;
 import md.basarabeasca.bot.feature.news.site.FeedBack;
-import md.basarabeasca.bot.util.keyboard.ReplyKeyboardMarkupUtil;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
@@ -14,9 +13,10 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import java.util.ArrayList;
 import java.util.List;
 
-import static md.basarabeasca.bot.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardWithUrl;
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendPhoto;
+import static md.basarabeasca.bot.action.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardWithUrl;
+import static md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil.getNewsReplyKeyboardMarkup;
+import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
+import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendPhoto;
 import static org.telegram.telegrambots.meta.api.methods.ParseMode.MARKDOWN;
 
 @Component
@@ -24,7 +24,7 @@ import static org.telegram.telegrambots.meta.api.methods.ParseMode.MARKDOWN;
 public class FeedBackCommand implements Command {
 
     private static final String ASTERISK = "*";
-    private static final String FEEDBACK = "FeedBack";
+    private static final String FEEDBACK = "Новости FeedBack";
     private static final String TWO_NEW_LINES = "\n\n";
     private static final String CONTINUE_READING = "Читать продолжение";
     private static final String LAST_10_NEWS_FEEDBACK = "Последние 10 новостей с сайта http://feedback.md";
@@ -54,7 +54,7 @@ public class FeedBackCommand implements Command {
         );
 
         messages.add(getSendMessageWithReplyKeyboardMarkup(message.getChatId().toString(),
-                LAST_10_NEWS_FEEDBACK, ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup()));
+                LAST_10_NEWS_FEEDBACK, getNewsReplyKeyboardMarkup()));
 
         return messages;
     }

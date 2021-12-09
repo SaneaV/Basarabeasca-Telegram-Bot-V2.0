@@ -30,7 +30,7 @@ public class BasTV implements NewsSiteParser {
     }
 
     @Override
-    public Elements getNewsName() throws IOException {
+    public Elements getNewsTitle() throws IOException {
         return getDocument().getElementsByClass(TITLE);
     }
 

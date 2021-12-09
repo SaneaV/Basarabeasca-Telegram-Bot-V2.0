@@ -18,9 +18,9 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.action.callback.CallbackQueryType.FIND_NUMBER;
 import static md.basarabeasca.bot.action.callback.CallbackQueryType.NEXT_PAGE;
-import static md.basarabeasca.bot.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardForShowNumber;
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageToMuchRequests;
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithInlineKeyboardMarkup;
+import static md.basarabeasca.bot.action.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardForShowNumber;
+import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageToMuchRequests;
+import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithInlineKeyboardMarkup;
 
 @Component
 @RequiredArgsConstructor

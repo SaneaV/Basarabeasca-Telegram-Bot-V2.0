@@ -14,7 +14,7 @@ import java.util.concurrent.Future;
 
 public interface NewsSiteParser extends Parser {
 
-    Elements getNewsName() throws IOException;
+    Elements getNewsTitle() throws IOException;
 
     Elements getNewsDescription() throws IOException;
 
@@ -29,7 +29,7 @@ public interface NewsSiteParser extends Parser {
     default List<Elements> getNewsFromThreads() {
         ExecutorService executorService = Executors.newFixedThreadPool(4);
 
-        Future<Elements> namesFuture = executorService.submit(this::getNewsName);
+        Future<Elements> namesFuture = executorService.submit(this::getNewsTitle);
         Future<Elements> descriptionsFuture = executorService.submit(this::getNewsDescription);
         Future<Elements> linksFuture = executorService.submit(this::getNewsLink);
         Future<Elements> imagesFuture = executorService.submit(this::getNewsImage);

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.Collections.singletonList;
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessage;
+import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessage;
 
 @Component
 @RequiredArgsConstructor
