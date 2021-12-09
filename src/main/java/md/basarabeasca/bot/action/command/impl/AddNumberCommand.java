@@ -2,7 +2,7 @@ package md.basarabeasca.bot.action.command.impl;
 
 import md.basarabeasca.bot.action.command.Command;
 import md.basarabeasca.bot.feature.hotnumbers.service.impl.PhoneNumberServiceImpl;
-import md.basarabeasca.bot.util.keyboard.ReplyKeyboardMarkupUtil;
+import md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,8 +16,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.util.Collections.singletonList;
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessage;
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
+import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessage;
+import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 @Component
 public class AddNumberCommand implements Command {

@@ -16,11 +16,11 @@ import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessage
 
 @Getter
 @Component
-public class StartCommand implements Command {
+public class MainMenuCommand implements Command {
 
-    private static final String WELCOME_MESSAGE = "Добро пожаловать в Бессарабка бот V2.0. Воспользуйтесь клавишами " +
-            "меню, чтобы узнать о новостях в нашем городе.";
-    private static final String START_COMMAND = "/start";
+    private static final String BACK_TO_MAIN_MENU = "Вернуться в главное меню";
+    private static final String WELCOME_MESSAGE = "Вы находитесь в главном меню бота. Воспользуйтесь клавишами " +
+            "ниже, чтобы узнать о новостях в нашем городе.";
 
     @Override
     public List<? super PartialBotApiMethod<?>> execute(Update update) {
@@ -29,7 +29,7 @@ public class StartCommand implements Command {
 
     @Override
     public String getCommand() {
-        return START_COMMAND;
+        return BACK_TO_MAIN_MENU;
     }
 
     private SendMessage sendStartMessage(Message message) {

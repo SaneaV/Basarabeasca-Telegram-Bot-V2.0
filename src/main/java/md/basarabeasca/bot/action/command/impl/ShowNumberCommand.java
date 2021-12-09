@@ -14,9 +14,9 @@ import java.util.List;
 
 import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.action.callback.CallbackQueryType.FIND_NUMBER;
-import static md.basarabeasca.bot.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardForShowNumber;
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessage;
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithInlineKeyboardMarkup;
+import static md.basarabeasca.bot.action.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardForShowNumber;
+import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessage;
+import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithInlineKeyboardMarkup;
 
 @Component
 @RequiredArgsConstructor

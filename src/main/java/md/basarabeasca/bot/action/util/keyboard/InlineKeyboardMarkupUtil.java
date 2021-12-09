@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.util.keyboard;
+package md.basarabeasca.bot.action.util.keyboard;
 
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;

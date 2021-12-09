@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.action.command.Command;
 import md.basarabeasca.bot.feature.hotnumbers.dto.PhoneNumberDto;
 import md.basarabeasca.bot.feature.hotnumbers.service.impl.PhoneNumberServiceImpl;
-import md.basarabeasca.bot.util.keyboard.ReplyKeyboardMarkupUtil;
+import md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
@@ -14,7 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
-import static md.basarabeasca.bot.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
+import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 @Component
 @RequiredArgsConstructor
