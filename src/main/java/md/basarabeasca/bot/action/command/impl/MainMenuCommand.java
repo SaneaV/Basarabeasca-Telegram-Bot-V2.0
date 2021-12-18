@@ -33,7 +33,6 @@ public class MainMenuCommand implements Command {
     }
 
     private SendMessage sendStartMessage(Message message) {
-        return getSendMessageWithReplyKeyboardMarkup(message.getChatId().toString(),
-                WELCOME_MESSAGE, getMainReplyKeyboardMarkup());
+        return getSendMessageWithReplyKeyboardMarkup(message, WELCOME_MESSAGE, getMainReplyKeyboardMarkup());
     }
 }

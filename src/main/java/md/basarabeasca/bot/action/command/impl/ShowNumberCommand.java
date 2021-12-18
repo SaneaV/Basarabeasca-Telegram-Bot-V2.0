@@ -42,7 +42,7 @@ public class ShowNumberCommand implements Command {
 
         if (phoneNumberDtos.isEmpty()) {
             stringBuilder.append(PHONE_NUMBER_LIST_IS_EMPTY);
-            return getSendMessage(message.getChatId().toString(), stringBuilder.toString());
+            return getSendMessage(message, stringBuilder.toString());
         } else {
             final long lastId = phoneNumberDtos.get(phoneNumberDtos.size() - 1).getId() + 1;
             int i = 0;

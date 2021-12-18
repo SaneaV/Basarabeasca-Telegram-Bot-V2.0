@@ -57,12 +57,12 @@ public class DistrictCouncil implements NewsSiteParser {
     }
 
     private List<News> getListNews() {
-        List<Elements> list = getNewsFromThreads();
+        final List<Elements> list = getNewsFromThreads();
 
-        Elements names = list.get(0);
-        Elements descriptions = list.get(1);
-        Elements links = list.get(2);
-        Elements images = list.get(3);
+        final Elements names = list.get(0);
+        final Elements descriptions = list.get(1);
+        final Elements links = list.get(2);
+        final Elements images = list.get(3);
 
         List<News> newsList = new ArrayList<>();
 

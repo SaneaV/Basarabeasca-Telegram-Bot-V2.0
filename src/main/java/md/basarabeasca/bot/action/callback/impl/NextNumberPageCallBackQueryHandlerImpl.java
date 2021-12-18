@@ -19,12 +19,14 @@ import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.action.callback.CallbackQueryType.FIND_NUMBER;
 import static md.basarabeasca.bot.action.callback.CallbackQueryType.NEXT_PAGE;
 import static md.basarabeasca.bot.action.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardForShowNumber;
-import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageToMuchRequests;
+import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageError;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithInlineKeyboardMarkup;
 
 @Component
 @RequiredArgsConstructor
 public class NextNumberPageCallBackQueryHandlerImpl implements CallbackQueryHandler {
+
+    public final static String TO_MUCH_REQUESTS = "Слишком много запросов. Повторите попытку позже.";
 
     private final PhoneNumberServiceImpl phoneNumberService;
     private Integer lastDeletion;
@@ -33,7 +35,8 @@ public class NextNumberPageCallBackQueryHandlerImpl implements CallbackQueryHand
     public List<? super PartialBotApiMethod<?>> handleCallbackQuery(CallbackQuery callbackQuery) {
         final String chatId = callbackQuery.getMessage().getChatId().toString();
 
-        List<PhoneNumberDto> phoneNumber = getNextPageNumbers(Long.valueOf(callbackQuery.getData().split(EMPTY_REGEX)[1]));
+        List<PhoneNumberDto> phoneNumber =
+                getNextPageNumbers(Long.valueOf(callbackQuery.getData().split(EMPTY_REGEX)[1]));
         long lastId = 0L;
 
         if (phoneNumber.isEmpty()) {
@@ -57,7 +60,7 @@ public class NextNumberPageCallBackQueryHandlerImpl implements CallbackQueryHand
             }
 
         } catch (Exception exception) {
-            return singletonList(getSendMessageToMuchRequests(chatId));
+            return singletonList(getSendMessageError(callbackQuery.getMessage(), TO_MUCH_REQUESTS));
         }
     }
 

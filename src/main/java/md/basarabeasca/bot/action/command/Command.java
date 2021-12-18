@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface Command {
 
-    String ERROR = "Произошла ошибка при отправлении сообщения. Пожалуйста, обратитесь к @SaneaV";
-
     List<? super PartialBotApiMethod<?>> execute(Update update);
 
     String getCommand();

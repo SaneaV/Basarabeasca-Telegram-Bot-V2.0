@@ -10,8 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+import static com.google.common.collect.Lists.reverse;
 
 @Component
 public class BasTV implements NewsSiteParser {
@@ -55,12 +56,12 @@ public class BasTV implements NewsSiteParser {
     }
 
     private List<News> getListNews() {
-        List<Elements> list = getNewsFromThreads();
+        final List<Elements> list = getNewsFromThreads();
 
-        Elements names = list.get(0);
-        Elements descriptions = list.get(1);
-        Elements links = list.get(2);
-        Elements images = list.get(3);
+        final Elements names = list.get(0);
+        final Elements descriptions = list.get(1);
+        final Elements links = list.get(2);
+        final Elements images = list.get(3);
 
         List<News> newsList = new ArrayList<>();
 
@@ -80,8 +81,6 @@ public class BasTV implements NewsSiteParser {
 
     @Override
     public List<News> getLastNews() {
-        List<News> list = getListNews();
-        Collections.reverse(list);
-        return list;
+        return reverse(getListNews());
     }
 }

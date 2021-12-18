@@ -1,5 +1,6 @@
 package md.basarabeasca.bot.action.callback.impl;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import md.basarabeasca.bot.action.callback.CallbackQueryHandler;
 import md.basarabeasca.bot.action.callback.CallbackQueryType;
@@ -14,6 +15,7 @@ import java.util.List;
 import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.action.callback.CallbackQueryType.FIND_NUMBER;
 
+@Getter
 @Component
 public class FindNumberCallbackQueryHandlerImpl implements CallbackQueryHandler {
 

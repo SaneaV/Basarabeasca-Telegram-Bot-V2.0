@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.Collections.singletonList;
+import static md.basarabeasca.bot.action.callback.CallbackQueryType.valueOf;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessage;
 
 @Component
@@ -22,17 +23,17 @@ public class CallbackQueryFacade {
 
     public List<? super PartialBotApiMethod<?>> processCallbackQuery(CallbackQuery usersQuery) {
         try {
-            final CallbackQueryType usersQueryType = CallbackQueryType.valueOf(usersQuery.getData().split(EMPTY_REGEX)[0]);
+            final CallbackQueryType usersQueryType = valueOf(usersQuery.getData().split(EMPTY_REGEX)[0]);
 
             final Optional<CallbackQueryHandler> queryHandler = callbackQueryHandlers.stream()
                     .filter(callbackQuery -> callbackQuery.getHandlerQueryType().equals(usersQueryType))
                     .findFirst();
 
             return queryHandler.map(handler -> handler.handleCallbackQuery(usersQuery))
-                    .orElse(singletonList(getSendMessage(usersQuery.getMessage().getChatId().toString(), ERROR)));
+                    .orElse(singletonList(getSendMessage(usersQuery.getMessage(), ERROR)));
         } catch (Exception exception) {
             exception.printStackTrace();
-            return singletonList(getSendMessage(usersQuery.getMessage().getChatId().toString(), ERROR));
+            return singletonList(getSendMessage(usersQuery.getMessage(), ERROR));
         }
     }
 }

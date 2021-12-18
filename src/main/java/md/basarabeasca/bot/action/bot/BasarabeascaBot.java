@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.bot;
+package md.basarabeasca.bot.action.bot;
 
 import md.basarabeasca.bot.action.DispatcherCommand;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageError;
 
 @Component
 public class BasarabeascaBot extends TelegramWebhookBot {
@@ -51,10 +53,7 @@ public class BasarabeascaBot extends TelegramWebhookBot {
                             }
                         } catch (Exception exception) {
                             try {
-                                execute(SendMessage.builder()
-                                        .chatId(update.getMessage().getChatId().toString())
-                                        .text(ERROR_MESSAGE)
-                                        .build());
+                                execute(getSendMessageError(update.getMessage(), ERROR_MESSAGE));
                             } catch (TelegramApiException e) {
                                 e.printStackTrace();
                             }

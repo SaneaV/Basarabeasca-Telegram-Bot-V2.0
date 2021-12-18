@@ -33,7 +33,6 @@ public class NewsCommand implements Command {
     }
 
     private SendMessage sendStartMessage(Message message) {
-        return getSendMessageWithReplyKeyboardMarkup(message.getChatId().toString(),
-                WELCOME_MESSAGE, getNewsReplyKeyboardMarkup());
+        return getSendMessageWithReplyKeyboardMarkup(message, WELCOME_MESSAGE, getNewsReplyKeyboardMarkup());
     }
 }
