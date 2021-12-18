@@ -27,7 +27,7 @@ public class DistrictCouncil implements NewsSiteParser {
 
     private final String siteLink;
 
-    public DistrictCouncil(@Value("${site.districtCouncil}") String siteLink) {
+    public DistrictCouncil(@Value("${site.news.districtCouncil}") String siteLink) {
         this.siteLink = siteLink;
     }
 

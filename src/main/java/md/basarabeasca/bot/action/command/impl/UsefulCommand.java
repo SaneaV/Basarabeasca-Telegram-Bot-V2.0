@@ -1,44 +1,38 @@
 package md.basarabeasca.bot.action.command.impl;
 
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
+import lombok.Getter;
 import md.basarabeasca.bot.action.command.Command;
-import md.basarabeasca.bot.feature.weather.service.ParseWeather;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.io.IOException;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil.getUsefulReplyKeyboardMarkup;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
+@Getter
 @Component
-@RequiredArgsConstructor
-public class WeatherCommand implements Command {
+public class UsefulCommand implements Command {
 
-    private static final String WEATHER = "Погода на неделю";
+    private static final String USEFUL = "Полезная информация";
+    private static final String USEFUL_MESSAGE = "Воспользуйтесь клавишами ниже, чтобы узнать полезную информацию о " +
+            "нашем городе";
 
-    private final ParseWeather parseWeather;
-
-    @SneakyThrows
     @Override
     public List<? super PartialBotApiMethod<?>> execute(Update update) {
-        return singletonList(sendWeather(update.getMessage()));
-    }
-
-    private SendMessage sendWeather(Message message) throws IOException {
-        final String weather = parseWeather.getWeather();
-
-        return getSendMessageWithReplyKeyboardMarkup(message, weather, getUsefulReplyKeyboardMarkup());
+        return singletonList(sendStartMessage(update.getMessage()));
     }
 
     @Override
     public String getCommand() {
-        return WEATHER;
+        return USEFUL;
+    }
+
+    private SendMessage sendStartMessage(Message message) {
+        return getSendMessageWithReplyKeyboardMarkup(message, USEFUL_MESSAGE, getUsefulReplyKeyboardMarkup());
     }
 }

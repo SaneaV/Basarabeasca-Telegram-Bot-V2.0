@@ -3,7 +3,7 @@ package md.basarabeasca.bot.action.command.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import md.basarabeasca.bot.action.command.Command;
-import md.basarabeasca.bot.feature.weather.service.ParseWeather;
+import md.basarabeasca.bot.feature.timetablepublictransport.parser.TimetableTransportParser;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -19,26 +19,25 @@ import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessage
 
 @Component
 @RequiredArgsConstructor
-public class WeatherCommand implements Command {
+public class TimetablePublicTransportCommand implements Command {
 
-    private static final String WEATHER = "Погода на неделю";
+    private static final String PUBLIC_TRANSPORT_TIMETABLE = "Расписание междугородних рейсов";
 
-    private final ParseWeather parseWeather;
+    private final TimetableTransportParser timetableTransportParser;
 
     @SneakyThrows
     @Override
     public List<? super PartialBotApiMethod<?>> execute(Update update) {
-        return singletonList(sendWeather(update.getMessage()));
+        return singletonList(sendTimetable(update.getMessage()));
     }
 
-    private SendMessage sendWeather(Message message) throws IOException {
-        final String weather = parseWeather.getWeather();
-
-        return getSendMessageWithReplyKeyboardMarkup(message, weather, getUsefulReplyKeyboardMarkup());
+    private SendMessage sendTimetable(Message message) throws IOException {
+        return getSendMessageWithReplyKeyboardMarkup(message, timetableTransportParser.getTimetable(),
+                getUsefulReplyKeyboardMarkup());
     }
 
     @Override
     public String getCommand() {
-        return WEATHER;
+        return PUBLIC_TRANSPORT_TIMETABLE;
     }
 }
