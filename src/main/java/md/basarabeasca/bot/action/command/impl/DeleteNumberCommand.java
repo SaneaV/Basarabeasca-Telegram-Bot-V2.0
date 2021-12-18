@@ -1,8 +1,8 @@
 package md.basarabeasca.bot.action.command.impl;
 
+import lombok.Getter;
 import md.basarabeasca.bot.action.command.Command;
 import md.basarabeasca.bot.feature.hotnumbers.service.impl.PhoneNumberServiceImpl;
-import md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,9 +16,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.util.Collections.singletonList;
+import static md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessage;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
+@Getter
 @Component
 public class DeleteNumberCommand implements Command {
 
@@ -45,21 +47,20 @@ public class DeleteNumberCommand implements Command {
         if (userId.equals(adminId)) {
             return singletonList(sendDeleteNumber(update.getMessage()));
         } else {
-            return singletonList(getSendMessage(update.getMessage().getChatId().toString(), NO_ACCESS));
+            return singletonList(getSendMessage(update.getMessage(), NO_ACCESS));
         }
     }
 
     private BotApiMethod<?> sendDeleteNumber(Message message) {
-        Pattern pattern = Pattern.compile(REGEX);
-        Matcher matcher = pattern.matcher(message.getText());
+        final Pattern pattern = Pattern.compile(REGEX);
+        final Matcher matcher = pattern.matcher(message.getText());
 
         if (matcher.find()) {
             final String number = matcher.group(2);
             final String result = phoneNumberService.deleteNumber(number);
-            return getSendMessage(message.getChatId().toString(), result);
+            return getSendMessage(message, result);
         } else {
-            return getSendMessageWithReplyKeyboardMarkup(message.getChatId().toString(),
-                    INCORRECT_NUMBER, ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
+            return getSendMessageWithReplyKeyboardMarkup(message, INCORRECT_NUMBER, getMainReplyKeyboardMarkup());
         }
     }
 

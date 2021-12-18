@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.action.command.Command;
 import md.basarabeasca.bot.feature.hotnumbers.dto.PhoneNumberDto;
 import md.basarabeasca.bot.feature.hotnumbers.service.impl.PhoneNumberServiceImpl;
-import md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
@@ -14,11 +13,12 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
+import static md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 @Component
 @RequiredArgsConstructor
-public class SearchNumberByDescriptionCommand implements Command {
+public class SearchNumberCommand implements Command {
 
     public final static String SEARCH_NUMBER = "Введите имя/организацию/заведение, чей номер вы ищите";
     public final static String PHONE_NUMBER_LIST_IS_EMPTY_OR_NUMBER_WAS_NOT_FOUND =
@@ -54,8 +54,7 @@ public class SearchNumberByDescriptionCommand implements Command {
             }
         }
 
-        return getSendMessageWithReplyKeyboardMarkup(message.getChatId().toString(),
-                stringBuilder.toString(), ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
+        return getSendMessageWithReplyKeyboardMarkup(message, stringBuilder.toString(), getMainReplyKeyboardMarkup());
     }
 
     @Override

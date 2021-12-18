@@ -19,12 +19,14 @@ import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.action.callback.CallbackQueryType.FIND_NUMBER;
 import static md.basarabeasca.bot.action.callback.CallbackQueryType.PREVIOUS_PAGE;
 import static md.basarabeasca.bot.action.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardForShowNumber;
-import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageToMuchRequests;
+import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageError;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithInlineKeyboardMarkup;
 
 @Component
 @RequiredArgsConstructor
 public class PreviousNumberPageCallBackQueryHandlerImpl implements CallbackQueryHandler {
+
+    public final static String TO_MUCH_REQUESTS = "Слишком много запросов. Повторите попытку позже.";
 
     private final PhoneNumberServiceImpl phoneNumberService;
     private Integer lastDeletion;
@@ -56,7 +58,7 @@ public class PreviousNumberPageCallBackQueryHandlerImpl implements CallbackQuery
                 throw new Exception();
             }
         } catch (Exception exception) {
-            return singletonList(getSendMessageToMuchRequests(chatId));
+            return singletonList(getSendMessageError(callbackQuery.getMessage(), TO_MUCH_REQUESTS));
         }
     }
 

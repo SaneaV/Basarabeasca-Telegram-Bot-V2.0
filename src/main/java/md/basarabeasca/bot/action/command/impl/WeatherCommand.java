@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import md.basarabeasca.bot.action.command.Command;
 import md.basarabeasca.bot.feature.weather.service.ParseWeather;
-import md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -15,6 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
+import static md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 @Component
@@ -32,10 +32,9 @@ public class WeatherCommand implements Command {
     }
 
     private SendMessage sendWeather(Message message) throws IOException {
-        String weather = parseWeather.getWeather();
+        final String weather = parseWeather.getWeather();
 
-        return getSendMessageWithReplyKeyboardMarkup(message.getChatId().toString(),
-                weather, ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
+        return getSendMessageWithReplyKeyboardMarkup(message, weather, getMainReplyKeyboardMarkup());
     }
 
     @Override

@@ -1,19 +1,19 @@
 package md.basarabeasca.bot.action.util.message;
 
-import md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 
+import static md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup;
 import static org.telegram.telegrambots.meta.api.methods.ParseMode.MARKDOWN;
 
 public class MessageUtil {
 
-    public final static String TO_MUCH_REQUESTS = "Слишком много запросов. Повторите попытку позже.";
-
-    public static SendMessage getSendMessage(String chatId, String text) {
+    public static SendMessage getSendMessage(Message message, String text) {
+        final String chatId = message.getChatId().toString();
         return SendMessage.builder()
                 .chatId(chatId)
                 .parseMode(MARKDOWN)
@@ -21,8 +21,9 @@ public class MessageUtil {
                 .build();
     }
 
-    public static SendMessage getSendMessageWithReplyKeyboardMarkup(String chatId, String text,
+    public static SendMessage getSendMessageWithReplyKeyboardMarkup(Message message, String text,
                                                                     ReplyKeyboardMarkup keyboardMarkup) {
+        final String chatId = message.getChatId().toString();
         return SendMessage.builder()
                 .chatId(chatId)
                 .text(text)
@@ -51,8 +52,7 @@ public class MessageUtil {
                 .build();
     }
 
-    public static SendMessage getSendMessageToMuchRequests(String chatId) {
-        return getSendMessageWithReplyKeyboardMarkup(chatId,
-                TO_MUCH_REQUESTS, ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
+    public static SendMessage getSendMessageError(Message message, String text) {
+        return getSendMessageWithReplyKeyboardMarkup(message, text, getMainReplyKeyboardMarkup());
     }
 }

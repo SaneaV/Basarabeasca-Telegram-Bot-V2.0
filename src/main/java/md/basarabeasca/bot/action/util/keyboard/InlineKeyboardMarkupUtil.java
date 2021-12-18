@@ -6,6 +6,8 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Collections.singletonList;
+import static java.util.List.of;
 import static md.basarabeasca.bot.action.callback.CallbackQueryType.NEXT_PAGE;
 import static md.basarabeasca.bot.action.callback.CallbackQueryType.PREVIOUS_PAGE;
 
@@ -16,43 +18,41 @@ public class InlineKeyboardMarkupUtil {
     private static final String SPACE = " ";
 
     public static InlineKeyboardMarkup getSendInlineKeyboardWithUrl(String text, String url) {
-        InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
-        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
-        List<InlineKeyboardButton> rowInline = new ArrayList<>();
+        final InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
 
-        InlineKeyboardButton inlineKeyboardButton = InlineKeyboardButton.builder()
+        final InlineKeyboardButton inlineKeyboardButton = InlineKeyboardButton.builder()
                 .url(url)
                 .text(text)
                 .build();
 
-        rowInline.add(inlineKeyboardButton);
-        rowsInline.add(rowInline);
+        final List<InlineKeyboardButton> rowInline = new ArrayList<>(singletonList(inlineKeyboardButton));
+        final List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>(singletonList(rowInline));
+
         markupInline.setKeyboard(rowsInline);
         return markupInline;
     }
 
     public static InlineKeyboardMarkup getSendInlineKeyboardForShowNumber(String text, String callBackData, Long page) {
-        InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+        final InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
 
-        InlineKeyboardButton previousPage = InlineKeyboardButton.builder()
+        final InlineKeyboardButton previousPage = InlineKeyboardButton.builder()
                 .callbackData(PREVIOUS_PAGE.name() + SPACE + page)
                 .text(LEFT_ARROW)
                 .build();
 
-        InlineKeyboardButton nextPage = InlineKeyboardButton.builder()
+        final InlineKeyboardButton nextPage = InlineKeyboardButton.builder()
                 .callbackData(NEXT_PAGE.name() + SPACE + page)
                 .text(RIGHT_ARROW)
                 .build();
 
-        InlineKeyboardButton findNumber = InlineKeyboardButton.builder()
+        final InlineKeyboardButton findNumber = InlineKeyboardButton.builder()
                 .callbackData(callBackData)
                 .text(text)
                 .build();
 
-        List<InlineKeyboardButton> rowInlineFirst = new ArrayList<>(List.of(previousPage, nextPage));
-        List<InlineKeyboardButton> rowInlineSecond = new ArrayList<>(List.of(findNumber));
-
-        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>(List.of(rowInlineFirst, rowInlineSecond));
+        final List<InlineKeyboardButton> rowInlineFirst = new ArrayList<>(of(previousPage, nextPage));
+        final List<InlineKeyboardButton> rowInlineSecond = new ArrayList<>(of(findNumber));
+        final List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>(of(rowInlineFirst, rowInlineSecond));
 
         markupInline.setKeyboard(rowsInline);
         return markupInline;

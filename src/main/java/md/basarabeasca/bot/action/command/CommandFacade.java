@@ -3,6 +3,7 @@ package md.basarabeasca.bot.action.command;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.List;
@@ -21,22 +22,20 @@ public class CommandFacade {
 
     public List<? super PartialBotApiMethod<?>> processCommand(Update update) {
         try {
-            Optional<Command> userCommand = commands.stream().
+            final Message message = update.getMessage();
+            final Optional<Command> userCommand = commands.stream().
                     filter(commandTemp ->
-                            update.getMessage().getText().contains(commandTemp.getCommand()) ||
-                                    (update.getMessage().isReply() &&
-                                            update.getMessage().getReplyToMessage().getText().contains(commandTemp.getCommand())
-                                    )
-                    )
+                            message.getText().contains(commandTemp.getCommand()) ||
+                                    (message.isReply() &&
+                                            message.getReplyToMessage().getText().contains(commandTemp.getCommand())))
                     .findFirst();
 
-            return userCommand.map(commandTemp ->
-                    commandTemp.execute(update))
+            return userCommand.map(commandTemp -> commandTemp.execute(update))
                     .orElseThrow(Exception::new);
 
         } catch (Exception exception) {
             exception.printStackTrace();
-            return singletonList(getSendMessage(update.getMessage().getChatId().toString(), ERROR));
+            return singletonList(getSendMessage(update.getMessage(), ERROR));
         }
     }
 }
