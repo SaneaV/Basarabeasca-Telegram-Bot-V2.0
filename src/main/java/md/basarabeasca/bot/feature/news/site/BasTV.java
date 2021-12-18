@@ -26,7 +26,7 @@ public class BasTV implements NewsSiteParser {
 
     private final String siteLink;
 
-    public BasTV(@Value("${site.bastv}") String siteLink) {
+    public BasTV(@Value("${site.news.bastv}") String siteLink) {
         this.siteLink = siteLink;
     }
 

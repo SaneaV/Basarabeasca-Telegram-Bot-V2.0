@@ -28,7 +28,7 @@ public class FeedBack implements NewsSiteParser {
 
     private final String siteLink;
 
-    public FeedBack(@Value("${site.feedback}") String siteLink) {
+    public FeedBack(@Value("${site.news.feedback}") String siteLink) {
         this.siteLink = siteLink;
     }
 

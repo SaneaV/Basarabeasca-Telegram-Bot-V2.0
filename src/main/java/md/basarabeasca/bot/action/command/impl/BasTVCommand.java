@@ -2,7 +2,6 @@ package md.basarabeasca.bot.action.command.impl;
 
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.action.command.NewsSiteCommand;
-import md.basarabeasca.bot.feature.news.model.News;
 import md.basarabeasca.bot.feature.news.site.BasTV;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
