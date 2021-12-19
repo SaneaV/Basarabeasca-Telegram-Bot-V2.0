@@ -1,6 +1,6 @@
 CREATE TABLE exchange_rates (
                 exchange_id BIGSERIAL NOT NULL,
-                currency DATE NOT NULL,
+                currency VARCHAR(20) NOT NULL,
                 value VARCHAR(20) NOT NULL,
                 PRIMARY KEY (exchange_id)
 );
