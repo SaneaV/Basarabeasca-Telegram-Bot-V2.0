@@ -23,12 +23,12 @@ import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessage
 public class ExchangeRatesCommand implements Command {
 
     private static final String EXCHANGE_RATES = "Курс валют";
-    private static final String EXCHANGE_RATES_RESPONSE = "Курс валют Banca Nationala a Moldovei:\n" +
-            "\uD83C\uDDFA\uD83C\uDDF8 %s - %s\n" +
-            "\uD83C\uDDEA\uD83C\uDDFA %s - %s\n" +
-            "\uD83C\uDDFA\uD83C\uDDE6 %s - %s\n" +
-            "\uD83C\uDDF7\uD83C\uDDF4 %s - %s\n" +
-            "\uD83C\uDDF7\uD83C\uDDFA %s - %s\n";
+    private static final String EXCHANGE_RATES_RESPONSE = "Курс валют Banca Nationala a Moldovei (%s):\n" +
+            "\uD83C\uDDFA\uD83C\uDDF8 %s - %s MDL\n" +
+            "\uD83C\uDDEA\uD83C\uDDFA %s - %s MDL\n" +
+            "\uD83C\uDDFA\uD83C\uDDE6 %s - %s MDL\n" +
+            "\uD83C\uDDF7\uD83C\uDDF4 %s - %s MDL\n" +
+            "\uD83C\uDDF7\uD83C\uDDFA %s - %s MDL\n";
 
     private final UpdateDateService updateDateService;
     private final ExchangeRatesService exchangeRatesService;
@@ -46,6 +46,7 @@ public class ExchangeRatesCommand implements Command {
 
         final List<ExchangeRateDto> exchangeRates = exchangeRatesService.getExchangeRates();
         final String response = String.format(EXCHANGE_RATES_RESPONSE,
+                LocalDate.now(),
                 exchangeRates.get(0).getCurrency(), exchangeRates.get(0).getValue(),
                 exchangeRates.get(1).getCurrency(), exchangeRates.get(1).getValue(),
                 exchangeRates.get(2).getCurrency(), exchangeRates.get(2).getValue(),
