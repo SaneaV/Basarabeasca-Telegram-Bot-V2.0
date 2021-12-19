@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.feature.timetablepublictransport.parser;
+package md.basarabeasca.bot.feature.timetablepublictransport.service;
 
 import org.jsoup.nodes.Document;
 

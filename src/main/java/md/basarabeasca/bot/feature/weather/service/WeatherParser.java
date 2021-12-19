@@ -4,7 +4,7 @@ import md.basarabeasca.bot.feature.Parser;
 
 import java.io.IOException;
 
-public interface JsonParser extends Parser {
+public interface WeatherParser extends Parser {
 
     String getWeather() throws IOException;
 }

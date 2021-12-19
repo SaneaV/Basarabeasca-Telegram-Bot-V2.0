@@ -25,7 +25,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.time.format.DateTimeFormatter.ofPattern;
 
 @Component
-public class ParseWeather implements JsonParser {
+public class WeatherParserImpl implements WeatherParser {
 
     private static final String WEATHER_IS_UNAVAILABLE = "Погода недоступна. Обратитесь к администратору бота: @SaneaV";
     private static final String DATE = "Дата: *";
@@ -47,7 +47,7 @@ public class ParseWeather implements JsonParser {
     private final String site;
     private final String appId;
 
-    public ParseWeather(
+    public WeatherParserImpl(
             @Value("${weather.site}") String site,
             @Value("${weather.appid}") String appId) {
         this.site = site;

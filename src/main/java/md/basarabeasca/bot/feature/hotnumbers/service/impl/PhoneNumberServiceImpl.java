@@ -1,8 +1,8 @@
 package md.basarabeasca.bot.feature.hotnumbers.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import md.basarabeasca.bot.feature.hotnumbers.dao.model.PhoneNumber;
-import md.basarabeasca.bot.feature.hotnumbers.dao.repository.PhoneNumberRepository;
+import md.basarabeasca.bot.feature.hotnumbers.model.PhoneNumber;
+import md.basarabeasca.bot.feature.hotnumbers.repository.PhoneNumberRepository;
 import md.basarabeasca.bot.feature.hotnumbers.dto.PhoneNumberDto;
 import md.basarabeasca.bot.feature.hotnumbers.service.PhoneNumberService;
 import org.modelmapper.ModelMapper;
