@@ -15,6 +15,7 @@ public class ReplyKeyboardMarkupUtil {
     private static final String SHOW_NUMBERS = "Полезные номера";
     private static final String WEATHER = "Погода на неделю";
     private static final String PUBLIC_TRANSPORT_TIMETABLE = "Расписание междугородних рейсов";
+    private static final String EXCHANGE_RATES = "Курс валют";
 
     private static final String BASTV = "Новости BasTV";
     private static final String FEEDBACK = "Новости FeedBack";
@@ -37,13 +38,16 @@ public class ReplyKeyboardMarkupUtil {
         final KeyboardRow keyboardRowTwo = new KeyboardRow();
         final KeyboardRow keyboardRowThree = new KeyboardRow();
         final KeyboardRow keyboardRowFour = new KeyboardRow();
+        final KeyboardRow keyboardRowFive = new KeyboardRow();
 
         keyboardRowOne.addAll(List.of(SHOW_NUMBERS));
         keyboardRowTwo.addAll(List.of(WEATHER));
         keyboardRowThree.addAll(List.of(PUBLIC_TRANSPORT_TIMETABLE));
-        keyboardRowFour.addAll(List.of(BACK_TO_MAIN_MENU));
+        keyboardRowFour.addAll(List.of(EXCHANGE_RATES));
+        keyboardRowFive.addAll(List.of(BACK_TO_MAIN_MENU));
 
-        return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree, keyboardRowFour));
+        return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree, keyboardRowFour,
+                keyboardRowFive));
     }
 
     public static ReplyKeyboardMarkup getNewsReplyKeyboardMarkup() {

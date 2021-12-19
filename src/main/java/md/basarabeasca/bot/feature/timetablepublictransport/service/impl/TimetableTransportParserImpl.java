@@ -1,7 +1,7 @@
-package md.basarabeasca.bot.feature.timetablepublictransport.impl;
+package md.basarabeasca.bot.feature.timetablepublictransport.service.impl;
 
 import lombok.Getter;
-import md.basarabeasca.bot.feature.timetablepublictransport.parser.TimetableTransportParser;
+import md.basarabeasca.bot.feature.timetablepublictransport.service.TimetableTransportParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Value;

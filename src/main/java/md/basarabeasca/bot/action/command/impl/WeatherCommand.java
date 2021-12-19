@@ -3,7 +3,7 @@ package md.basarabeasca.bot.action.command.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import md.basarabeasca.bot.action.command.Command;
-import md.basarabeasca.bot.feature.weather.service.ParseWeather;
+import md.basarabeasca.bot.feature.weather.service.WeatherParserImpl;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -23,7 +23,7 @@ public class WeatherCommand implements Command {
 
     private static final String WEATHER = "Погода на неделю";
 
-    private final ParseWeather parseWeather;
+    private final WeatherParserImpl weatherParserImpl;
 
     @SneakyThrows
     @Override
@@ -32,7 +32,7 @@ public class WeatherCommand implements Command {
     }
 
     private SendMessage sendWeather(Message message) throws IOException {
-        final String weather = parseWeather.getWeather();
+        final String weather = weatherParserImpl.getWeather();
 
         return getSendMessageWithReplyKeyboardMarkup(message, weather, getUsefulReplyKeyboardMarkup());
     }

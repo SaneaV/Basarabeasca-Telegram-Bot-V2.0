@@ -1,6 +1,6 @@
-package md.basarabeasca.bot.feature.hotnumbers.dao.repository;
+package md.basarabeasca.bot.feature.hotnumbers.repository;
 
-import md.basarabeasca.bot.feature.hotnumbers.dao.model.PhoneNumber;
+import md.basarabeasca.bot.feature.hotnumbers.model.PhoneNumber;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

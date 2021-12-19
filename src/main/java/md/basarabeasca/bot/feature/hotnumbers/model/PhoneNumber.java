@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.feature.hotnumbers.dao.model;
+package md.basarabeasca.bot.feature.hotnumbers.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
