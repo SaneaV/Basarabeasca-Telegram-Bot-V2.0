@@ -5,6 +5,7 @@ import md.basarabeasca.bot.feature.exchangerates.domain.ExchangeRate;
 import md.basarabeasca.bot.feature.exchangerates.service.ExchangeRatesParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,15 @@ import java.util.Objects;
 @Getter
 @Component
 public class ExchangeRatesParserImpl implements ExchangeRatesParser {
+
+    private static final String VIEW_RATES = "view-rates";
+    private static final String CURRENCY = "currency";
+    private static final String LI = "li";
+    private static final String DEFAULT_EXCHANGE_RATE = "-";
+    private static final String RATE_NONE = "rate none";
+    private static final String RATE_UP = "rate up";
+    private static final String RATE_DOWN = "rate down";
+    private static final String EMPTY_RATE = "";
 
     private final String site;
 
@@ -44,17 +54,30 @@ public class ExchangeRatesParserImpl implements ExchangeRatesParser {
 
         assert document != null;
 
-        final Elements listRates = Objects.requireNonNull(document.getElementsByClass("view-rates")
+        final Elements listRates = Objects.requireNonNull(document.getElementsByClass(VIEW_RATES)
                         .first())
-                .select("li");
+                .select(LI);
 
         final List<ExchangeRate> exchangeRates = new ArrayList<>();
         listRates.forEach(
-                exchangeRate -> exchangeRates.add(new ExchangeRate(
-                        exchangeRate.getElementsByClass("currency").text(),
-                        exchangeRate.getElementsByClass("rate none").text()))
+                exchangeRate ->
+                        exchangeRates.add(new ExchangeRate(
+                                exchangeRate.getElementsByClass(CURRENCY).text(),
+                                getValue(exchangeRate)))
         );
 
         return exchangeRates;
+    }
+
+    private String getValue(Element exchangeRate) {
+        if (!exchangeRate.getElementsByClass(RATE_NONE).text().equalsIgnoreCase(EMPTY_RATE)) {
+            return exchangeRate.getElementsByClass(RATE_NONE).text();
+        } else if (!exchangeRate.getElementsByClass(RATE_UP).text().equalsIgnoreCase(EMPTY_RATE)) {
+            return exchangeRate.getElementsByClass(RATE_UP).text();
+        } else if (!exchangeRate.getElementsByClass(RATE_DOWN).text().equalsIgnoreCase(EMPTY_RATE)) {
+            return exchangeRate.getElementsByClass(RATE_DOWN).text();
+        }
+
+        return DEFAULT_EXCHANGE_RATE;
     }
 }
