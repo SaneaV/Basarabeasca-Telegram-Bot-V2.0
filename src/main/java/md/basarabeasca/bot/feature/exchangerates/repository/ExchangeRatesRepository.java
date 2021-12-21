@@ -10,6 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface ExchangeRatesRepository extends JpaRepository<ExchangeRateModel, Long> {
 
     @Modifying
-    @Query(value = "UPDATE exchange_rates e SET e.value = ?2 WHERE e.currency = ?1", nativeQuery = true)
+    @Query(value = "UPDATE exchange_rates SET value = ?2 WHERE currency = ?1", nativeQuery = true)
     void updateExchangeRate(String currency, String exchangeRate);
 }
