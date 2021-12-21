@@ -7,10 +7,13 @@ import md.basarabeasca.bot.feature.lastupdate.service.UpdateDateService;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 @Component
 @RequiredArgsConstructor
 public class UpdateDateServiceImpl implements UpdateDateService {
+
+    private static final String ZONE_EUROPE_CHISINAU = "Europe/Chisinau";
 
     private final UpdateDateRepository updateDateRepository;
 
@@ -20,7 +23,7 @@ public class UpdateDateServiceImpl implements UpdateDateService {
 
         if (updateDate == null) {
             final UpdateDate currentDate = UpdateDate.builder()
-                    .lastUpdateDate(LocalDate.now())
+                    .lastUpdateDate(LocalDate.now(ZoneId.of(ZONE_EUROPE_CHISINAU)))
                     .build();
             updateDateRepository.save(currentDate);
             return currentDate.getLastUpdateDate();

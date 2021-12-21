@@ -12,6 +12,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
@@ -22,6 +23,7 @@ import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessage
 @RequiredArgsConstructor
 public class ExchangeRatesCommand implements Command {
 
+    private static final String ZONE_EUROPE_CHISINAU = "Europe/Chisinau";
     private static final String EXCHANGE_RATES = "Курс валют";
     private static final String EXCHANGE_RATES_RESPONSE = "Курс валют Banca Nationala a Moldovei (%s):\n" +
             "\uD83C\uDDFA\uD83C\uDDF8 %s - %s MDL\n" +
@@ -39,7 +41,7 @@ public class ExchangeRatesCommand implements Command {
     }
 
     private SendMessage sendExchangeRates(Message message) {
-        if (!updateDateService.getDate().isEqual(LocalDate.now())) {
+        if (!updateDateService.getDate().isEqual(LocalDate.now(ZoneId.of(ZONE_EUROPE_CHISINAU)))) {
             updateDateService.updateDate();
             exchangeRatesService.updateExchangeRates();
         }
