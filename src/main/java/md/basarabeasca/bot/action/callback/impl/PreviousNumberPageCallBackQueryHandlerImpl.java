@@ -3,8 +3,8 @@ package md.basarabeasca.bot.action.callback.impl;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.action.callback.CallbackQueryHandler;
 import md.basarabeasca.bot.action.callback.CallbackQueryType;
-import md.basarabeasca.bot.feature.hotnumbers.dto.PhoneNumberDto;
-import md.basarabeasca.bot.feature.hotnumbers.service.impl.PhoneNumberServiceImpl;
+import md.basarabeasca.bot.web.dto.PhoneNumberDto;
+import md.basarabeasca.bot.service.impl.PhoneNumberServiceImpl;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -21,6 +21,8 @@ import static md.basarabeasca.bot.action.callback.CallbackQueryType.PREVIOUS_PAG
 import static md.basarabeasca.bot.action.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardForShowNumber;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageError;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithInlineKeyboardMarkup;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
+import static org.apache.commons.lang3.StringUtils.LF;
 
 @Component
 @RequiredArgsConstructor
@@ -35,8 +37,8 @@ public class PreviousNumberPageCallBackQueryHandlerImpl implements CallbackQuery
     public List<? super PartialBotApiMethod<?>> handleCallbackQuery(CallbackQuery callbackQuery) {
         final String chatId = callbackQuery.getMessage().getChatId().toString();
 
-        List<PhoneNumberDto> phoneNumber = getNextPageNumbers(Long.valueOf(callbackQuery.getData().split(EMPTY_REGEX)[1]));
-        long lastId = Long.parseLong(callbackQuery.getData().split(EMPTY_REGEX)[1]);
+        List<PhoneNumberDto> phoneNumber = getNextPageNumbers(Long.valueOf(callbackQuery.getData().split(EMPTY)[1]));
+        long lastId = Long.parseLong(callbackQuery.getData().split(EMPTY)[1]);
 
         if (phoneNumber.isEmpty()) {
             phoneNumber = getNextPageNumbers(lastId);
@@ -71,7 +73,7 @@ public class PreviousNumberPageCallBackQueryHandlerImpl implements CallbackQuery
                         .append(number.getPhoneNumber())
                         .append(HYPHEN)
                         .append(number.getDescription())
-                        .append(NEW_LINE)
+                        .append(LF)
         );
         return formattedPhones;
     }

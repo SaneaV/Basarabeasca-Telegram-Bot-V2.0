@@ -2,9 +2,9 @@ package md.basarabeasca.bot.action.command.impl;
 
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.action.command.Command;
-import md.basarabeasca.bot.feature.exchangerates.dto.ExchangeRateDto;
-import md.basarabeasca.bot.feature.exchangerates.service.ExchangeRatesService;
-import md.basarabeasca.bot.feature.lastupdate.service.UpdateDateService;
+import md.basarabeasca.bot.web.dto.ExchangeRateDto;
+import md.basarabeasca.bot.service.ExchangeRatesService;
+import md.basarabeasca.bot.service.UpdateDateService;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
