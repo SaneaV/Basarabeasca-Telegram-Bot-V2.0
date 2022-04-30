@@ -2,7 +2,7 @@ package md.basarabeasca.bot.action.command.impl;
 
 import lombok.Getter;
 import md.basarabeasca.bot.action.command.Command;
-import md.basarabeasca.bot.feature.hotnumbers.service.impl.PhoneNumberServiceImpl;
+import md.basarabeasca.bot.service.impl.PhoneNumberServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

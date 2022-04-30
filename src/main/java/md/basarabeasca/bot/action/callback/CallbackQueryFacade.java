@@ -11,19 +11,19 @@ import java.util.Optional;
 import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.action.callback.CallbackQueryType.valueOf;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessage;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 @Component
 @RequiredArgsConstructor
 public class CallbackQueryFacade {
 
-    public final static String EMPTY_REGEX = " ";
     private static final String ERROR = "Произошла ошибка при отправлении сообщения. Пожалуйста, обратитесь к @SaneaV";
 
     private final List<CallbackQueryHandler> callbackQueryHandlers;
 
     public List<? super PartialBotApiMethod<?>> processCallbackQuery(CallbackQuery usersQuery) {
         try {
-            final CallbackQueryType usersQueryType = valueOf(usersQuery.getData().split(EMPTY_REGEX)[0]);
+            final CallbackQueryType usersQueryType = valueOf(usersQuery.getData().split(EMPTY)[0]);
 
             final Optional<CallbackQueryHandler> queryHandler = callbackQueryHandlers.stream()
                     .filter(callbackQuery -> callbackQuery.getHandlerQueryType().equals(usersQueryType))

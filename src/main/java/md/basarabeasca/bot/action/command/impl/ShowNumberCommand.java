@@ -2,8 +2,8 @@ package md.basarabeasca.bot.action.command.impl;
 
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.action.command.Command;
-import md.basarabeasca.bot.feature.hotnumbers.dto.PhoneNumberDto;
-import md.basarabeasca.bot.feature.hotnumbers.service.impl.PhoneNumberServiceImpl;
+import md.basarabeasca.bot.web.dto.PhoneNumberDto;
+import md.basarabeasca.bot.service.impl.PhoneNumberServiceImpl;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
@@ -17,6 +17,7 @@ import static md.basarabeasca.bot.action.callback.CallbackQueryType.FIND_NUMBER;
 import static md.basarabeasca.bot.action.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardForShowNumber;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessage;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithInlineKeyboardMarkup;
+import static org.apache.commons.lang3.StringUtils.LF;
 
 @Component
 @RequiredArgsConstructor
@@ -27,7 +28,6 @@ public class ShowNumberCommand implements Command {
     private static final String PHONE_NUMBER_LIST_IS_EMPTY = "Список номеров пуст";
     private static final String POINT = ". ";
     private static final String HYPHEN = " - ";
-    private static final String NEW_LINE = "\n";
 
     private final PhoneNumberServiceImpl phoneNumberService;
 
@@ -54,7 +54,7 @@ public class ShowNumberCommand implements Command {
                         .append(number.getPhoneNumber())
                         .append(HYPHEN)
                         .append(number.getDescription())
-                        .append(NEW_LINE);
+                        .append(LF);
             }
 
             return getSendMessageWithInlineKeyboardMarkup(message.getChatId().toString(), stringBuilder.toString(),

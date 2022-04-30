@@ -8,10 +8,8 @@ import java.util.List;
 public interface CallbackQueryHandler {
 
     String SEARCH_NUMBER = "Найти номер";
-    String EMPTY_REGEX = " ";
     String POINT = ". ";
     String HYPHEN = " - ";
-    String NEW_LINE = "\n";
 
     List<? super PartialBotApiMethod<?>> handleCallbackQuery(CallbackQuery callbackQuery);
 

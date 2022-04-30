@@ -2,8 +2,8 @@ package md.basarabeasca.bot.action.command.impl;
 
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.action.command.Command;
-import md.basarabeasca.bot.feature.hotnumbers.dto.PhoneNumberDto;
-import md.basarabeasca.bot.feature.hotnumbers.service.impl.PhoneNumberServiceImpl;
+import md.basarabeasca.bot.web.dto.PhoneNumberDto;
+import md.basarabeasca.bot.service.impl.PhoneNumberServiceImpl;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
@@ -15,6 +15,7 @@ import java.util.List;
 import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
+import static org.apache.commons.lang3.StringUtils.LF;
 
 @Component
 @RequiredArgsConstructor
@@ -25,7 +26,6 @@ public class SearchNumberCommand implements Command {
             "Список номеров пуст или запрашиваемый вами номер не был найден";
     public final static String POINT = ". ";
     public final static String HYPHEN = " - ";
-    public final static String NEW_LINE = "\n";
 
     private final PhoneNumberServiceImpl phoneNumberService;
 
@@ -50,7 +50,7 @@ public class SearchNumberCommand implements Command {
                         .append(phone.getPhoneNumber())
                         .append(HYPHEN)
                         .append(phone.getDescription())
-                        .append(NEW_LINE);
+                        .append(LF);
             }
         }
 
