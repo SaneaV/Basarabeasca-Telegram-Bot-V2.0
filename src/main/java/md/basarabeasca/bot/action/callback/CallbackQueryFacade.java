@@ -12,6 +12,7 @@ import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.action.callback.CallbackQueryType.valueOf;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessage;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
+import static org.apache.commons.lang3.StringUtils.SPACE;
 
 @Component
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class CallbackQueryFacade {
 
     public List<? super PartialBotApiMethod<?>> processCallbackQuery(CallbackQuery usersQuery) {
         try {
-            final CallbackQueryType usersQueryType = valueOf(usersQuery.getData().split(EMPTY)[0]);
+            final CallbackQueryType usersQueryType = valueOf(usersQuery.getData().split(SPACE)[0]);
 
             final Optional<CallbackQueryHandler> queryHandler = callbackQueryHandlers.stream()
                     .filter(callbackQuery -> callbackQuery.getHandlerQueryType().equals(usersQueryType))
