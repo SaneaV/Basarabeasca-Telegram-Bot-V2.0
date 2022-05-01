@@ -7,8 +7,8 @@ import static md.basarabeasca.bot.action.callback.CallbackQueryType.PREVIOUS_PAG
 import static md.basarabeasca.bot.action.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardForShowNumber;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageError;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithInlineKeyboardMarkup;
-import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.apache.commons.lang3.StringUtils.LF;
+import static org.apache.commons.lang3.StringUtils.SPACE;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -37,8 +37,8 @@ public class PreviousNumberPageCallBackQueryHandlerImpl implements CallbackQuery
     final String chatId = callbackQuery.getMessage().getChatId().toString();
 
     List<PhoneNumberDto> phoneNumber = getNextPageNumbers(
-        Long.valueOf(callbackQuery.getData().split(EMPTY)[1]));
-    long lastId = Long.parseLong(callbackQuery.getData().split(EMPTY)[1]);
+        Long.valueOf(callbackQuery.getData().split(SPACE)[1]));
+    long lastId = Long.parseLong(callbackQuery.getData().split(SPACE)[1]);
 
     if (phoneNumber.isEmpty()) {
       phoneNumber = getNextPageNumbers(lastId);
