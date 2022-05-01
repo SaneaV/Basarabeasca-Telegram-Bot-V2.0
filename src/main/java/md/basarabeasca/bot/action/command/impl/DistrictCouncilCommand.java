@@ -15,7 +15,8 @@ import java.util.List;
 public class DistrictCouncilCommand implements NewsSiteCommand {
 
     private static final String DISTRICT_COUNCIL = "Новости Районного совета";
-    private static final String LAST_10_NEWS_DISTRICT_COUNCIL = "Последние 10 новостей с сайта https://basarabeasca.md/ru";
+    private static final String LAST_10_NEWS_DISTRICT_COUNCIL = "Последние 10 новостей с сайта "
+        + "[Районный Совет Басарабяска](https://basarabeasca.md/ru)";
 
     private final DistrictCouncilParserImpl districtCouncilParserImpl;
 

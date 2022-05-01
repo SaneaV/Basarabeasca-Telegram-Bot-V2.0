@@ -15,7 +15,8 @@ import java.util.List;
 public class FeedBackCommand implements NewsSiteCommand {
 
     private static final String FEEDBACK = "Новости FeedBack";
-    private static final String LAST_10_NEWS_FEEDBACK = "Последние 10 новостей с сайта http://feedback.md";
+    private static final String LAST_10_NEWS_FEEDBACK = "Последние 10 новостей с сайта "
+        + "[FeedBack](http://feedback.md)";
 
     private final FeedBackParserImpl feedBackParserImpl;
 

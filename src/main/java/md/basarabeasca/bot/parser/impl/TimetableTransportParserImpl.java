@@ -3,6 +3,7 @@ package md.basarabeasca.bot.parser.impl;
 import static org.apache.commons.lang3.StringUtils.LF;
 
 import java.io.IOException;
+import java.util.Objects;
 import lombok.Getter;
 import md.basarabeasca.bot.parser.TimetableTransportParser;
 import org.jsoup.Jsoup;
@@ -23,16 +24,17 @@ public class TimetableTransportParserImpl implements TimetableTransportParser {
   private static final String TIRASPOL = "Тирасполь";
   private static final String CHISINAU_PRIMORSKOE = "Кишинев — Приморское";
 
-  private final String siteLink;
+  private final String site;
 
   public TimetableTransportParserImpl(
-      @Value("${site.timetable-public-transport.bastv}") String siteLink) {
-    this.siteLink = siteLink;
+      @Value("${site.timetable-public-transport.bastv}") String site) {
+    this.site = site;
   }
 
   @Override
-  public String getTimetable() throws IOException {
-    return improveText(getDocument().select(ENTRY_CONTENT).first().wholeText());
+  public String getTimetable() {
+    return improveText(
+        Objects.requireNonNull(getDocument().select(ENTRY_CONTENT).first()).wholeText());
   }
 
   private String improveText(String text) {
@@ -43,7 +45,11 @@ public class TimetableTransportParserImpl implements TimetableTransportParser {
   }
 
   @Override
-  public Document getDocument() throws IOException {
-    return Jsoup.connect(siteLink).get();
+  public Document getDocument() {
+    try {
+      return Jsoup.connect(site).get();
+    } catch (IOException e) {
+      throw new RuntimeException();
+    }
   }
 }

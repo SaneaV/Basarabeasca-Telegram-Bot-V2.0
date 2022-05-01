@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public interface TimetableTransportParser {
 
-    String getTimetable() throws IOException;
+    String getTimetable();
 
-    Document getDocument() throws IOException;
+    Document getDocument();
 }

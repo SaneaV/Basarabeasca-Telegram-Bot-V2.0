@@ -15,7 +15,8 @@ import java.util.List;
 public class BasTVCommand implements NewsSiteCommand {
 
     private static final String BASTV = "Новости BasTV";
-    private static final String LAST_10_NEWS_BASTV = "Последние 10 новостей с сайта https://bas-tv.md";
+    private static final String LAST_10_NEWS_BASTV = "Последние 10 новостей с сайта "
+        + "[Bas-TV](https://bas-tv.md)";
 
     private final BasTVParserImpl basTVParserImpl;
 
