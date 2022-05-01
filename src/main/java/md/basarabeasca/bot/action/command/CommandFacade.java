@@ -25,7 +25,7 @@ public class CommandFacade {
             final Message message = update.getMessage();
             final Optional<Command> userCommand = commands.stream().
                     filter(commandTemp ->
-                            message.getText().contains(commandTemp.getCommand()) ||
+                            commandTemp.getCommand().contains(message.getText()) ||
                                     (message.isReply() &&
                                             message.getReplyToMessage().getText().contains(commandTemp.getCommand())))
                     .findFirst();

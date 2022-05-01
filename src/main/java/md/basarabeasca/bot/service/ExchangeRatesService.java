@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface ExchangeRatesService {
 
-    List<ExchangeRateDto> getExchangeRates();
+    List<ExchangeRateDto> getBNMExchangeRates();
+
+    List<ExchangeRateDto> getBestPrivateBankExchangeRateFor(String currency, String action);
 
     void updateExchangeRates();
 }

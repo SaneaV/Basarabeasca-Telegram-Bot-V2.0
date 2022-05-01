@@ -1,10 +1,10 @@
 package md.basarabeasca.bot.action.command.impl;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import md.basarabeasca.bot.action.command.Command;
-import md.basarabeasca.bot.web.dto.ExchangeRateDto;
 import md.basarabeasca.bot.service.ExchangeRatesService;
 import md.basarabeasca.bot.service.UpdateDateService;
+import md.basarabeasca.bot.web.dto.ExchangeRateDto;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -16,15 +16,15 @@ import java.time.ZoneId;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
-import static md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil.getUsefulReplyKeyboardMarkup;
+import static md.basarabeasca.bot.action.util.keyboard.ReplyKeyboardMarkupUtil.getMoneyReplyKeyboardMarkup;
 import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 @Component
-@RequiredArgsConstructor
-public class ExchangeRatesCommand implements Command {
+@AllArgsConstructor
+public class BNMExchangeRatesCommand implements Command {
 
     private static final String ZONE_EUROPE_CHISINAU = "Europe/Chisinau";
-    private static final String EXCHANGE_RATES = "Курс валют";
+    private static final String EXCHANGE_RATES = "Курс валют BNM";
     private static final String EXCHANGE_RATES_RESPONSE = "Курс валют Banca Nationala a Moldovei (%s):\n" +
             "\uD83C\uDDFA\uD83C\uDDF8 %s - %s MDL\n" +
             "\uD83C\uDDEA\uD83C\uDDFA %s - %s MDL\n" +
@@ -46,18 +46,17 @@ public class ExchangeRatesCommand implements Command {
             exchangeRatesService.updateExchangeRates();
         }
 
-        final List<ExchangeRateDto> exchangeRates = exchangeRatesService.getExchangeRates();
+        final List<ExchangeRateDto> exchangeRates = exchangeRatesService.getBNMExchangeRates();
         final String response = String.format(EXCHANGE_RATES_RESPONSE,
                 LocalDate.now(),
-                exchangeRates.get(0).getCurrency(), exchangeRates.get(0).getValue(),
-                exchangeRates.get(1).getCurrency(), exchangeRates.get(1).getValue(),
-                exchangeRates.get(2).getCurrency(), exchangeRates.get(2).getValue(),
-                exchangeRates.get(3).getCurrency(), exchangeRates.get(3).getValue(),
-                exchangeRates.get(4).getCurrency(), exchangeRates.get(4).getValue());
+                exchangeRates.get(0).getCurrency(), exchangeRates.get(0).getPurchase(),
+                exchangeRates.get(1).getCurrency(), exchangeRates.get(1).getPurchase(),
+                exchangeRates.get(2).getCurrency(), exchangeRates.get(2).getPurchase(),
+                exchangeRates.get(3).getCurrency(), exchangeRates.get(3).getPurchase(),
+                exchangeRates.get(4).getCurrency(), exchangeRates.get(4).getPurchase());
 
-        return getSendMessageWithReplyKeyboardMarkup(message, response, getUsefulReplyKeyboardMarkup());
+        return getSendMessageWithReplyKeyboardMarkup(message, response, getMoneyReplyKeyboardMarkup());
     }
-
 
     @Override
     public String getCommand() {

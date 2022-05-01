@@ -1,16 +1,21 @@
 package md.basarabeasca.bot.web.dto;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
+@Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class ExchangeRateDto {
 
-    private String currency;
-    private String value;
+  @JsonInclude(NON_EMPTY)
+  private String bankName;
+  private String currency;
+  private String purchase;
+  @JsonInclude(NON_EMPTY)
+  private String sale;
 }

@@ -11,6 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Rate {
 
+    private String bankName;
     private String currency;
-    private String value;
+    private String purchase;
+    private String sale;
 }
