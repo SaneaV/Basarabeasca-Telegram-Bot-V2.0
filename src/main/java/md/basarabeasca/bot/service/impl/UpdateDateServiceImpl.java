@@ -1,7 +1,7 @@
 package md.basarabeasca.bot.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import md.basarabeasca.bot.repository.model.UpdateDate;
+import md.basarabeasca.bot.repository.model.UpdateDateJpa;
 import md.basarabeasca.bot.repository.UpdateDateRepository;
 import md.basarabeasca.bot.service.UpdateDateService;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ public class UpdateDateServiceImpl implements UpdateDateService {
         final LocalDate updateDate = updateDateRepository.getDate();
 
         if (updateDate == null) {
-            final UpdateDate currentDate = UpdateDate.builder()
+            final UpdateDateJpa currentDate = UpdateDateJpa.builder()
                     .lastUpdateDate(LocalDate.now(ZoneId.of(ZONE_EUROPE_CHISINAU)))
                     .build();
             updateDateRepository.save(currentDate);
@@ -34,14 +34,14 @@ public class UpdateDateServiceImpl implements UpdateDateService {
 
     @Override
     public void deleteDate(LocalDate lastUpdateDate) {
-        final UpdateDate updateDate = updateDateRepository.findByLastUpdateDate(lastUpdateDate);
-        updateDateRepository.delete(updateDate);
+        final UpdateDateJpa updateDateJpa = updateDateRepository.findByLastUpdateDate(lastUpdateDate);
+        updateDateRepository.delete(updateDateJpa);
     }
 
     @Override
     public void updateDate() {
         deleteDate(getDate());
-        final UpdateDate currentDate = UpdateDate.builder()
+        final UpdateDateJpa currentDate = UpdateDateJpa.builder()
                 .lastUpdateDate(LocalDate.now())
                 .build();
         updateDateRepository.save(currentDate);

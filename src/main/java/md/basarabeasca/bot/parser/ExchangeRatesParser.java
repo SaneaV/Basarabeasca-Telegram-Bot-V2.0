@@ -1,11 +1,11 @@
 package md.basarabeasca.bot.parser;
 
 import java.util.List;
-import md.basarabeasca.bot.domain.Rate;
+import md.basarabeasca.bot.domain.ExchangeRate;
 
 public interface ExchangeRatesParser {
 
-  List<Rate> getBNMExchangeRates();
+  List<ExchangeRate> getBNMExchangeRates();
 
-  List<Rate> getPrivateBanksExchangeRates();
+  List<ExchangeRate> getPrivateBanksExchangeRates();
 }

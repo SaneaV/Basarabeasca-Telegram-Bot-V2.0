@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.repository.PhoneNumberRepository;
-import md.basarabeasca.bot.repository.model.PhoneNumber;
+import md.basarabeasca.bot.repository.model.PhoneNumberJpa;
 import md.basarabeasca.bot.service.PhoneNumberService;
 import md.basarabeasca.bot.web.dto.PhoneNumberDto;
 import org.springframework.stereotype.Service;
@@ -37,13 +37,13 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
 
   @Override
   public String addNumber(String number, String description) {
-    final PhoneNumber phoneNumber = PhoneNumber.builder()
+    final PhoneNumberJpa phoneNumberJpa = PhoneNumberJpa.builder()
         .phoneNumber(number)
         .description(description)
         .build();
 
     try {
-      phoneNumberRepository.save(phoneNumber);
+      phoneNumberRepository.save(phoneNumberJpa);
       return NUMBER_WAS_ADDED;
     } catch (Exception exception) {
       return ERROR;
@@ -73,11 +73,11 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
     }
   }
 
-  public PhoneNumberDto convertToDTO(PhoneNumber phoneNumber) {
+  public PhoneNumberDto convertToDTO(PhoneNumberJpa phoneNumberJpa) {
     return PhoneNumberDto.builder()
-        .id(phoneNumber.getId())
-        .phoneNumber(phoneNumber.getPhoneNumber())
-        .description(phoneNumber.getDescription())
+        .id(phoneNumberJpa.getId())
+        .phoneNumber(phoneNumberJpa.getPhoneNumber())
+        .description(phoneNumberJpa.getDescription())
         .build();
   }
 }

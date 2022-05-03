@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Rate {
+public class ExchangeRate {
 
     private String bankName;
     private String currency;

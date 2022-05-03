@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExchangeRate {
+public class ExchangeRateJpa {
 
   @Id
   @Column(name = "exchange_id", updatable = false, nullable = false)

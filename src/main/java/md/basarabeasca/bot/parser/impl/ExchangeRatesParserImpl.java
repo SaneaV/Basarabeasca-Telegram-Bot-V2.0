@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.Getter;
-import md.basarabeasca.bot.domain.Rate;
+import md.basarabeasca.bot.domain.ExchangeRate;
 import md.basarabeasca.bot.parser.ExchangeRatesParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -50,12 +50,12 @@ public class ExchangeRatesParserImpl implements ExchangeRatesParser {
   }
 
   @Override
-  public List<Rate> getBNMExchangeRates() {
+  public List<ExchangeRate> getBNMExchangeRates() {
     return getBNMRates();
   }
 
   @Override
-  public List<Rate> getPrivateBanksExchangeRates() {
+  public List<ExchangeRate> getPrivateBanksExchangeRates() {
     return getPrivateBanksRates();
   }
 
@@ -67,20 +67,20 @@ public class ExchangeRatesParserImpl implements ExchangeRatesParser {
     }
   }
 
-  private List<Rate> getBNMRates() {
+  private List<ExchangeRate> getBNMRates() {
     final Elements listRates = Objects.requireNonNull(
         getDocument(bnmSite).getElementsByClass(VIEW_RATES).first()).select(LI);
 
-    final List<Rate> rates = new ArrayList<>();
+    final List<ExchangeRate> exchangeRates = new ArrayList<>();
     listRates.forEach(exchangeRate -> {
       final String price = getValue(exchangeRate);
-      rates.add(new Rate(BNM, exchangeRate.getElementsByClass(CURRENCY).text(), price, price));
+      exchangeRates.add(new ExchangeRate(BNM, exchangeRate.getElementsByClass(CURRENCY).text(), price, price));
     });
 
-    return rates;
+    return exchangeRates;
   }
 
-  private List<Rate> getPrivateBanksRates() {
+  private List<ExchangeRate> getPrivateBanksRates() {
     final Element table = getDocument(cursMdSite).getElementsByClass(TABLE_SORTER).get(0);
     return Stream.of(MOLDINDCONBANK, FINCOMBANK, MAIB)
         .map(bank -> getPrivateBankRates(bank, table))
@@ -88,19 +88,19 @@ public class ExchangeRatesParserImpl implements ExchangeRatesParser {
         .collect(Collectors.toList());
   }
 
-  private List<Rate> getPrivateBankRates(String bank, Element table) {
+  private List<ExchangeRate> getPrivateBankRates(String bank, Element table) {
     if (table.getElementsByClass(bank.toLowerCase()).size() == 0) {
       return emptyList();
     } else {
-      final List<Rate> rates = new ArrayList<>();
+      final List<ExchangeRate> exchangeRates = new ArrayList<>();
 
       CURRENCY_INDEX.forEach(c -> {
         final Elements prices = table.getElementsByClass(bank.toLowerCase()).get(0)
             .getElementsByClass(String.format(COLUMN_COLUMN_IND, c, CURRENCY_INDEX.indexOf(c)));
-        rates.add(new Rate(bank, c, getPrice(prices, 1), getPrice(prices, 0)));
+        exchangeRates.add(new ExchangeRate(bank, c, getPrice(prices, 1), getPrice(prices, 0)));
       });
 
-      return rates;
+      return exchangeRates;
     }
   }
 
