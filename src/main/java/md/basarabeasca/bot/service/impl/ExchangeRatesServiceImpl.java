@@ -44,6 +44,7 @@ public class ExchangeRatesServiceImpl implements ExchangeRatesService {
   @Override
   public List<ExchangeRateDto> getBestPrivateBankExchangeRateFor(String currency, String action) {
     final List<ExchangeRate> allExchangeRates = exchangeRatesParser.getPrivateBanksExchangeRates().stream()
+        .filter(ex -> !DASH.equalsIgnoreCase(ex.getPurchase()))
         .filter(ex -> currency.equalsIgnoreCase(ex.getCurrency()))
         .collect(toList());
     return getBestPrivateBankExchangeRate(allExchangeRates, action);
@@ -65,14 +66,12 @@ public class ExchangeRatesServiceImpl implements ExchangeRatesService {
       return allExchangeRates.stream()
           .collect(groupingBy(ExchangeRate::getPurchase, TreeMap::new, toList()))
           .firstEntry().getValue().stream()
-          .filter(ex -> !DASH.equalsIgnoreCase(ex.getPurchase()))
           .map(this::convertToDTO)
           .collect(toList());
     } else {
       return allExchangeRates.stream()
           .collect(groupingBy(ExchangeRate::getSale, TreeMap::new, toList()))
           .lastEntry().getValue().stream()
-          .filter(ex -> !DASH.equalsIgnoreCase(ex.getSale()))
           .map(this::convertToDTO)
           .collect(toList());
     }

@@ -46,8 +46,8 @@ public class PrivateBanksBestExchangeCommand implements Command {
   private static final Map<String, String> BANK_FULL_NAME = Map.of("MICB", "Moldindconbank",
       "MAIB", "MAIB", "FinComBank", "FinComBank");
   private static final Map<String, String> FLAGS = Map.of("USD","\uD83C\uDDFA\uD83C\uDDF8",
-      "EUR", "\uD83C\uDDEA\uD83C\uDDFA", "RUB", "\uD83C\uDDFA\uD83C\uDDE6",
-      "RON", "\uD83C\uDDF7\uD83C\uDDF4", "UAH", "\uD83C\uDDF7\uD83C\uDDFA");
+      "EUR", "\uD83C\uDDEA\uD83C\uDDFA", "RUB", "\uD83C\uDDF7\uD83C\uDDFA",
+      "RON", "\uD83C\uDDF7\uD83C\uDDF4", "UAH", "\uD83C\uDDFA\uD83C\uDDE6");
 
   private final ExchangeRatesService exchangeRatesService;
 

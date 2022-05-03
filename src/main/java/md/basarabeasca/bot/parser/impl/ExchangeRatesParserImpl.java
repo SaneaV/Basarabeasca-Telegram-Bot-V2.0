@@ -32,13 +32,15 @@ public class ExchangeRatesParserImpl implements ExchangeRatesParser {
   private static final String RATE_DOWN = "rate down";
   private static final String TABLE_SORTER = "tablesorter";
   private static final String COLUMN_COLUMN_IND = "column-%s column-ind-%s";
+  private static final String COLUMN_UAH_COLUMN_IND_HIDDEN = "column-UAH column-ind-hidden";
 
   private static final String BNM = "BNM";
   private static final String MOLDINDCONBANK = "MICB";
   private static final String MAIB = "MAIB";
   private static final String FINCOMBANK = "FinComBank";
 
-  private static final List<String> CURRENCY_INDEX = List.of("USD", "EUR", "RUB", "RON", "UAH");
+  private static final String UAH = "UAH";
+  private static final List<String> CURRENCY_INDEX = List.of("USD", "EUR", "RUB", "RON", UAH);
 
   private final String bnmSite;
   private final String cursMdSite;
@@ -74,7 +76,8 @@ public class ExchangeRatesParserImpl implements ExchangeRatesParser {
     final List<ExchangeRate> exchangeRates = new ArrayList<>();
     listRates.forEach(exchangeRate -> {
       final String price = getValue(exchangeRate);
-      exchangeRates.add(new ExchangeRate(BNM, exchangeRate.getElementsByClass(CURRENCY).text(), price, price));
+      exchangeRates.add(
+          new ExchangeRate(BNM, exchangeRate.getElementsByClass(CURRENCY).text(), price, price));
     });
 
     return exchangeRates;
@@ -95,8 +98,12 @@ public class ExchangeRatesParserImpl implements ExchangeRatesParser {
       final List<ExchangeRate> exchangeRates = new ArrayList<>();
 
       CURRENCY_INDEX.forEach(c -> {
+        String findBy = String.format(COLUMN_COLUMN_IND, c, CURRENCY_INDEX.indexOf(c));
+        if (c.equalsIgnoreCase(UAH)) {
+          findBy = COLUMN_UAH_COLUMN_IND_HIDDEN;
+        }
         final Elements prices = table.getElementsByClass(bank.toLowerCase()).get(0)
-            .getElementsByClass(String.format(COLUMN_COLUMN_IND, c, CURRENCY_INDEX.indexOf(c)));
+            .getElementsByClass(findBy);
         exchangeRates.add(new ExchangeRate(bank, c, getPrice(prices, 1), getPrice(prices, 0)));
       });
 
