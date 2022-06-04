@@ -9,41 +9,43 @@ import java.util.List;
 import java.util.TreeMap;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.domain.ExchangeRate;
-import md.basarabeasca.bot.parser.ExchangeRatesParser;
-import md.basarabeasca.bot.repository.ExchangeRatesRepository;
+import md.basarabeasca.bot.parser.ExchangeRateParser;
+import md.basarabeasca.bot.repository.ExchangeRateRepository;
 import md.basarabeasca.bot.repository.model.ExchangeRateJpa;
-import md.basarabeasca.bot.service.ExchangeRatesService;
+import md.basarabeasca.bot.service.ExchangeRateService;
 import md.basarabeasca.bot.web.dto.ExchangeRateDto;
-import org.springframework.stereotype.Service;
+import md.basarabeasca.bot.web.mapper.ExchangeRateMapper;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 @RequiredArgsConstructor
-public class ExchangeRatesServiceImpl implements ExchangeRatesService {
+public class ExchangeRateServiceImpl implements ExchangeRateService {
 
   private static final String PURCHASE = "Купить";
   private static final String DASH = "-";
 
-  private final ExchangeRatesRepository exchangeRatesRepository;
-  private final ExchangeRatesParser exchangeRatesParser;
+  private final ExchangeRateRepository exchangeRateRepository;
+  private final ExchangeRateParser exchangeRateParser;
+  private final ExchangeRateMapper exchangeRateMapper;
 
   @Override
   public List<ExchangeRateDto> getBNMExchangeRates() {
-    final List<ExchangeRateJpa> exchangeRateJpas = exchangeRatesRepository.findAllByOrderByIdAsc();
+    final List<ExchangeRateJpa> exchangeRateJpas = exchangeRateRepository.findAllByOrderByIdAsc();
 
     if (isEmpty(exchangeRateJpas)) {
       return saveExchangeRates().stream()
-          .map(this::convertToDTO)
+          .map(exchangeRateMapper::toDto)
           .collect(toList());
     }
 
     return exchangeRateJpas.stream()
-        .map(this::convertToDTO)
+        .map(exchangeRateMapper::toDto)
         .collect(toList());
   }
 
   @Override
   public List<ExchangeRateDto> getBestPrivateBankExchangeRateFor(String currency, String action) {
-    final List<ExchangeRate> allExchangeRates = exchangeRatesParser.getPrivateBanksExchangeRates()
+    final List<ExchangeRate> allExchangeRates = exchangeRateParser.getPrivateBanksExchangeRates()
         .stream()
         .filter(ex -> !DASH.equalsIgnoreCase(ex.getPurchase()))
         .filter(ex -> currency.equalsIgnoreCase(ex.getCurrency()))
@@ -53,10 +55,10 @@ public class ExchangeRatesServiceImpl implements ExchangeRatesService {
 
   @Override
   public void updateExchangeRates() {
-    final List<ExchangeRate> exchangeRates = exchangeRatesParser.getBNMExchangeRates();
+    final List<ExchangeRate> exchangeRates = exchangeRateParser.getBNMExchangeRates();
 
     exchangeRates.forEach(
-        ex -> exchangeRatesRepository.updateExchangeRate(ex.getCurrency(), ex.getPurchase()));
+        ex -> exchangeRateRepository.updateExchangeRate(ex.getCurrency(), ex.getPurchase()));
   }
 
   private List<ExchangeRateDto> getBestPrivateBankExchangeRate(List<ExchangeRate> allExchangeRates,
@@ -68,43 +70,27 @@ public class ExchangeRatesServiceImpl implements ExchangeRatesService {
       return allExchangeRates.stream()
           .collect(groupingBy(ExchangeRate::getPurchase, TreeMap::new, toList()))
           .firstEntry().getValue().stream()
-          .map(this::convertToDTO)
+          .map(exchangeRateMapper::toDto)
           .collect(toList());
     } else {
       return allExchangeRates.stream()
           .collect(groupingBy(ExchangeRate::getSale, TreeMap::new, toList()))
           .lastEntry().getValue().stream()
-          .map(this::convertToDTO)
+          .map(exchangeRateMapper::toDto)
           .collect(toList());
     }
   }
 
   private List<ExchangeRateJpa> saveExchangeRates() {
-    final List<ExchangeRate> exchangeRates = exchangeRatesParser.getBNMExchangeRates();
+    final List<ExchangeRate> exchangeRates = exchangeRateParser.getBNMExchangeRates();
 
     final List<ExchangeRateJpa> exchangeRateJpas = exchangeRates.stream().map(
-            exchangeRate -> exchangeRatesRepository.save(ExchangeRateJpa.builder()
+            exchangeRate -> exchangeRateRepository.save(ExchangeRateJpa.builder()
                 .currency(exchangeRate.getCurrency())
                 .value(exchangeRate.getPurchase())
                 .build()))
         .collect(toList());
 
-    return exchangeRatesRepository.saveAll(exchangeRateJpas);
-  }
-
-  public ExchangeRateDto convertToDTO(ExchangeRateJpa exchangeRateJpa) {
-    return ExchangeRateDto.builder()
-        .purchase(exchangeRateJpa.getValue())
-        .currency(exchangeRateJpa.getCurrency())
-        .build();
-  }
-
-  public ExchangeRateDto convertToDTO(ExchangeRate exchangeRate) {
-    return ExchangeRateDto.builder()
-        .bankName(exchangeRate.getBankName())
-        .currency(exchangeRate.getCurrency())
-        .purchase(exchangeRate.getPurchase())
-        .sale(exchangeRate.getSale())
-        .build();
+    return exchangeRateRepository.saveAll(exchangeRateJpas);
   }
 }

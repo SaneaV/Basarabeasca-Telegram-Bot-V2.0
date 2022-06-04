@@ -9,9 +9,10 @@ import md.basarabeasca.bot.repository.PhoneNumberRepository;
 import md.basarabeasca.bot.repository.model.PhoneNumberJpa;
 import md.basarabeasca.bot.service.PhoneNumberService;
 import md.basarabeasca.bot.web.dto.PhoneNumberDto;
-import org.springframework.stereotype.Service;
+import md.basarabeasca.bot.web.mapper.PhoneNumberMapper;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class PhoneNumberServiceImpl implements PhoneNumberService {
 
@@ -19,18 +20,19 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
   private static final String NUMBER_WAS_DELETED = "Номер был удалён";
 
   private final PhoneNumberRepository phoneNumberRepository;
+  private final PhoneNumberMapper phoneNumberMapper;
 
   @Override
   public List<PhoneNumberDto> getNextPage(Long lastId) {
     return phoneNumberRepository.getNextPage(lastId).stream()
-        .map(this::convertToDTO)
+        .map(phoneNumberMapper::toDto)
         .collect(toList());
   }
 
   @Override
   public List<PhoneNumberDto> getPreviousPage(Long lastId) {
     return phoneNumberRepository.getPreviousPage(lastId).stream()
-        .map(this::convertToDTO)
+        .map(phoneNumberMapper::toDto)
         .collect(toList());
   }
 
@@ -64,19 +66,11 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
     try {
       return phoneNumberRepository.findByDescriptionIgnoreCaseContaining(description)
           .stream()
-          .map(this::convertToDTO)
+          .map(phoneNumberMapper::toDto)
           .sorted(Comparator.comparing(PhoneNumberDto::getDescription))
           .collect(toList());
     } catch (Exception exception) {
       return null;
     }
-  }
-
-  public PhoneNumberDto convertToDTO(PhoneNumberJpa phoneNumberJpa) {
-    return PhoneNumberDto.builder()
-        .id(phoneNumberJpa.getId())
-        .phoneNumber(phoneNumberJpa.getPhoneNumber())
-        .description(phoneNumberJpa.getDescription())
-        .build();
   }
 }

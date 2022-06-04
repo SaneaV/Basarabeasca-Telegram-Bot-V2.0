@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.AllArgsConstructor;
 import md.basarabeasca.bot.action.command.Command;
-import md.basarabeasca.bot.service.ExchangeRatesService;
+import md.basarabeasca.bot.service.ExchangeRateService;
 import md.basarabeasca.bot.web.dto.ExchangeRateDto;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
@@ -50,7 +50,7 @@ public class PrivateBanksBestExchangeCommand implements Command {
       "EUR", "\uD83C\uDDEA\uD83C\uDDFA", "RUB", "\uD83C\uDDF7\uD83C\uDDFA",
       "RON", "\uD83C\uDDF7\uD83C\uDDF4", "UAH", "\uD83C\uDDFA\uD83C\uDDE6");
 
-  private final ExchangeRatesService exchangeRatesService;
+  private final ExchangeRateService exchangeRateService;
 
   @Override
   public List<? super PartialBotApiMethod<?>> execute(Update update) {
@@ -60,7 +60,7 @@ public class PrivateBanksBestExchangeCommand implements Command {
   private List<? super PartialBotApiMethod<?>> sendBestExchange(Message message) {
     final String action = getPatternGroup(message.getText(), 1);
     final String currency = getPatternGroup(message.getText(), 2);
-    final List<ExchangeRateDto> bestPrivateBankExchangeRates = exchangeRatesService
+    final List<ExchangeRateDto> bestPrivateBankExchangeRates = exchangeRateService
         .getBestPrivateBankExchangeRateFor(currency, action);
     if (isEmpty(bestPrivateBankExchangeRates)) {
       return singletonList(getSendMessageWithReplyKeyboardMarkup(message, NOT_AVAILABLE_MESSAGE,

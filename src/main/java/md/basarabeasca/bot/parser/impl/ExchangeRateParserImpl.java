@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.Getter;
 import md.basarabeasca.bot.domain.ExchangeRate;
-import md.basarabeasca.bot.parser.ExchangeRatesParser;
+import md.basarabeasca.bot.parser.ExchangeRateParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Component
-public class ExchangeRatesParserImpl implements ExchangeRatesParser {
+public class ExchangeRateParserImpl implements ExchangeRateParser {
 
   private static final String VIEW_RATES = "view-rates";
   private static final String CURRENCY = "currency";
@@ -45,7 +45,7 @@ public class ExchangeRatesParserImpl implements ExchangeRatesParser {
   private final String bnmSite;
   private final String cursMdSite;
 
-  public ExchangeRatesParserImpl(@Value("${site.exchange-rates.bnm}") String bnmSite,
+  public ExchangeRateParserImpl(@Value("${site.exchange-rates.bnm}") String bnmSite,
       @Value("${site.best-exchange-rates.curs-md}") String cursMdSite) {
     this.bnmSite = bnmSite;
     this.cursMdSite = cursMdSite;

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public interface ExchangeRatesRepository extends JpaRepository<ExchangeRateJpa, Long> {
+public interface ExchangeRateRepository extends JpaRepository<ExchangeRateJpa, Long> {
 
   List<ExchangeRateJpa> findAllByOrderByIdAsc();
 
