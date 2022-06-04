@@ -1,50 +1,53 @@
 package md.basarabeasca.bot.parser;
 
-import md.basarabeasca.bot.domain.News;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import md.basarabeasca.bot.domain.News;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 public interface NewsSiteParser {
 
-    Elements getNewsTitle() throws IOException;
+  Elements getNewsTitle(Document parsedSite);
 
-    Elements getNewsDescription() throws IOException;
+  Elements getNewsDescription(Document parsedSite);
 
-    Elements getNewsLink() throws IOException;
+  Elements getNewsLink(Document parsedSite);
 
-    Elements getNewsImage() throws IOException;
+  Elements getNewsImage(Document parsedSite);
 
-    Document getDocument() throws IOException;
+  Document getDocument() throws IOException;
 
-    List<News> getLastNews() throws IOException, InterruptedException;
+  List<News> getLastNews();
 
-    default List<Elements> getNewsFromThreads() {
-        final ExecutorService executorService = Executors.newFixedThreadPool(4);
+  default List<Elements> getNewsFromThreads() {
+    final Document parsedSite = getParsedSite();
+    final ExecutorService executorService = Executors.newFixedThreadPool(4);
 
-        final Future<Elements> namesFuture = executorService.submit(this::getNewsTitle);
-        final Future<Elements> descriptionsFuture = executorService.submit(this::getNewsDescription);
-        final Future<Elements> linksFuture = executorService.submit(this::getNewsLink);
-        final Future<Elements> imagesFuture = executorService.submit(this::getNewsImage);
+    final Future<Elements> newsTitle = executorService.submit(() -> getNewsTitle(parsedSite));
+    final Future<Elements> newsDescription = executorService.submit(
+        () -> getNewsDescription(parsedSite));
+    final Future<Elements> newsLink = executorService.submit(() -> getNewsLink(parsedSite));
+    final Future<Elements> newsImage = executorService.submit(() -> getNewsImage(parsedSite));
 
-        executorService.shutdown();
+    executorService.shutdown();
 
-        List<Elements> list = null;
-        try {
-            list = List.of(namesFuture.get(),
-                    descriptionsFuture.get(),
-                    linksFuture.get(),
-                    imagesFuture.get());
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return list;
+    try {
+      return List.of(newsTitle.get(), newsDescription.get(), newsLink.get(), newsImage.get());
+    } catch (InterruptedException | ExecutionException e) {
+      throw new RuntimeException();
     }
+  }
+
+  default Document getParsedSite() {
+    try {
+      return getDocument();
+    } catch (IOException e) {
+      throw new RuntimeException();
+    }
+  }
 }
