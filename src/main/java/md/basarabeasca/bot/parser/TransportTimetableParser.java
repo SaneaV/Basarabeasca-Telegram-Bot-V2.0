@@ -2,7 +2,7 @@ package md.basarabeasca.bot.parser;
 
 import org.jsoup.nodes.Document;
 
-public interface TimetableTransportParser {
+public interface TransportTimetableParser {
 
   String getTimetable();
 

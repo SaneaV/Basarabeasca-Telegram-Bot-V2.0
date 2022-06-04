@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import lombok.Getter;
-import md.basarabeasca.bot.parser.TimetableTransportParser;
+import md.basarabeasca.bot.parser.TransportTimetableParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,14 +12,14 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Component
-public class TimetableTransportParserImpl implements TimetableTransportParser {
+public class TransportTimetableParserImpl implements TransportTimetableParser {
 
   private static final String ENTRY_CONTENT = "div[class=\"entry-content clearfix single-post-content\"]";
 
   private final String site;
 
-  public TimetableTransportParserImpl(
-      @Value("${site.timetable-public-transport.bastv}") String site) {
+  public TransportTimetableParserImpl(
+      @Value("${site.public-transport-timetable.bastv}") String site) {
     this.site = site;
   }
 

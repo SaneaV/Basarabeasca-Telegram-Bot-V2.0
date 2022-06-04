@@ -43,7 +43,8 @@ public class ExchangeRatesServiceImpl implements ExchangeRatesService {
 
   @Override
   public List<ExchangeRateDto> getBestPrivateBankExchangeRateFor(String currency, String action) {
-    final List<ExchangeRate> allExchangeRates = exchangeRatesParser.getPrivateBanksExchangeRates().stream()
+    final List<ExchangeRate> allExchangeRates = exchangeRatesParser.getPrivateBanksExchangeRates()
+        .stream()
         .filter(ex -> !DASH.equalsIgnoreCase(ex.getPurchase()))
         .filter(ex -> currency.equalsIgnoreCase(ex.getCurrency()))
         .collect(toList());
@@ -58,7 +59,8 @@ public class ExchangeRatesServiceImpl implements ExchangeRatesService {
         ex -> exchangeRatesRepository.updateExchangeRate(ex.getCurrency(), ex.getPurchase()));
   }
 
-  private List<ExchangeRateDto> getBestPrivateBankExchangeRate(List<ExchangeRate> allExchangeRates, String action) {
+  private List<ExchangeRateDto> getBestPrivateBankExchangeRate(List<ExchangeRate> allExchangeRates,
+      String action) {
     if (isEmpty(allExchangeRates)) {
       return emptyList();
     }

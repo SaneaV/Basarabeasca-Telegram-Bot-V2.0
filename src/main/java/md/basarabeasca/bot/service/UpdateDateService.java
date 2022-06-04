@@ -4,9 +4,9 @@ import java.time.LocalDate;
 
 public interface UpdateDateService {
 
-    LocalDate getDate();
+  LocalDate getDate();
 
-    void deleteDate(LocalDate lastUpdateDate);
+  void deleteDate(LocalDate lastUpdateDate);
 
-    void updateDate();
+  void updateDate();
 }

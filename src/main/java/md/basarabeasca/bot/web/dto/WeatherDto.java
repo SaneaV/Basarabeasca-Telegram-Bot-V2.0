@@ -9,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WeatherDto {
 
-    private final String date;
-    private final String tempDay;
-    private final String tempNight;
-    private final String description;
+  private final String date;
+  private final String tempDay;
+  private final String tempNight;
+  private final String description;
 }

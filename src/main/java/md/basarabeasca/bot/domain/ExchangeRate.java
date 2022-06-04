@@ -11,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ExchangeRate {
 
-    private String bankName;
-    private String currency;
-    private String purchase;
-    private String sale;
+  private String bankName;
+  private String currency;
+  private String purchase;
+  private String sale;
 }

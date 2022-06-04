@@ -3,19 +3,19 @@ package md.basarabeasca.bot.service.impl;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import lombok.AllArgsConstructor;
-import md.basarabeasca.bot.service.TimetableBanksService;
+import lombok.Getter;
+import md.basarabeasca.bot.service.BankHoursService;
 import org.springframework.stereotype.Component;
 
+@Getter
 @Component
-@AllArgsConstructor
-public class TimetableBanksServiceImpl implements TimetableBanksService {
+public class BankHoursServiceImpl implements BankHoursService {
 
-  private static final String timeTableFile = "src/main/resources/BanksTimetable.txt";
+  private static final String bankHoursFile = "src/main/resources/BankHours.txt";
 
   @Override
-  public String getTimetable() {
-    try (final BufferedReader br = new BufferedReader(new FileReader(timeTableFile))) {
+  public String getBankHours() {
+    try (final BufferedReader br = new BufferedReader(new FileReader(bankHoursFile))) {
       StringBuilder sb = new StringBuilder();
       String line = br.readLine();
 

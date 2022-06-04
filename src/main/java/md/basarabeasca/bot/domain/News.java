@@ -9,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class News {
 
-    private final String name;
-    private final String description;
-    private final String image;
-    private final String link;
+  private final String name;
+  private final String description;
+  private final String image;
+  private final String link;
 }

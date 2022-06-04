@@ -34,7 +34,8 @@ public class PrivateBanksBestExchangeCommand implements Command {
       "На данный момент ничего найти не можем. Возможные причины:\n"
           + "1. Все банки уже закрыты или ещё не открывались.\n"
           + "2. Указанная вами валюта, на данный момент, не продаётся/покупается в банках.";
-  private static final String BEST_EXCHANGE_MESSAGE = "Лучше всего сегодня (%s) можно %s %s в городе "
+  private static final String BEST_EXCHANGE_MESSAGE =
+      "Лучше всего сегодня (%s) можно %s %s в городе "
           + "Бессарабка в банке %s:\n%s MDL\uD83C\uDDF2\uD83C\uDDE9 - 1 %s%s";
   private static final String EXCHANGE_RATE_ONLY_IN_MAIN_OFFICE = "*Курсы действительны только в "
       + "главном офисе банка и могут отличаться в его территориальных подразделениях.*";
@@ -45,7 +46,7 @@ public class PrivateBanksBestExchangeCommand implements Command {
       "FinComBank", List.of(46.3288529138939, 28.98279079088726));
   private static final Map<String, String> BANK_FULL_NAME = Map.of("MICB", "Moldindconbank",
       "MAIB", "MAIB", "FinComBank", "FinComBank");
-  private static final Map<String, String> FLAGS = Map.of("USD","\uD83C\uDDFA\uD83C\uDDF8",
+  private static final Map<String, String> FLAGS = Map.of("USD", "\uD83C\uDDFA\uD83C\uDDF8",
       "EUR", "\uD83C\uDDEA\uD83C\uDDFA", "RUB", "\uD83C\uDDF7\uD83C\uDDFA",
       "RON", "\uD83C\uDDF7\uD83C\uDDF4", "UAH", "\uD83C\uDDFA\uD83C\uDDE6");
 

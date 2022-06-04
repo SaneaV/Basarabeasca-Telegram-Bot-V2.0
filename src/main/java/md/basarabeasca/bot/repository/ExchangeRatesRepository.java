@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface ExchangeRatesRepository extends JpaRepository<ExchangeRateJpa, Long> {
 
-    List<ExchangeRateJpa> findAllByOrderByIdAsc();
+  List<ExchangeRateJpa> findAllByOrderByIdAsc();
 
-    @Modifying
-    @Query(value = "UPDATE exchange_rates SET value = ?2 WHERE currency = ?1", nativeQuery = true)
-    void updateExchangeRate(String currency, String exchangeRate);
+  @Modifying
+  @Query(value = "UPDATE exchange_rates SET value = ?2 WHERE currency = ?1", nativeQuery = true)
+  void updateExchangeRate(String currency, String exchangeRate);
 }

@@ -1,6 +1,6 @@
 package md.basarabeasca.bot.service;
 
-public interface TimetableBanksService {
+public interface TransportTimetableService {
 
   String getTimetable();
 }

@@ -7,7 +7,7 @@ import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessage
 import java.util.List;
 import lombok.AllArgsConstructor;
 import md.basarabeasca.bot.action.command.Command;
-import md.basarabeasca.bot.service.TimetableTransportService;
+import md.basarabeasca.bot.service.TransportTimetableService;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -20,7 +20,7 @@ public class TimetablePublicTransportCommand implements Command {
 
   private static final String PUBLIC_TRANSPORT_TIMETABLE = "Расписание междугородних рейсов";
 
-  private final TimetableTransportService timetableTransportService;
+  private final TransportTimetableService transportTimetableService;
 
   @Override
   public List<? super PartialBotApiMethod<?>> execute(Update update) {
@@ -28,7 +28,7 @@ public class TimetablePublicTransportCommand implements Command {
   }
 
   private SendMessage sendTimetable(Message message) {
-    return getSendMessageWithReplyKeyboardMarkup(message, timetableTransportService.getTimetable(),
+    return getSendMessageWithReplyKeyboardMarkup(message, transportTimetableService.getTimetable(),
         getUsefulReplyKeyboardMarkup());
   }
 
