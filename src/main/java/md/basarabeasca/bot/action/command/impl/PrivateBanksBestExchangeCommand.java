@@ -41,8 +41,8 @@ public class PrivateBanksBestExchangeCommand implements Command {
       + "главном офисе банка и могут отличаться в его территориальных подразделениях.*";
 
   private static final Map<String, List<Double>> bankLocations = Map.of(
-      "MICB", List.of(46.34025107589049, 28.96563477432835),
-      "MAIB", List.of(46.33153125615052, 28.963369692079194),
+      "MICB", List.of(46.33025989617843, 28.964659653818252),
+      "MAIB", List.of(46.331488053032366, 28.963340167703546),
       "FinComBank", List.of(46.3288529138939, 28.98279079088726));
   private static final Map<String, String> BANK_FULL_NAME = Map.of("MICB", "Moldindconbank",
       "MAIB", "MAIB", "FinComBank", "FinComBank");
