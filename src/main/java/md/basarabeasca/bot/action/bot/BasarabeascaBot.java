@@ -41,30 +41,38 @@ public class BasarabeascaBot extends TelegramWebhookBot {
   @Override
   public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
     if ((update.hasMessage() && update.getMessage().hasText()) || update.hasCallbackQuery()) {
-      dispatcherCommand.execute(update).forEach(message -> {
+      try {
+        dispatcherCommand.execute(update).forEach(message -> {
+          try {
+            if (message instanceof SendPhoto) {
+              execute((SendPhoto) message);
+            }
+            if (message instanceof DeleteMessage) {
+              execute((DeleteMessage) message);
+            }
+            if (message instanceof SendMessage) {
+              execute((SendMessage) message);
+            }
+            if (message instanceof SendLocation) {
+              execute((SendLocation) message);
+            }
+          } catch (Exception exception) {
             try {
-              if (message instanceof SendPhoto) {
-                execute((SendPhoto) message);
-              }
-              if (message instanceof DeleteMessage) {
-                execute((DeleteMessage) message);
-              }
-              if (message instanceof SendMessage) {
-                execute((SendMessage) message);
-              }
-              if (message instanceof SendLocation) {
-                execute((SendLocation) message);
-              }
-            } catch (Exception exception) {
-              try {
-                execute(getSendMessageError(update.getMessage(), ERROR_MESSAGE));
-              } catch (TelegramApiException e) {
-                e.printStackTrace();
-              }
+              execute(getSendMessageError(update.getMessage(), ERROR_MESSAGE));
+            } catch (TelegramApiException e) {
+              e.printStackTrace();
             }
           }
-      );
+        });
+      } catch (Exception e) {
+        try {
+          execute(getSendMessageError(update.getMessage(), ERROR_MESSAGE));
+        } catch (TelegramApiException ex) {
+          ex.printStackTrace();
+        }
+      }
     }
+
     return null;
   }
 

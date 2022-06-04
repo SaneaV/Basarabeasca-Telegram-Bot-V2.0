@@ -17,10 +17,14 @@ public class DispatcherCommand {
 
   public List<? super BotApiMethod<?>> execute(Update update) {
 
-    if (update.hasCallbackQuery()) {
-      return callbackQueryFacade.processCallbackQuery(update.getCallbackQuery());
-    }
+    try {
+      if (update.hasCallbackQuery()) {
+        return callbackQueryFacade.processCallbackQuery(update.getCallbackQuery());
+      }
 
-    return commandFacade.processCommand(update);
+      return commandFacade.processCommand(update);
+    } catch (Exception e) {
+      throw new RuntimeException();
+    }
   }
 }

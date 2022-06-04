@@ -17,7 +17,6 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
 
   private static final String NUMBER_WAS_ADDED = "Номер был добавлен";
   private static final String NUMBER_WAS_DELETED = "Номер был удалён";
-  private static final String ERROR = "Произошла ошибка при отправлении сообщения. Пожалуйста, обратитесь к @SaneaV";
 
   private final PhoneNumberRepository phoneNumberRepository;
 
@@ -46,7 +45,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
       phoneNumberRepository.save(phoneNumberJpa);
       return NUMBER_WAS_ADDED;
     } catch (Exception exception) {
-      return ERROR;
+      throw new RuntimeException();
     }
   }
 
@@ -56,7 +55,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
       phoneNumberRepository.delete(phoneNumberRepository.findByPhoneNumber(number));
       return NUMBER_WAS_DELETED;
     } catch (Exception exception) {
-      return ERROR;
+      throw new RuntimeException();
     }
   }
 

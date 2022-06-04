@@ -1,8 +1,6 @@
 package md.basarabeasca.bot.action.callback;
 
-import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.action.callback.CallbackQueryType.valueOf;
-import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessage;
 import static org.apache.commons.lang3.StringUtils.SPACE;
 
 import java.util.List;
@@ -16,8 +14,6 @@ import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 @RequiredArgsConstructor
 public class CallbackQueryFacade {
 
-  private static final String ERROR = "Произошла ошибка при отправлении сообщения. Пожалуйста, обратитесь к @SaneaV";
-
   private final List<CallbackQueryHandler> callbackQueryHandlers;
 
   public List<? super PartialBotApiMethod<?>> processCallbackQuery(CallbackQuery usersQuery) {
@@ -29,10 +25,10 @@ public class CallbackQueryFacade {
           .findFirst();
 
       return queryHandler.map(handler -> handler.handleCallbackQuery(usersQuery))
-          .orElse(singletonList(getSendMessage(usersQuery.getMessage(), ERROR)));
+          .orElseThrow(RuntimeException::new);
+
     } catch (Exception exception) {
-      exception.printStackTrace();
-      return singletonList(getSendMessage(usersQuery.getMessage(), ERROR));
+      throw new RuntimeException();
     }
   }
 }
