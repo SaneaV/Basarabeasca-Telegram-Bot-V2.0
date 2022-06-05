@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.repository.PhoneNumberRepository;
 import md.basarabeasca.bot.repository.model.PhoneNumberJpa;
 import md.basarabeasca.bot.service.PhoneNumberService;
-import md.basarabeasca.bot.web.dto.PhoneNumberDto;
 import md.basarabeasca.bot.web.converter.PhoneNumberMapper;
+import md.basarabeasca.bot.web.dto.PhoneNumberDto;
 import org.springframework.stereotype.Component;
 
 @Component

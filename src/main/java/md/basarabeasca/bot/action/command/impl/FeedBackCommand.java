@@ -6,7 +6,6 @@ import md.basarabeasca.bot.action.command.NewsSiteCommand;
 import md.basarabeasca.bot.parser.impl.FeedBackParserImpl;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
@@ -21,11 +20,7 @@ public class FeedBackCommand implements NewsSiteCommand {
 
   @Override
   public List<? super PartialBotApiMethod<?>> execute(Update update) {
-    return sendFeedBackNews(update.getMessage());
-  }
-
-  private List<? super PartialBotApiMethod<?>> sendFeedBackNews(Message message) {
-    return sendNews(message, feedBackParserImpl.getLastNews(), LAST_10_NEWS_FEEDBACK);
+    return sendNews(update.getMessage(), feedBackParserImpl.getLastNews(), LAST_10_NEWS_FEEDBACK);
   }
 
   @Override

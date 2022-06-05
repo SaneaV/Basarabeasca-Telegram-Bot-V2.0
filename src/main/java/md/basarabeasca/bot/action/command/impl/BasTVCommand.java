@@ -6,7 +6,6 @@ import md.basarabeasca.bot.action.command.NewsSiteCommand;
 import md.basarabeasca.bot.parser.impl.BasTVParserImpl;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
@@ -21,11 +20,7 @@ public class BasTVCommand implements NewsSiteCommand {
 
   @Override
   public List<? super PartialBotApiMethod<?>> execute(Update update) {
-    return sendBasTVNews(update.getMessage());
-  }
-
-  private List<? super PartialBotApiMethod<?>> sendBasTVNews(Message message) {
-    return sendNews(message, basTVParserImpl.getLastNews(), LAST_10_NEWS_BASTV);
+    return sendNews(update.getMessage(), basTVParserImpl.getLastNews(), LAST_10_NEWS_BASTV);
   }
 
   @Override

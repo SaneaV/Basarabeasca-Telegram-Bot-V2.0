@@ -16,12 +16,10 @@ public class DispatcherCommand {
   private final CommandFacade commandFacade;
 
   public List<? super BotApiMethod<?>> execute(Update update) {
-
     try {
       if (update.hasCallbackQuery()) {
         return callbackQueryFacade.processCallbackQuery(update.getCallbackQuery());
       }
-
       return commandFacade.processCommand(update);
     } catch (Exception e) {
       throw new RuntimeException();

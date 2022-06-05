@@ -2,8 +2,8 @@ package md.basarabeasca.bot.web.converter.impl;
 
 import md.basarabeasca.bot.domain.ExchangeRate;
 import md.basarabeasca.bot.repository.model.ExchangeRateJpa;
-import md.basarabeasca.bot.web.dto.ExchangeRateDto;
 import md.basarabeasca.bot.web.converter.ExchangeRateMapper;
+import md.basarabeasca.bot.web.dto.ExchangeRateDto;
 import org.springframework.stereotype.Component;
 
 @Component

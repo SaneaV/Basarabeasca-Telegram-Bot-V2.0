@@ -13,8 +13,8 @@ import md.basarabeasca.bot.parser.ExchangeRateParser;
 import md.basarabeasca.bot.repository.ExchangeRateRepository;
 import md.basarabeasca.bot.repository.model.ExchangeRateJpa;
 import md.basarabeasca.bot.service.ExchangeRateService;
-import md.basarabeasca.bot.web.dto.ExchangeRateDto;
 import md.basarabeasca.bot.web.converter.ExchangeRateMapper;
+import md.basarabeasca.bot.web.dto.ExchangeRateDto;
 import org.springframework.stereotype.Component;
 
 @Component
