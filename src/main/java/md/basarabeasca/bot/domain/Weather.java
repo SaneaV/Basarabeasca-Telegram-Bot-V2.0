@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.web.dto;
+package md.basarabeasca.bot.domain;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class WeatherDto {
+public class Weather {
 
   private final String date;
-  private final String tempDay;
-  private final String tempNight;
+  private final String daytimeTemperature;
+  private final String nightTemperature;
   private final String description;
 }

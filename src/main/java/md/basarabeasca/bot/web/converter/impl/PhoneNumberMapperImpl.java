@@ -1,8 +1,8 @@
-package md.basarabeasca.bot.web.mapper.impl;
+package md.basarabeasca.bot.web.converter.impl;
 
 import md.basarabeasca.bot.repository.model.PhoneNumberJpa;
 import md.basarabeasca.bot.web.dto.PhoneNumberDto;
-import md.basarabeasca.bot.web.mapper.PhoneNumberMapper;
+import md.basarabeasca.bot.web.converter.PhoneNumberMapper;
 import org.springframework.stereotype.Component;
 
 @Component

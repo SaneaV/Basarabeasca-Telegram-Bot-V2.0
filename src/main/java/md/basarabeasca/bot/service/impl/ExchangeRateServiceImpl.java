@@ -14,7 +14,7 @@ import md.basarabeasca.bot.repository.ExchangeRateRepository;
 import md.basarabeasca.bot.repository.model.ExchangeRateJpa;
 import md.basarabeasca.bot.service.ExchangeRateService;
 import md.basarabeasca.bot.web.dto.ExchangeRateDto;
-import md.basarabeasca.bot.web.mapper.ExchangeRateMapper;
+import md.basarabeasca.bot.web.converter.ExchangeRateMapper;
 import org.springframework.stereotype.Component;
 
 @Component

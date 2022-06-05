@@ -1,6 +1,6 @@
 package md.basarabeasca.bot.service.impl;
 
-import static md.basarabeasca.bot.service.impl.FileReaderService.readFromInputStream;
+import static md.basarabeasca.bot.util.InputStreamReader.readFromInputStream;
 
 import java.io.IOException;
 import java.io.InputStream;

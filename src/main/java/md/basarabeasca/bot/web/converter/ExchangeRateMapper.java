@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.web.mapper;
+package md.basarabeasca.bot.web.converter;
 
 import md.basarabeasca.bot.domain.ExchangeRate;
 import md.basarabeasca.bot.repository.model.ExchangeRateJpa;
