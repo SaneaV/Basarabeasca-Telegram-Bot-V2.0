@@ -13,7 +13,7 @@ import md.basarabeasca.bot.parser.ExchangeRateParser;
 import md.basarabeasca.bot.repository.ExchangeRateRepository;
 import md.basarabeasca.bot.repository.model.ExchangeRateJpa;
 import md.basarabeasca.bot.service.ExchangeRateService;
-import md.basarabeasca.bot.web.converter.ExchangeRateMapper;
+import md.basarabeasca.bot.web.converter.ExchangeRateConverter;
 import md.basarabeasca.bot.web.dto.ExchangeRateDto;
 import org.springframework.stereotype.Component;
 
@@ -26,21 +26,17 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
   private final ExchangeRateRepository exchangeRateRepository;
   private final ExchangeRateParser exchangeRateParser;
-  private final ExchangeRateMapper exchangeRateMapper;
+  private final ExchangeRateConverter exchangeRateConverter;
 
   @Override
-  public List<ExchangeRateDto> getBNMExchangeRates() {
+  public String getBNMExchangeRates() {
     final List<ExchangeRateJpa> exchangeRateJpas = exchangeRateRepository.findAllByOrderByIdAsc();
 
     if (isEmpty(exchangeRateJpas)) {
-      return saveExchangeRates().stream()
-          .map(exchangeRateMapper::toDto)
-          .collect(toList());
+      return exchangeRateConverter.toString(saveExchangeRates());
     }
 
-    return exchangeRateJpas.stream()
-        .map(exchangeRateMapper::toDto)
-        .collect(toList());
+    return exchangeRateConverter.toString(exchangeRateJpas);
   }
 
   @Override
@@ -70,13 +66,13 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
       return allExchangeRates.stream()
           .collect(groupingBy(ExchangeRate::getPurchase, TreeMap::new, toList()))
           .firstEntry().getValue().stream()
-          .map(exchangeRateMapper::toDto)
+          .map(exchangeRateConverter::toDto)
           .collect(toList());
     } else {
       return allExchangeRates.stream()
           .collect(groupingBy(ExchangeRate::getSale, TreeMap::new, toList()))
           .lastEntry().getValue().stream()
-          .map(exchangeRateMapper::toDto)
+          .map(exchangeRateConverter::toDto)
           .collect(toList());
     }
   }
