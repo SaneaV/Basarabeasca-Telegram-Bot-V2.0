@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 import md.basarabeasca.bot.domain.Weather;
-import md.basarabeasca.bot.domain.converter.WeatherPojoConverter;
+import md.basarabeasca.bot.domain.mapper.WeatherMapper;
 import md.basarabeasca.bot.parser.WeatherParser;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,15 +18,15 @@ public class WeatherParserImpl implements WeatherParser {
 
   private final String site;
   private final String appId;
-  private final WeatherPojoConverter weatherPojoConverter;
+  private final WeatherMapper weatherMapper;
 
   public WeatherParserImpl(
       @Value("${weather.site}") String site,
       @Value("${weather.appid}") String appId,
-      WeatherPojoConverter weatherPojoConverter) {
+      WeatherMapper weatherMapper) {
     this.site = site;
     this.appId = appId;
-    this.weatherPojoConverter = weatherPojoConverter;
+    this.weatherMapper = weatherMapper;
   }
 
   @Override
@@ -35,6 +35,6 @@ public class WeatherParserImpl implements WeatherParser {
     final InputStream weatherInputStream = new URL(url).openStream();
     final String weatherInJsonString = readFromInputStream(weatherInputStream);
     final JSONObject weatherInJsonObject = new JSONObject(weatherInJsonString);
-    return weatherPojoConverter.toObject(weatherInJsonObject);
+    return weatherMapper.toEntity(weatherInJsonObject);
   }
 }

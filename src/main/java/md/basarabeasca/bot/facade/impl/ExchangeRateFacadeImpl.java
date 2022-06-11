@@ -4,10 +4,11 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import md.basarabeasca.bot.domain.ExchangeRate;
 import md.basarabeasca.bot.facade.ExchangeRateFacade;
 import md.basarabeasca.bot.service.ExchangeRateService;
 import md.basarabeasca.bot.service.UpdateDateService;
-import md.basarabeasca.bot.web.dto.ExchangeRateDto;
+import md.basarabeasca.bot.web.converter.ExchangeRateConverter;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,6 +19,7 @@ public class ExchangeRateFacadeImpl implements ExchangeRateFacade {
 
   private final UpdateDateService updateDateService;
   private final ExchangeRateService exchangeRateService;
+  private final ExchangeRateConverter exchangeRateConverter;
 
   @Override
   public String getBNMExchangeRates() {
@@ -26,12 +28,13 @@ public class ExchangeRateFacadeImpl implements ExchangeRateFacade {
       exchangeRateService.updateExchangeRates();
     }
 
-    return exchangeRateService.getBNMExchangeRates();
+    final List<ExchangeRate> bnmExchangeRates = exchangeRateService.getBNMExchangeRates();
+    return exchangeRateConverter.toMessage(bnmExchangeRates);
   }
 
   //TODO: remove all side logic from ExchangeRateCommand
   @Override
-  public List<ExchangeRateDto> getBestPrivateBankExchangeRateFor(String currency, String action) {
+  public List<ExchangeRate> getBestPrivateBankExchangeRateFor(String currency, String action) {
     return exchangeRateService.getBestPrivateBankExchangeRateFor(currency, action);
   }
 }

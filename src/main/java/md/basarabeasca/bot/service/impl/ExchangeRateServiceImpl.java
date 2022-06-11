@@ -5,16 +5,16 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.domain.ExchangeRate;
+import md.basarabeasca.bot.domain.mapper.ExchangeRateMapper;
 import md.basarabeasca.bot.parser.ExchangeRateParser;
 import md.basarabeasca.bot.repository.ExchangeRateRepository;
 import md.basarabeasca.bot.repository.model.ExchangeRateJpa;
 import md.basarabeasca.bot.service.ExchangeRateService;
-import md.basarabeasca.bot.web.converter.ExchangeRateConverter;
-import md.basarabeasca.bot.web.dto.ExchangeRateDto;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,21 +26,17 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
   private final ExchangeRateRepository exchangeRateRepository;
   private final ExchangeRateParser exchangeRateParser;
-  private final ExchangeRateConverter exchangeRateConverter;
+  private final ExchangeRateMapper exchangeRateMapper;
 
   @Override
-  public String getBNMExchangeRates() {
-    final List<ExchangeRateJpa> exchangeRateJpas = exchangeRateRepository.findAllByOrderByIdAsc();
-
-    if (isEmpty(exchangeRateJpas)) {
-      return exchangeRateConverter.toString(saveExchangeRates());
-    }
-
-    return exchangeRateConverter.toString(exchangeRateJpas);
+  public List<ExchangeRate> getBNMExchangeRates() {
+    return getBNMExchangeRateJpas().stream()
+        .map(exchangeRateMapper::toEntity)
+        .collect(toList());
   }
 
   @Override
-  public List<ExchangeRateDto> getBestPrivateBankExchangeRateFor(String currency, String action) {
+  public List<ExchangeRate> getBestPrivateBankExchangeRateFor(String currency, String action) {
     final List<ExchangeRate> allExchangeRates = exchangeRateParser.getPrivateBanksExchangeRates()
         .stream()
         .filter(ex -> !DASH.equalsIgnoreCase(ex.getPurchase()))
@@ -57,23 +53,29 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
         ex -> exchangeRateRepository.updateExchangeRate(ex.getCurrency(), ex.getPurchase()));
   }
 
-  private List<ExchangeRateDto> getBestPrivateBankExchangeRate(List<ExchangeRate> allExchangeRates,
+  private List<ExchangeRateJpa> getBNMExchangeRateJpas() {
+    final List<ExchangeRateJpa> exchangeRateJpas = exchangeRateRepository.findAllByOrderByIdAsc();
+
+    if (isEmpty(exchangeRateJpas)) {
+      return saveExchangeRates();
+    }
+
+    return exchangeRateJpas;
+  }
+
+  private List<ExchangeRate> getBestPrivateBankExchangeRate(List<ExchangeRate> allExchangeRates,
       String action) {
     if (isEmpty(allExchangeRates)) {
       return emptyList();
     }
     if (PURCHASE.equalsIgnoreCase(action)) {
-      return allExchangeRates.stream()
+      return new ArrayList<>(allExchangeRates.stream()
           .collect(groupingBy(ExchangeRate::getPurchase, TreeMap::new, toList()))
-          .firstEntry().getValue().stream()
-          .map(exchangeRateConverter::toDto)
-          .collect(toList());
+          .firstEntry().getValue());
     } else {
-      return allExchangeRates.stream()
+      return new ArrayList<>(allExchangeRates.stream()
           .collect(groupingBy(ExchangeRate::getSale, TreeMap::new, toList()))
-          .lastEntry().getValue().stream()
-          .map(exchangeRateConverter::toDto)
-          .collect(toList());
+          .lastEntry().getValue());
     }
   }
 

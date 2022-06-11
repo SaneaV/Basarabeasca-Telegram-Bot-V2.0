@@ -1,18 +1,16 @@
 package md.basarabeasca.bot.domain;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
+@RequiredArgsConstructor
 public class ExchangeRate {
 
-  private String bankName;
-  private String currency;
-  private String purchase;
-  private String sale;
+  private final String bankName;
+  private final String currency;
+  private final String purchase;
+  private final String sale;
 }

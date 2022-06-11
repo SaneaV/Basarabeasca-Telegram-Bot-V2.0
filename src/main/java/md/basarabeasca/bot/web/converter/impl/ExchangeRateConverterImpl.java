@@ -3,9 +3,7 @@ package md.basarabeasca.bot.web.converter.impl;
 import java.time.LocalDate;
 import java.util.List;
 import md.basarabeasca.bot.domain.ExchangeRate;
-import md.basarabeasca.bot.repository.model.ExchangeRateJpa;
 import md.basarabeasca.bot.web.converter.ExchangeRateConverter;
-import md.basarabeasca.bot.web.dto.ExchangeRateDto;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,23 +19,13 @@ public class ExchangeRateConverterImpl implements ExchangeRateConverter {
 
 
   @Override
-  public String toString(List<ExchangeRateJpa> exchangeRates) {
+  public String toMessage(List<ExchangeRate> exchangeRate) {
     return String.format(EXCHANGE_RATES_RESPONSE,
         LocalDate.now(),
-        exchangeRates.get(0).getCurrency(), exchangeRates.get(0).getValue(),
-        exchangeRates.get(1).getCurrency(), exchangeRates.get(1).getValue(),
-        exchangeRates.get(2).getCurrency(), exchangeRates.get(2).getValue(),
-        exchangeRates.get(3).getCurrency(), exchangeRates.get(3).getValue(),
-        exchangeRates.get(4).getCurrency(), exchangeRates.get(4).getValue());
-  }
-
-  @Override
-  public ExchangeRateDto toDto(ExchangeRate exchangeRate) {
-    return ExchangeRateDto.builder()
-        .bankName(exchangeRate.getBankName())
-        .currency(exchangeRate.getCurrency())
-        .purchase(exchangeRate.getPurchase())
-        .sale(exchangeRate.getSale())
-        .build();
+        exchangeRate.get(0).getCurrency(), exchangeRate.get(0).getPurchase(),
+        exchangeRate.get(1).getCurrency(), exchangeRate.get(1).getPurchase(),
+        exchangeRate.get(2).getCurrency(), exchangeRate.get(2).getPurchase(),
+        exchangeRate.get(3).getCurrency(), exchangeRate.get(3).getPurchase(),
+        exchangeRate.get(4).getCurrency(), exchangeRate.get(4).getPurchase());
   }
 }

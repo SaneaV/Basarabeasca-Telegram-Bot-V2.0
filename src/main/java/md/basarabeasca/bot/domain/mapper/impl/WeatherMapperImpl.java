@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.domain.converter.impl;
+package md.basarabeasca.bot.domain.mapper.impl;
 
 import static java.lang.Math.round;
 import static java.time.Instant.ofEpochSecond;
@@ -9,13 +9,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import md.basarabeasca.bot.domain.Weather;
-import md.basarabeasca.bot.domain.converter.WeatherPojoConverter;
+import md.basarabeasca.bot.domain.mapper.WeatherMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WeatherPojoConverterImpl implements WeatherPojoConverter {
+public class WeatherMapperImpl implements WeatherMapper {
 
   private static final String DAILY = "daily";
   private static final String DATE_FORMAT = "dd-MM-yyyy";
@@ -28,7 +28,7 @@ public class WeatherPojoConverterImpl implements WeatherPojoConverter {
   private static final String DESCRIPTION = "description";
 
   @Override
-  public List<Weather> toObject(JSONObject json) {
+  public List<Weather> toEntity(JSONObject json) {
     if (json.isEmpty()) {
       return null;
     } else {

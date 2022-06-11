@@ -1,13 +1,13 @@
 package md.basarabeasca.bot.service;
 
 import java.util.List;
-import md.basarabeasca.bot.web.dto.ExchangeRateDto;
+import md.basarabeasca.bot.domain.ExchangeRate;
 
 public interface ExchangeRateService {
 
-  String getBNMExchangeRates();
+  List<ExchangeRate> getBNMExchangeRates();
 
-  List<ExchangeRateDto> getBestPrivateBankExchangeRateFor(String currency, String action);
+  List<ExchangeRate> getBestPrivateBankExchangeRateFor(String currency, String action);
 
   void updateExchangeRates();
 }
