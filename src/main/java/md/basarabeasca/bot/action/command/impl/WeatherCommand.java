@@ -6,13 +6,11 @@ import static md.basarabeasca.bot.action.util.message.MessageUtil.getSendMessage
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import md.basarabeasca.bot.action.command.Command;
 import md.basarabeasca.bot.service.WeatherService;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
@@ -23,15 +21,12 @@ public class WeatherCommand implements Command {
 
   private final WeatherService weatherService;
 
-  @SneakyThrows
   @Override
   public List<? super PartialBotApiMethod<?>> execute(Update update) {
-    return singletonList(sendWeather(update.getMessage()));
-  }
-
-  private SendMessage sendWeather(Message message) {
     final String weather = weatherService.getWeather();
-    return getSendMessageWithReplyKeyboardMarkup(message, weather, getUsefulReplyKeyboardMarkup());
+    final SendMessage weatherForecast = getSendMessageWithReplyKeyboardMarkup(
+        update.getMessage(), weather, getUsefulReplyKeyboardMarkup());
+    return singletonList(weatherForecast);
   }
 
   @Override
