@@ -8,7 +8,6 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.dao.domain.ExchangeRate;
 import md.basarabeasca.bot.infrastructure.service.ExchangeRateService;
-import md.basarabeasca.bot.infrastructure.service.LocationService;
 import md.basarabeasca.bot.infrastructure.service.UpdateDateService;
 import md.basarabeasca.bot.web.converter.ExchangeRateConverter;
 import md.basarabeasca.bot.web.facade.ExchangeRateFacade;
@@ -23,7 +22,6 @@ public class ExchangeRateFacadeImpl implements ExchangeRateFacade {
   private final UpdateDateService updateDateService;
   private final ExchangeRateService exchangeRateService;
   private final ExchangeRateConverter exchangeRateConverter;
-  private final LocationService locationService;
 
   @Override
   public String getBNMExchangeRates() {
