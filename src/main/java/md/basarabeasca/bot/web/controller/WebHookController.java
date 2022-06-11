@@ -3,7 +3,7 @@ package md.basarabeasca.bot.web.controller;
 import static org.springframework.http.ResponseEntity.ok;
 
 import lombok.AllArgsConstructor;
-import md.basarabeasca.bot.action.bot.BasarabeascaBot;
+import md.basarabeasca.bot.telegram.bot.BasarabeascaBot;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
