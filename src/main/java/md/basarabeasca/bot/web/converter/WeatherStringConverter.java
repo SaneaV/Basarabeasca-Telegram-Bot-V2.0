@@ -1,6 +1,6 @@
 package md.basarabeasca.bot.web.converter;
 
-import md.basarabeasca.bot.domain.Weather;
+import md.basarabeasca.bot.dao.domain.Weather;
 
 public interface WeatherStringConverter {
 

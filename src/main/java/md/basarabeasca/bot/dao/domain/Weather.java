@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.domain;
+package md.basarabeasca.bot.dao.domain;
 
 import lombok.Builder;
 import lombok.Getter;

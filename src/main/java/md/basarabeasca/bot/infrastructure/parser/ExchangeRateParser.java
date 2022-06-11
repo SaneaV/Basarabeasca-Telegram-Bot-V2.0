@@ -1,7 +1,7 @@
 package md.basarabeasca.bot.infrastructure.parser;
 
 import java.util.List;
-import md.basarabeasca.bot.domain.ExchangeRate;
+import md.basarabeasca.bot.dao.domain.ExchangeRate;
 
 public interface ExchangeRateParser {
 

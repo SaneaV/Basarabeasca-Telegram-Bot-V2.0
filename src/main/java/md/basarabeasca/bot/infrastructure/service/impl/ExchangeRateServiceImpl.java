@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 import lombok.RequiredArgsConstructor;
-import md.basarabeasca.bot.domain.ExchangeRate;
-import md.basarabeasca.bot.domain.mapper.ExchangeRateMapper;
+import md.basarabeasca.bot.dao.domain.ExchangeRate;
+import md.basarabeasca.bot.dao.mapper.ExchangeRateMapper;
+import md.basarabeasca.bot.dao.repository.ExchangeRateRepository;
+import md.basarabeasca.bot.dao.repository.model.ExchangeRateJpa;
 import md.basarabeasca.bot.infrastructure.parser.ExchangeRateParser;
-import md.basarabeasca.bot.domain.repository.ExchangeRateRepository;
-import md.basarabeasca.bot.domain.repository.model.ExchangeRateJpa;
 import md.basarabeasca.bot.infrastructure.service.ExchangeRateService;
 import org.springframework.stereotype.Component;
 

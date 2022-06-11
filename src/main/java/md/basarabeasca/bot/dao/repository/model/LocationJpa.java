@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.domain.repository.model;
+package md.basarabeasca.bot.dao.repository.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 

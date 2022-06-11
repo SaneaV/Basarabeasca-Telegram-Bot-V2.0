@@ -5,7 +5,7 @@ import static com.google.common.collect.Lists.reverse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import md.basarabeasca.bot.domain.News;
+import md.basarabeasca.bot.dao.domain.News;
 import md.basarabeasca.bot.infrastructure.parser.NewsSiteParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

@@ -6,7 +6,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import md.basarabeasca.bot.domain.News;
+import md.basarabeasca.bot.dao.domain.News;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 

@@ -2,7 +2,7 @@ package md.basarabeasca.bot.web.converter.impl;
 
 import static java.lang.Character.toUpperCase;
 
-import md.basarabeasca.bot.domain.Weather;
+import md.basarabeasca.bot.dao.domain.Weather;
 import md.basarabeasca.bot.web.converter.WeatherStringConverter;
 import org.springframework.stereotype.Component;
 

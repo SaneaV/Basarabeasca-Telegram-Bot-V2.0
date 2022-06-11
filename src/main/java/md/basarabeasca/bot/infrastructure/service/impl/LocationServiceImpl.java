@@ -3,10 +3,10 @@ package md.basarabeasca.bot.infrastructure.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import md.basarabeasca.bot.domain.Location;
-import md.basarabeasca.bot.domain.mapper.LocationMapper;
-import md.basarabeasca.bot.domain.repository.LocationRepository;
-import md.basarabeasca.bot.domain.repository.model.LocationJpa;
+import md.basarabeasca.bot.dao.domain.Location;
+import md.basarabeasca.bot.dao.mapper.LocationMapper;
+import md.basarabeasca.bot.dao.repository.LocationRepository;
+import md.basarabeasca.bot.dao.repository.model.LocationJpa;
 import md.basarabeasca.bot.infrastructure.service.LocationService;
 import org.springframework.stereotype.Component;
 

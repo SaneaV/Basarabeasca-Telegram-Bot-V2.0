@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import md.basarabeasca.bot.domain.ExchangeRate;
+import md.basarabeasca.bot.dao.domain.ExchangeRate;
 import md.basarabeasca.bot.infrastructure.service.ExchangeRateService;
 import md.basarabeasca.bot.infrastructure.service.LocationService;
 import md.basarabeasca.bot.infrastructure.service.UpdateDateService;

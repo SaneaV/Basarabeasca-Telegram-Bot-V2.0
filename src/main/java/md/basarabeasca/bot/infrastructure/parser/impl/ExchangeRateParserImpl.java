@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.Getter;
-import md.basarabeasca.bot.domain.ExchangeRate;
+import md.basarabeasca.bot.dao.domain.ExchangeRate;
 import md.basarabeasca.bot.infrastructure.parser.ExchangeRateParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

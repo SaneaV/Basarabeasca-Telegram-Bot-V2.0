@@ -1,7 +1,7 @@
-package md.basarabeasca.bot.domain.repository;
+package md.basarabeasca.bot.dao.repository;
 
 import java.util.List;
-import md.basarabeasca.bot.domain.repository.model.PhoneNumberJpa;
+import md.basarabeasca.bot.dao.repository.model.PhoneNumberJpa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

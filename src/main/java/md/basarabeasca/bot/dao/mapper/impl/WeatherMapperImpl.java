@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.domain.mapper.impl;
+package md.basarabeasca.bot.dao.mapper.impl;
 
 import static java.lang.Math.round;
 import static java.time.Instant.ofEpochSecond;
@@ -8,8 +8,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import md.basarabeasca.bot.domain.Weather;
-import md.basarabeasca.bot.domain.mapper.WeatherMapper;
+import md.basarabeasca.bot.dao.domain.Weather;
+import md.basarabeasca.bot.dao.mapper.WeatherMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;

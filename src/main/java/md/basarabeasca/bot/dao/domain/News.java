@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.domain;
+package md.basarabeasca.bot.dao.domain;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,9 +7,10 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class Location {
+public class News {
 
   private final String name;
-  private final String latitude;
-  private final String longitude;
+  private final String description;
+  private final String image;
+  private final String link;
 }

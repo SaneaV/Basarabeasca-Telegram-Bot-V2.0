@@ -1,7 +1,7 @@
-package md.basarabeasca.bot.domain.repository;
+package md.basarabeasca.bot.dao.repository;
 
 import java.time.LocalDate;
-import md.basarabeasca.bot.domain.repository.model.UpdateDateJpa;
+import md.basarabeasca.bot.dao.repository.model.UpdateDateJpa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

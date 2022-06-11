@@ -8,7 +8,7 @@ import static org.telegram.telegrambots.meta.api.methods.ParseMode.MARKDOWN;
 
 import java.util.ArrayList;
 import java.util.List;
-import md.basarabeasca.bot.domain.News;
+import md.basarabeasca.bot.dao.domain.News;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Message;
