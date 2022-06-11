@@ -1,7 +1,7 @@
-package md.basarabeasca.bot.repository;
+package md.basarabeasca.bot.domain.repository;
 
 import java.util.List;
-import md.basarabeasca.bot.repository.model.ExchangeRateJpa;
+import md.basarabeasca.bot.domain.repository.model.ExchangeRateJpa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

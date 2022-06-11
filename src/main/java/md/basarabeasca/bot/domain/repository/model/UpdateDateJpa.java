@@ -1,36 +1,31 @@
-package md.basarabeasca.bot.repository.model;
+package md.basarabeasca.bot.domain.repository.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "exchange_rates",
-    uniqueConstraints = {@UniqueConstraint(columnNames = {"currency"}, name = "UK_CURRENCY")})
+@Table(name = "update_date")
 @Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExchangeRateJpa {
+public class UpdateDateJpa {
 
   @Id
-  @Column(name = "exchange_id", updatable = false, nullable = false)
+  @Column(name = "update_id", updatable = false, nullable = false)
   @GeneratedValue(strategy = IDENTITY)
   private Long id;
 
-  @Column(name = "currency")
-  private String currency;
-
-  @Column(name = "value")
-  private String value;
+  @Column(name = "last_update_date")
+  private LocalDate lastUpdateDate;
 }
-

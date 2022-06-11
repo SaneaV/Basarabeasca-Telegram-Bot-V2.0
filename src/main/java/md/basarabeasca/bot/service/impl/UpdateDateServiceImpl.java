@@ -3,8 +3,8 @@ package md.basarabeasca.bot.service.impl;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import lombok.RequiredArgsConstructor;
-import md.basarabeasca.bot.repository.UpdateDateRepository;
-import md.basarabeasca.bot.repository.model.UpdateDateJpa;
+import md.basarabeasca.bot.domain.repository.UpdateDateRepository;
+import md.basarabeasca.bot.domain.repository.model.UpdateDateJpa;
 import md.basarabeasca.bot.service.UpdateDateService;
 import org.springframework.stereotype.Component;
 

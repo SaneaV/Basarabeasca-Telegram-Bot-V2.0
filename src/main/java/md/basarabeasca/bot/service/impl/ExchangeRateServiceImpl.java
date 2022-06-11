@@ -12,8 +12,8 @@ import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.domain.ExchangeRate;
 import md.basarabeasca.bot.domain.mapper.ExchangeRateMapper;
 import md.basarabeasca.bot.parser.ExchangeRateParser;
-import md.basarabeasca.bot.repository.ExchangeRateRepository;
-import md.basarabeasca.bot.repository.model.ExchangeRateJpa;
+import md.basarabeasca.bot.domain.repository.ExchangeRateRepository;
+import md.basarabeasca.bot.domain.repository.model.ExchangeRateJpa;
 import md.basarabeasca.bot.service.ExchangeRateService;
 import org.springframework.stereotype.Component;
 

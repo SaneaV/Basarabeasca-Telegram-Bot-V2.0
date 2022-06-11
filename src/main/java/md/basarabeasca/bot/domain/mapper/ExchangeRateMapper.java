@@ -1,7 +1,7 @@
 package md.basarabeasca.bot.domain.mapper;
 
 import md.basarabeasca.bot.domain.ExchangeRate;
-import md.basarabeasca.bot.repository.model.ExchangeRateJpa;
+import md.basarabeasca.bot.domain.repository.model.ExchangeRateJpa;
 
 public interface ExchangeRateMapper {
 
