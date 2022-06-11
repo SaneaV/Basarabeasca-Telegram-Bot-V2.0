@@ -58,11 +58,12 @@ public class PrivateBanksBestExchangeCommand implements Command {
     final List<? super PartialBotApiMethod<?>> messages = new ArrayList<>();
 
     bestPrivateBankExchangeRateFor.forEach((bankName, msg) -> {
-      final SendMessage sendMessage = new SendMessage(message.getChatId().toString(), msg);
-      final SendLocation sendLocation = getBankLocation(message, bankName);
+      messages.add(new SendMessage(message.getChatId().toString(), msg));
 
-      messages.add(sendMessage);
-      messages.add(sendLocation);
+      final List<Location> locations = locationService.getLocationOf(bankName);
+      locations.forEach(location -> messages.add(
+          new SendLocation(message.getChatId().toString(), Double.valueOf(location.getLatitude()),
+              Double.valueOf(location.getLongitude()))));
     });
 
     messages.add(getSendMessageWithReplyKeyboardMarkup(message, EXCHANGE_RATE_ONLY_IN_MAIN_OFFICE,
@@ -79,13 +80,6 @@ public class PrivateBanksBestExchangeCommand implements Command {
       return matcher.group(group);
     }
     throw new RuntimeException();
-  }
-
-  private SendLocation getBankLocation(Message message, String bankName) {
-    final Location locations = locationService.getLocationOf(bankName).stream()
-        .findFirst().orElseThrow(RuntimeException::new);
-    return new SendLocation(message.getChatId().toString(), Double.valueOf(locations.getLatitude()),
-        Double.valueOf(locations.getLongitude()));
   }
 
   @Override
