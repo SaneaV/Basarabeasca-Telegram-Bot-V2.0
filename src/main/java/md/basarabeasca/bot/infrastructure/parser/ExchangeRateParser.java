@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.parser;
+package md.basarabeasca.bot.infrastructure.parser;
 
 import java.util.List;
 import md.basarabeasca.bot.domain.ExchangeRate;

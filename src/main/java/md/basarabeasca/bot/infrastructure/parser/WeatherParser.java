@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.parser;
+package md.basarabeasca.bot.infrastructure.parser;
 
 import java.io.IOException;
 import java.util.List;

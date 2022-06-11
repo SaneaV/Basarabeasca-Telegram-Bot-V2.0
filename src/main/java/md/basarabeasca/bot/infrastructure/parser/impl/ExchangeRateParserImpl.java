@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.parser.impl;
+package md.basarabeasca.bot.infrastructure.parser.impl;
 
 import static java.util.Collections.emptyList;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.Getter;
 import md.basarabeasca.bot.domain.ExchangeRate;
-import md.basarabeasca.bot.parser.ExchangeRateParser;
+import md.basarabeasca.bot.infrastructure.parser.ExchangeRateParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

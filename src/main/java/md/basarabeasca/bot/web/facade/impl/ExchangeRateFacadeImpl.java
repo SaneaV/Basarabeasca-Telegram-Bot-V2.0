@@ -6,8 +6,8 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.domain.ExchangeRate;
 import md.basarabeasca.bot.web.facade.ExchangeRateFacade;
-import md.basarabeasca.bot.service.ExchangeRateService;
-import md.basarabeasca.bot.service.UpdateDateService;
+import md.basarabeasca.bot.infrastructure.service.ExchangeRateService;
+import md.basarabeasca.bot.infrastructure.service.UpdateDateService;
 import md.basarabeasca.bot.web.converter.ExchangeRateConverter;
 import org.springframework.stereotype.Component;
 

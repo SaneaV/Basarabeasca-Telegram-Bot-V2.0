@@ -3,7 +3,7 @@ package md.basarabeasca.bot.telegram.command.impl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.telegram.command.NewsSiteCommand;
-import md.basarabeasca.bot.parser.impl.DistrictCouncilParserImpl;
+import md.basarabeasca.bot.infrastructure.parser.impl.DistrictCouncilParserImpl;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Update;

@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.service.impl;
+package md.basarabeasca.bot.infrastructure.service.impl;
 
 import static java.util.stream.Collectors.joining;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
@@ -6,8 +6,8 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.domain.Weather;
-import md.basarabeasca.bot.parser.WeatherParser;
-import md.basarabeasca.bot.service.WeatherService;
+import md.basarabeasca.bot.infrastructure.parser.WeatherParser;
+import md.basarabeasca.bot.infrastructure.service.WeatherService;
 import md.basarabeasca.bot.web.converter.WeatherStringConverter;
 import org.springframework.stereotype.Component;
 

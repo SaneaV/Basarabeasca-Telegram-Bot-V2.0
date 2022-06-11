@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.parser.impl;
+package md.basarabeasca.bot.infrastructure.parser.impl;
 
 import static com.google.common.collect.Lists.reverse;
 
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import md.basarabeasca.bot.domain.News;
-import md.basarabeasca.bot.parser.NewsSiteParser;
+import md.basarabeasca.bot.infrastructure.parser.NewsSiteParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -14,18 +14,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BasTVParserImpl implements NewsSiteParser {
+public class FeedBackParserImpl implements NewsSiteParser {
 
-  private static final String TITLE = "title";
-  private static final String POST_SUMMARY = "post-summary";
+  private static final String TITLE = "entry-title entry-title-big";
+  private static final String CONTENT_WRAPPER = "twp-content-wrapper";
+  private static final String P = "p";
   private static final String A = "a";
-  private static final String FEATURED_CLEARFIX = "featured clearfix";
-  private static final String DATA_SRC = "data-src";
+  private static final String READ_MORE = "twp-read-more";
+  private static final String ATTACHEMENT = "attachment-jumla-normal-post size-jumla-normal-post wp-post-image";
+  private static final String SRC = "src";
   private static final String HREF = "href";
 
   private final String siteLink;
 
-  public BasTVParserImpl(@Value("${site.news.bastv}") String siteLink) {
+  public FeedBackParserImpl(@Value("${site.news.feedback}") String siteLink) {
     this.siteLink = siteLink;
   }
 
@@ -36,17 +38,17 @@ public class BasTVParserImpl implements NewsSiteParser {
 
   @Override
   public Elements getNewsDescription(Document parsedSite) {
-    return parsedSite.getElementsByClass(POST_SUMMARY);
+    return parsedSite.getElementsByClass(CONTENT_WRAPPER).select(P);
   }
 
   @Override
   public Elements getNewsLink(Document parsedSite) {
-    return parsedSite.getElementsByClass(TITLE).select(A);
+    return parsedSite.getElementsByClass(READ_MORE).select(A);
   }
 
   @Override
   public Elements getNewsImage(Document parsedSite) {
-    return parsedSite.getElementsByClass(FEATURED_CLEARFIX).select(A);
+    return parsedSite.getElementsByClass(ATTACHEMENT);
   }
 
   @Override
@@ -68,7 +70,7 @@ public class BasTVParserImpl implements NewsSiteParser {
       News news = News.builder()
           .name(names.get(i).text())
           .description(descriptions.get(i).text())
-          .image(images.get(i).attr(DATA_SRC))
+          .image(images.get(i).attr(SRC))
           .link(links.get(i).attr(HREF))
           .build();
 

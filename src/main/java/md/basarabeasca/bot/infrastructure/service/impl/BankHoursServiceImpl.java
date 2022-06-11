@@ -1,10 +1,10 @@
-package md.basarabeasca.bot.service.impl;
+package md.basarabeasca.bot.infrastructure.service.impl;
 
-import static md.basarabeasca.bot.util.InputStreamReader.readFromInputStream;
+import static md.basarabeasca.bot.infrastructure.util.InputStreamReader.readFromInputStream;
 
 import java.io.IOException;
 import java.io.InputStream;
-import md.basarabeasca.bot.service.BankHoursService;
+import md.basarabeasca.bot.infrastructure.service.BankHoursService;
 import org.springframework.stereotype.Component;
 
 @Component

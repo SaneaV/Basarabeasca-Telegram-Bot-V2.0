@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.Getter;
 import md.basarabeasca.bot.telegram.command.Command;
-import md.basarabeasca.bot.service.impl.PhoneNumberServiceImpl;
+import md.basarabeasca.bot.infrastructure.service.impl.PhoneNumberServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

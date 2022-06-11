@@ -1,10 +1,10 @@
-package md.basarabeasca.bot.parser.impl;
+package md.basarabeasca.bot.infrastructure.parser.impl;
 
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import lombok.Getter;
-import md.basarabeasca.bot.parser.TransportTimetableParser;
+import md.basarabeasca.bot.infrastructure.parser.TransportTimetableParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Value;

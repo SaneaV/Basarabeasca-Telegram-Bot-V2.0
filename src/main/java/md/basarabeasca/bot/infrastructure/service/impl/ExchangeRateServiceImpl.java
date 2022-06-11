@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.service.impl;
+package md.basarabeasca.bot.infrastructure.service.impl;
 
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.groupingBy;
@@ -11,10 +11,10 @@ import java.util.TreeMap;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.domain.ExchangeRate;
 import md.basarabeasca.bot.domain.mapper.ExchangeRateMapper;
-import md.basarabeasca.bot.parser.ExchangeRateParser;
+import md.basarabeasca.bot.infrastructure.parser.ExchangeRateParser;
 import md.basarabeasca.bot.domain.repository.ExchangeRateRepository;
 import md.basarabeasca.bot.domain.repository.model.ExchangeRateJpa;
-import md.basarabeasca.bot.service.ExchangeRateService;
+import md.basarabeasca.bot.infrastructure.service.ExchangeRateService;
 import org.springframework.stereotype.Component;
 
 @Component

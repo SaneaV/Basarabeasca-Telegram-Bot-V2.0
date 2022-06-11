@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.parser;
+package md.basarabeasca.bot.infrastructure.parser;
 
 import org.jsoup.nodes.Document;
 

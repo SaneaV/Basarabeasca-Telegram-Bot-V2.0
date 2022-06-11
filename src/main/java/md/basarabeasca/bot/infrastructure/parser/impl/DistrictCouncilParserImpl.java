@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.parser.impl;
+package md.basarabeasca.bot.infrastructure.parser.impl;
 
 import static com.google.common.collect.Lists.reverse;
 
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import md.basarabeasca.bot.domain.News;
-import md.basarabeasca.bot.parser.NewsSiteParser;
+import md.basarabeasca.bot.infrastructure.parser.NewsSiteParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -14,41 +14,40 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FeedBackParserImpl implements NewsSiteParser {
+public class DistrictCouncilParserImpl implements NewsSiteParser {
 
-  private static final String TITLE = "entry-title entry-title-big";
-  private static final String CONTENT_WRAPPER = "twp-content-wrapper";
-  private static final String P = "p";
+  private static final String ITEMPROP_NAME = "span[itemprop=\"name\"]";
+  private static final String ITEMPROP_ARTICLE_SECTION = "p[itemprop=\"articleSection\"]";
+  private static final String THUMB = "thumb";
   private static final String A = "a";
-  private static final String READ_MORE = "twp-read-more";
-  private static final String ATTACHEMENT = "attachment-jumla-normal-post size-jumla-normal-post wp-post-image";
+  private static final String IMG = "img";
   private static final String SRC = "src";
   private static final String HREF = "href";
 
   private final String siteLink;
 
-  public FeedBackParserImpl(@Value("${site.news.feedback}") String siteLink) {
+  public DistrictCouncilParserImpl(@Value("${site.news.districtCouncil}") String siteLink) {
     this.siteLink = siteLink;
   }
 
   @Override
   public Elements getNewsTitle(Document parsedSite) {
-    return parsedSite.getElementsByClass(TITLE);
+    return parsedSite.select(ITEMPROP_NAME);
   }
 
   @Override
   public Elements getNewsDescription(Document parsedSite) {
-    return parsedSite.getElementsByClass(CONTENT_WRAPPER).select(P);
+    return parsedSite.select(ITEMPROP_ARTICLE_SECTION).next();
   }
 
   @Override
   public Elements getNewsLink(Document parsedSite) {
-    return parsedSite.getElementsByClass(READ_MORE).select(A);
+    return parsedSite.getElementsByClass(THUMB).select(A);
   }
 
   @Override
   public Elements getNewsImage(Document parsedSite) {
-    return parsedSite.getElementsByClass(ATTACHEMENT);
+    return parsedSite.getElementsByClass(THUMB).select(A).select(IMG);
   }
 
   @Override

@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.service;
+package md.basarabeasca.bot.infrastructure.service;
 
 public interface WeatherService {
 

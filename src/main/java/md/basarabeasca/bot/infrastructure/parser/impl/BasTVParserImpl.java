@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.parser.impl;
+package md.basarabeasca.bot.infrastructure.parser.impl;
 
 import static com.google.common.collect.Lists.reverse;
 
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import md.basarabeasca.bot.domain.News;
-import md.basarabeasca.bot.parser.NewsSiteParser;
+import md.basarabeasca.bot.infrastructure.parser.NewsSiteParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -14,40 +14,39 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DistrictCouncilParserImpl implements NewsSiteParser {
+public class BasTVParserImpl implements NewsSiteParser {
 
-  private static final String ITEMPROP_NAME = "span[itemprop=\"name\"]";
-  private static final String ITEMPROP_ARTICLE_SECTION = "p[itemprop=\"articleSection\"]";
-  private static final String THUMB = "thumb";
+  private static final String TITLE = "title";
+  private static final String POST_SUMMARY = "post-summary";
   private static final String A = "a";
-  private static final String IMG = "img";
-  private static final String SRC = "src";
+  private static final String FEATURED_CLEARFIX = "featured clearfix";
+  private static final String DATA_SRC = "data-src";
   private static final String HREF = "href";
 
   private final String siteLink;
 
-  public DistrictCouncilParserImpl(@Value("${site.news.districtCouncil}") String siteLink) {
+  public BasTVParserImpl(@Value("${site.news.bastv}") String siteLink) {
     this.siteLink = siteLink;
   }
 
   @Override
   public Elements getNewsTitle(Document parsedSite) {
-    return parsedSite.select(ITEMPROP_NAME);
+    return parsedSite.getElementsByClass(TITLE);
   }
 
   @Override
   public Elements getNewsDescription(Document parsedSite) {
-    return parsedSite.select(ITEMPROP_ARTICLE_SECTION).next();
+    return parsedSite.getElementsByClass(POST_SUMMARY);
   }
 
   @Override
   public Elements getNewsLink(Document parsedSite) {
-    return parsedSite.getElementsByClass(THUMB).select(A);
+    return parsedSite.getElementsByClass(TITLE).select(A);
   }
 
   @Override
   public Elements getNewsImage(Document parsedSite) {
-    return parsedSite.getElementsByClass(THUMB).select(A).select(IMG);
+    return parsedSite.getElementsByClass(FEATURED_CLEARFIX).select(A);
   }
 
   @Override
@@ -69,7 +68,7 @@ public class DistrictCouncilParserImpl implements NewsSiteParser {
       News news = News.builder()
           .name(names.get(i).text())
           .description(descriptions.get(i).text())
-          .image(images.get(i).attr(SRC))
+          .image(images.get(i).attr(DATA_SRC))
           .link(links.get(i).attr(HREF))
           .build();
 

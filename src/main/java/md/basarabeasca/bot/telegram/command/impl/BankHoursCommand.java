@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import md.basarabeasca.bot.telegram.command.Command;
-import md.basarabeasca.bot.service.BankHoursService;
+import md.basarabeasca.bot.infrastructure.service.BankHoursService;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;

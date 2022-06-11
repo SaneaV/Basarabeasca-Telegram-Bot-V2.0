@@ -1,6 +1,6 @@
-package md.basarabeasca.bot.parser.impl;
+package md.basarabeasca.bot.infrastructure.parser.impl;
 
-import static md.basarabeasca.bot.util.InputStreamReader.readFromInputStream;
+import static md.basarabeasca.bot.infrastructure.util.InputStreamReader.readFromInputStream;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.List;
 import md.basarabeasca.bot.domain.Weather;
 import md.basarabeasca.bot.domain.mapper.WeatherMapper;
-import md.basarabeasca.bot.parser.WeatherParser;
+import md.basarabeasca.bot.infrastructure.parser.WeatherParser;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

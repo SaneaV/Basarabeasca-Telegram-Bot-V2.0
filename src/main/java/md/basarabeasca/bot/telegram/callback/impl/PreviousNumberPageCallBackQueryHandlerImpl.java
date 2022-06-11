@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.telegram.callback.CallbackQueryHandler;
 import md.basarabeasca.bot.telegram.callback.CallbackQueryType;
-import md.basarabeasca.bot.service.impl.PhoneNumberServiceImpl;
+import md.basarabeasca.bot.infrastructure.service.impl.PhoneNumberServiceImpl;
 import md.basarabeasca.bot.web.dto.PhoneNumberDto;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;

@@ -1,10 +1,10 @@
-package md.basarabeasca.bot.service.impl;
+package md.basarabeasca.bot.infrastructure.service.impl;
 
 import static org.apache.commons.lang3.StringUtils.LF;
 
 import lombok.RequiredArgsConstructor;
-import md.basarabeasca.bot.parser.TransportTimetableParser;
-import md.basarabeasca.bot.service.TransportTimetableService;
+import md.basarabeasca.bot.infrastructure.parser.TransportTimetableParser;
+import md.basarabeasca.bot.infrastructure.service.TransportTimetableService;
 import org.springframework.stereotype.Component;
 
 @Component

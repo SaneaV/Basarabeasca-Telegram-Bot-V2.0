@@ -7,7 +7,7 @@ import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessa
 import java.util.List;
 import lombok.AllArgsConstructor;
 import md.basarabeasca.bot.telegram.command.Command;
-import md.basarabeasca.bot.service.TransportTimetableService;
+import md.basarabeasca.bot.infrastructure.service.TransportTimetableService;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;

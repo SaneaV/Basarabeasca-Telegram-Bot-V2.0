@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.util;
+package md.basarabeasca.bot.infrastructure.util;
 
 import static java.util.Objects.nonNull;
 import static lombok.AccessLevel.PRIVATE;

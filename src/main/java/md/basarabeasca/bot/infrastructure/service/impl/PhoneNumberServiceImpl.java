@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.service.impl;
+package md.basarabeasca.bot.infrastructure.service.impl;
 
 import static java.util.stream.Collectors.toList;
 
@@ -7,7 +7,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.domain.repository.PhoneNumberRepository;
 import md.basarabeasca.bot.domain.repository.model.PhoneNumberJpa;
-import md.basarabeasca.bot.service.PhoneNumberService;
+import md.basarabeasca.bot.infrastructure.service.PhoneNumberService;
 import md.basarabeasca.bot.web.converter.PhoneNumberMapper;
 import md.basarabeasca.bot.web.dto.PhoneNumberDto;
 import org.springframework.stereotype.Component;
