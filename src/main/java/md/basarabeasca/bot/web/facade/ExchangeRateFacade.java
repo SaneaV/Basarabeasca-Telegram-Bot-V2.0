@@ -1,11 +1,10 @@
 package md.basarabeasca.bot.web.facade;
 
-import java.util.List;
-import md.basarabeasca.bot.dao.domain.ExchangeRate;
+import java.util.Map;
 
 public interface ExchangeRateFacade {
 
   String getBNMExchangeRates();
 
-  List<ExchangeRate> getBestPrivateBankExchangeRateFor(String currency, String action);
+  Map<String, String> getBestPrivateBankExchangeRateFor(String currency, String action);
 }

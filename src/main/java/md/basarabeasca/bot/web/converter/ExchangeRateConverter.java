@@ -6,4 +6,6 @@ import md.basarabeasca.bot.dao.domain.ExchangeRate;
 public interface ExchangeRateConverter {
 
   String toMessage(List<ExchangeRate> exchangeRate);
+
+  String toMessage(ExchangeRate exchangeRate, String action, String currency);
 }

@@ -2,7 +2,9 @@ package md.basarabeasca.bot.web.facade.impl;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.dao.domain.ExchangeRate;
 import md.basarabeasca.bot.infrastructure.service.ExchangeRateService;
@@ -35,7 +37,17 @@ public class ExchangeRateFacadeImpl implements ExchangeRateFacade {
   }
 
   @Override
-  public List<ExchangeRate> getBestPrivateBankExchangeRateFor(String currency, String action) {
-    return exchangeRateService.getBestPrivateBankExchangeRateFor(currency, action);
+  public Map<String, String> getBestPrivateBankExchangeRateFor(String currency, String action) {
+    final List<ExchangeRate> exchangeRates = exchangeRateService.getBestPrivateBankExchangeRateFor(
+        currency, action);
+
+    final Map<String, String> exchangeRatesMessages = new HashMap<>();
+    exchangeRates.forEach(
+        e -> {
+          final String message = exchangeRateConverter.toMessage(e, action, currency);
+          exchangeRatesMessages.put(e.getBankName(), message);
+        }
+    );
+    return exchangeRatesMessages;
   }
 }
