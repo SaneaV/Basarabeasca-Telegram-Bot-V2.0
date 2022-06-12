@@ -11,7 +11,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
-public interface CallbackQueryHandler {
+public interface CallbackHandler {
 
   String SEARCH_NUMBER = "Найти номер";
   String TO_MUCH_REQUESTS = "Слишком много запросов. Повторите попытку позже.";

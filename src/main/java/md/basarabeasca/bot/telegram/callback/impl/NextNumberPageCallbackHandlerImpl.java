@@ -8,7 +8,7 @@ import static org.apache.commons.lang3.StringUtils.SPACE;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.infrastructure.facade.PhoneNumberFacade;
-import md.basarabeasca.bot.telegram.callback.CallbackQueryHandler;
+import md.basarabeasca.bot.telegram.callback.CallbackHandler;
 import md.basarabeasca.bot.telegram.callback.CallbackQueryType;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
@@ -16,7 +16,7 @@ import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
 @Component
 @RequiredArgsConstructor
-public class NextNumberPageCallBackQueryHandlerImpl implements CallbackQueryHandler {
+public class NextNumberPageCallbackHandlerImpl implements CallbackHandler {
 
   private final PhoneNumberFacade phoneNumberFacade;
   private Integer lastDeletion;

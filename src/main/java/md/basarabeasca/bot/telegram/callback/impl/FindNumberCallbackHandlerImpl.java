@@ -5,7 +5,7 @@ import static md.basarabeasca.bot.telegram.callback.CallbackQueryType.FIND_NUMBE
 
 import java.util.List;
 import lombok.Getter;
-import md.basarabeasca.bot.telegram.callback.CallbackQueryHandler;
+import md.basarabeasca.bot.telegram.callback.CallbackHandler;
 import md.basarabeasca.bot.telegram.callback.CallbackQueryType;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
@@ -15,7 +15,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ForceReplyKeyboa
 
 @Getter
 @Component
-public class FindNumberCallbackQueryHandlerImpl implements CallbackQueryHandler {
+public class FindNumberCallbackHandlerImpl implements CallbackHandler {
 
   public final static String SEARCH_NUMBER_CALLBACK_DATA = "Введите имя/организацию/заведение, чей номер вы ищите";
 

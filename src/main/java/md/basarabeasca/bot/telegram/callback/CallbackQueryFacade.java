@@ -14,13 +14,13 @@ import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 @RequiredArgsConstructor
 public class CallbackQueryFacade {
 
-  private final List<CallbackQueryHandler> callbackQueryHandlers;
+  private final List<CallbackHandler> callbackHandlers;
 
   public List<? super PartialBotApiMethod<?>> processCallbackQuery(CallbackQuery usersQuery) {
     try {
       final CallbackQueryType usersQueryType = valueOf(usersQuery.getData().split(SPACE)[0]);
 
-      final Optional<CallbackQueryHandler> queryHandler = callbackQueryHandlers.stream()
+      final Optional<CallbackHandler> queryHandler = callbackHandlers.stream()
           .filter(callbackQuery -> callbackQuery.getHandlerQueryType().equals(usersQueryType))
           .findFirst();
 
