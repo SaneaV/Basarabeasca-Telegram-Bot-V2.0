@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.dao.domain.Location;
+import md.basarabeasca.bot.infrastructure.facade.ExchangeRateFacade;
 import md.basarabeasca.bot.infrastructure.service.LocationService;
 import md.basarabeasca.bot.telegram.command.Command;
-import md.basarabeasca.bot.infrastructure.facade.ExchangeRateFacade;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendLocation;
@@ -23,7 +23,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PrivateBanksBestExchangeCommand implements Command {
 
   private static final String BEST_EXCHANGE = "Купить USD/Продать USD - Купить EUR/Продать EUR - "

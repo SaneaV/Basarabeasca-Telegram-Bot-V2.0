@@ -2,7 +2,7 @@ package md.basarabeasca.bot.telegram.controller;
 
 import static org.springframework.http.ResponseEntity.ok;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.telegram.bot.BasarabeascaBot;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +12,7 @@ import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class WebHookController {
 
   private final BasarabeascaBot basarabeascaBot;

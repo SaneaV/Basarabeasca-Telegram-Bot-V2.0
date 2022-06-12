@@ -5,7 +5,7 @@ import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessa
 
 import java.util.Collections;
 import java.util.List;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.infrastructure.service.BankHoursService;
 import md.basarabeasca.bot.telegram.command.Command;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BankHoursCommand implements Command {
 
   private static final String BANK_HOURS = "График работы банков";

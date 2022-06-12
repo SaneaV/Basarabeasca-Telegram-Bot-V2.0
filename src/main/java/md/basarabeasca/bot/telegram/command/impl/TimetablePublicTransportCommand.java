@@ -5,7 +5,7 @@ import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil
 import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 import java.util.List;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.infrastructure.service.TransportTimetableService;
 import md.basarabeasca.bot.telegram.command.Command;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TimetablePublicTransportCommand implements Command {
 
   private static final String PUBLIC_TRANSPORT_TIMETABLE = "Расписание междугородних рейсов";

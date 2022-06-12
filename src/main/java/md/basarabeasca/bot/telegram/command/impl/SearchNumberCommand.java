@@ -7,10 +7,9 @@ import static org.apache.commons.lang3.StringUtils.LF;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import md.basarabeasca.bot.infrastructure.service.PhoneNumberService;
-import md.basarabeasca.bot.infrastructure.service.impl.PhoneNumberServiceImpl;
-import md.basarabeasca.bot.telegram.command.Command;
 import md.basarabeasca.bot.dao.domain.PhoneNumber;
+import md.basarabeasca.bot.infrastructure.service.PhoneNumberService;
+import md.basarabeasca.bot.telegram.command.Command;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
