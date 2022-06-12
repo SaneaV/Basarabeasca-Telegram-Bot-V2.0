@@ -22,15 +22,38 @@ public class PhoneNumberFacadeImpl implements PhoneNumberFacade {
   }
 
   @Override
-  public long getLastId(Long startId) {
-    final long lastIdOnPage = phoneNumberService.getLastIdOnPage(startId);
+  public String getPreviousPage(Long stopId) {
+    final List<PhoneNumber> phoneNumbers = getPhoneNumbersTo(stopId);
+    return phoneNumberConverter.toMessage(phoneNumbers);
+  }
+
+  @Override
+  public long getMaxIdOnPage(Long startId) {
+    final long maxIdOnPage = phoneNumberService.getMaxIdOnPage(startId);
     final long lastId = phoneNumberService.getLastId();
 
-    return lastId == lastIdOnPage ? 0L : lastIdOnPage;
+    return lastId == maxIdOnPage ? 0L : maxIdOnPage;
+  }
+
+  @Override
+  public long getMinIdOnPage(Long stopId) {
+    if (stopId == 0) {
+      return (long) (Math.floor(phoneNumberService.getLastId() / 10.0) * 10);
+    }
+    final long minIdOnPage = phoneNumberService.getMinIdOnPage(stopId);
+    final long firstId = phoneNumberService.getFirstId();
+
+    return firstId == minIdOnPage ? 10L : minIdOnPage;
   }
 
   private List<PhoneNumber> getPhoneNumbersFrom(Long startId) {
     final List<PhoneNumber> phoneNumbers = phoneNumberService.getNextPage(startId);
+
+    return phoneNumbers.isEmpty() ? phoneNumberService.getNextPage(0L) : phoneNumbers;
+  }
+
+  private List<PhoneNumber> getPhoneNumbersTo(Long stopId) {
+    final List<PhoneNumber> phoneNumbers = phoneNumberService.getPreviousPage(stopId);
 
     return phoneNumbers.isEmpty() ? phoneNumberService.getNextPage(0L) : phoneNumbers;
   }

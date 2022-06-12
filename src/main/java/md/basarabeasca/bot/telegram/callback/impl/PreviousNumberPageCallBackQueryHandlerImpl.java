@@ -7,14 +7,11 @@ import static md.basarabeasca.bot.telegram.callback.CallbackQueryType.PREVIOUS_P
 import static md.basarabeasca.bot.telegram.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardForShowNumber;
 import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageError;
 import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageWithInlineKeyboardMarkup;
-import static org.apache.commons.lang3.StringUtils.LF;
 import static org.apache.commons.lang3.StringUtils.SPACE;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import lombok.RequiredArgsConstructor;
-import md.basarabeasca.bot.dao.domain.PhoneNumber;
-import md.basarabeasca.bot.infrastructure.service.PhoneNumberService;
+import md.basarabeasca.bot.infrastructure.facade.PhoneNumberFacade;
 import md.basarabeasca.bot.telegram.callback.CallbackQueryHandler;
 import md.basarabeasca.bot.telegram.callback.CallbackQueryType;
 import org.springframework.stereotype.Component;
@@ -29,60 +26,33 @@ public class PreviousNumberPageCallBackQueryHandlerImpl implements CallbackQuery
 
   public final static String TO_MUCH_REQUESTS = "Слишком много запросов. Повторите попытку позже.";
 
-  private final PhoneNumberService phoneNumberService;
+  private final PhoneNumberFacade phoneNumberFacade;
   private Integer lastDeletion;
 
   @Override
   public List<? super PartialBotApiMethod<?>> handleCallbackQuery(CallbackQuery callbackQuery) {
     final String chatId = callbackQuery.getMessage().getChatId().toString();
+    final long lastIdFromCallbackQuery = Long.parseLong(callbackQuery.getData().split(SPACE)[1]);
 
-    List<PhoneNumber> phoneNumber = getNextPageNumbers(
-        Long.valueOf(callbackQuery.getData().split(SPACE)[1]));
-    long lastId = Long.parseLong(callbackQuery.getData().split(SPACE)[1]);
-
-    if (phoneNumber.isEmpty()) {
-      phoneNumber = getNextPageNumbers(lastId);
-    }
-
-    final StringBuilder formattedPhones = formatPhoneNumbers(phoneNumber, new StringBuilder());
-    lastId = phoneNumber.get(phoneNumber.size() - 1).getId() + 1;
+    final long lastId = phoneNumberFacade.getMinIdOnPage(lastIdFromCallbackQuery);
+    final String phoneNumbers = phoneNumberFacade.getPreviousPage(lastId);
 
     try {
-      if (!callbackQuery.getMessage().getMessageId().equals(lastDeletion)) {
-        lastDeletion = callbackQuery.getMessage().getMessageId();
+      final Integer currentMessageId = callbackQuery.getMessage().getMessageId();
+      if (!currentMessageId.equals(lastDeletion)) {
+        lastDeletion = currentMessageId;
 
-        final DeleteMessage deleteMessage = new DeleteMessage(chatId,
-            callbackQuery.getMessage().getMessageId());
-        final SendMessage sendMessage = getSendMessageWithInlineKeyboardMarkup(chatId,
-            formattedPhones.toString(),
+        final DeleteMessage deleteMessage = new DeleteMessage(chatId, currentMessageId);
+        final SendMessage sendMessage = getSendMessageWithInlineKeyboardMarkup(chatId, phoneNumbers,
             getSendInlineKeyboardForShowNumber(SEARCH_NUMBER, FIND_NUMBER.name(), lastId));
 
         return asList(deleteMessage, sendMessage);
       } else {
-        throw new Exception();
+        throw new RuntimeException();
       }
-    } catch (Exception exception) {
+    } catch (RuntimeException exception) {
       return singletonList(getSendMessageError(callbackQuery.getMessage(), TO_MUCH_REQUESTS));
     }
-  }
-
-  private StringBuilder formatPhoneNumbers(List<PhoneNumber> phoneNumber,
-      StringBuilder formattedPhones) {
-    AtomicInteger i = new AtomicInteger();
-    phoneNumber.forEach(
-        number -> formattedPhones
-            .append(i.incrementAndGet())
-            .append(POINT)
-            .append(number.getPhoneNumber())
-            .append(HYPHEN)
-            .append(number.getDescription())
-            .append(LF)
-    );
-    return formattedPhones;
-  }
-
-  private List<PhoneNumber> getNextPageNumbers(Long lastId) {
-    return phoneNumberService.getPreviousPage(lastId);
   }
 
   @Override

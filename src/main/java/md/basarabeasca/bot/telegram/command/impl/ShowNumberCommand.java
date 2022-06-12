@@ -37,7 +37,7 @@ public class ShowNumberCommand implements Command {
     if (phoneNumbers.isEmpty()) {
       return getSendMessage(message, PHONE_NUMBER_LIST_IS_EMPTY);
     } else {
-      final long lastId = phoneNumberFacade.getLastId(0L);
+      final long lastId = phoneNumberFacade.getMaxIdOnPage(0L);
       return getSendMessageWithInlineKeyboardMarkup(message.getChatId().toString(), phoneNumbers,
           getSendInlineKeyboardForShowNumber(SEARCH_NUMBER, FIND_NUMBER.name(), lastId));
     }

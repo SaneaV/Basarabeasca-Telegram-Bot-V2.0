@@ -35,14 +35,14 @@ public class NextNumberPageCallBackQueryHandlerImpl implements CallbackQueryHand
     final long lastIdFromCallbackQuery = Long.parseLong(callbackQuery.getData().split(SPACE)[1]);
 
     final String phoneNumbers = phoneNumberFacade.getNextPage(lastIdFromCallbackQuery);
-    final long lastId = phoneNumberFacade.getLastId(lastIdFromCallbackQuery);
+    final long lastId = phoneNumberFacade.getMaxIdOnPage(lastIdFromCallbackQuery);
 
     try {
       final Integer currentMessageId = callbackQuery.getMessage().getMessageId();
       if (!currentMessageId.equals(lastDeletion)) {
         lastDeletion = currentMessageId;
 
-        final DeleteMessage deleteMessage = new DeleteMessage(chatId, lastDeletion);
+        final DeleteMessage deleteMessage = new DeleteMessage(chatId, currentMessageId);
         final SendMessage sendMessage = getSendMessageWithInlineKeyboardMarkup(chatId, phoneNumbers,
             getSendInlineKeyboardForShowNumber(SEARCH_NUMBER, FIND_NUMBER.name(), lastId));
 

@@ -15,7 +15,11 @@ public interface PhoneNumberService {
 
   List<PhoneNumber> findByDescription(String description);
 
-  Long getLastIdOnPage(Long page);
+  Long getMaxIdOnPage(Long page);
+
+  Long getMinIdOnPage(Long page);
 
   Long getLastId();
+
+  Long getFirstId();
 }

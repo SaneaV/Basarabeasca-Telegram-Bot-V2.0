@@ -32,6 +32,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
   @Override
   public List<PhoneNumber> getPreviousPage(Long lastId) {
     return phoneNumberRepository.getPreviousPage(lastId).stream()
+        .sorted(comparing(PhoneNumberJpa::getId))
         .map(phoneNumberMapper::toEntity)
         .collect(toList());
   }
@@ -75,12 +76,22 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
   }
 
   @Override
-  public Long getLastIdOnPage(Long page) {
-    return phoneNumberRepository.getLastIdOnPage(page);
+  public Long getMaxIdOnPage(Long page) {
+    return phoneNumberRepository.getMaxIdOnPage(page);
+  }
+
+  @Override
+  public Long getMinIdOnPage(Long page) {
+    return phoneNumberRepository.getMinIdOnPage(page);
   }
 
   @Override
   public Long getLastId() {
     return phoneNumberRepository.getLastId();
+  }
+
+  @Override
+  public Long getFirstId() {
+    return phoneNumberRepository.getFirstId();
   }
 }

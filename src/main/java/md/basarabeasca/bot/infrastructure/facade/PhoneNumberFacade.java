@@ -4,5 +4,9 @@ public interface PhoneNumberFacade {
 
   String getNextPage(Long startId);
 
-  long getLastId(Long startId);
+  String getPreviousPage(Long stopId);
+
+  long getMaxIdOnPage(Long startId);
+
+  long getMinIdOnPage(Long stopId);
 }
