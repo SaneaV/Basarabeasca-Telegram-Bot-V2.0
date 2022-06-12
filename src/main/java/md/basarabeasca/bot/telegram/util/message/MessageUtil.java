@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ForceReplyKeyboard;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 
@@ -49,6 +50,20 @@ public class MessageUtil {
         .photo(new InputFile(photo))
         .parseMode(parseMode)
         .caption(caption)
+        .build();
+  }
+
+  public static SendMessage getSendMessageToFindAPhoneNumber(String chatId, String text,
+      Integer messageIdForReply) {
+    final ForceReplyKeyboard forceReplyKeyboard = ForceReplyKeyboard.builder()
+        .forceReply(true)
+        .build();
+
+    return SendMessage.builder()
+        .chatId(chatId)
+        .text(text)
+        .replyToMessageId(messageIdForReply)
+        .replyMarkup(forceReplyKeyboard)
         .build();
   }
 
