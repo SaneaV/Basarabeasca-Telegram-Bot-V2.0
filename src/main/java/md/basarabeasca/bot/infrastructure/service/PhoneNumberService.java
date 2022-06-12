@@ -14,4 +14,8 @@ public interface PhoneNumberService {
   String deleteNumber(String number);
 
   List<PhoneNumber> findByDescription(String description);
+
+  Long getLastIdOnPage(Long page);
+
+  Long getLastId();
 }

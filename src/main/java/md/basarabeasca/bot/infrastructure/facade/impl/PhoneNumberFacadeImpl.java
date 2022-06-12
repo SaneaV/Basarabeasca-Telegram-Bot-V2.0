@@ -17,13 +17,21 @@ public class PhoneNumberFacadeImpl implements PhoneNumberFacade {
 
   @Override
   public String getNextPage(Long startId) {
-    final List<PhoneNumber> phoneNumbers = phoneNumberService.getNextPage(startId);
+    final List<PhoneNumber> phoneNumbers = getPhoneNumbersFrom(startId);
     return phoneNumberConverter.toMessage(phoneNumbers);
   }
 
   @Override
   public long getLastId(Long startId) {
+    final long lastIdOnPage = phoneNumberService.getLastIdOnPage(startId);
+    final long lastId = phoneNumberService.getLastId();
+
+    return lastId == lastIdOnPage ? 0L : lastIdOnPage;
+  }
+
+  private List<PhoneNumber> getPhoneNumbersFrom(Long startId) {
     final List<PhoneNumber> phoneNumbers = phoneNumberService.getNextPage(startId);
-    return phoneNumbers.get(phoneNumbers.size() - 1).getId() + 1;
+
+    return phoneNumbers.isEmpty() ? phoneNumberService.getNextPage(0L) : phoneNumbers;
   }
 }

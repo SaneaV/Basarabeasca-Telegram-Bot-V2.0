@@ -73,4 +73,14 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
       return null;
     }
   }
+
+  @Override
+  public Long getLastIdOnPage(Long page) {
+    return phoneNumberRepository.getLastIdOnPage(page);
+  }
+
+  @Override
+  public Long getLastId() {
+    return phoneNumberRepository.getLastId();
+  }
 }
