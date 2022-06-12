@@ -3,11 +3,11 @@ package md.basarabeasca.bot.web.converter.impl;
 import static java.lang.Character.toUpperCase;
 
 import md.basarabeasca.bot.dao.domain.Weather;
-import md.basarabeasca.bot.web.converter.WeatherStringConverter;
+import md.basarabeasca.bot.web.converter.WeatherConverter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WeatherStringConverterImpl implements WeatherStringConverter {
+public class WeatherConverterImpl implements WeatherConverter {
 
   private static final String TEMPLATE = "Дата: *%s*\n"
       + "Температура днём: %s\n"

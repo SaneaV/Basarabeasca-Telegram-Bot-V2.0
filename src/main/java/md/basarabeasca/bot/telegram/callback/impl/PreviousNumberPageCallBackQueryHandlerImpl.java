@@ -13,10 +13,11 @@ import static org.apache.commons.lang3.StringUtils.SPACE;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.RequiredArgsConstructor;
+import md.basarabeasca.bot.infrastructure.service.PhoneNumberService;
 import md.basarabeasca.bot.infrastructure.service.impl.PhoneNumberServiceImpl;
 import md.basarabeasca.bot.telegram.callback.CallbackQueryHandler;
 import md.basarabeasca.bot.telegram.callback.CallbackQueryType;
-import md.basarabeasca.bot.web.dto.PhoneNumberDto;
+import md.basarabeasca.bot.dao.domain.PhoneNumber;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -29,14 +30,14 @@ public class PreviousNumberPageCallBackQueryHandlerImpl implements CallbackQuery
 
   public final static String TO_MUCH_REQUESTS = "Слишком много запросов. Повторите попытку позже.";
 
-  private final PhoneNumberServiceImpl phoneNumberService;
+  private final PhoneNumberService phoneNumberService;
   private Integer lastDeletion;
 
   @Override
   public List<? super PartialBotApiMethod<?>> handleCallbackQuery(CallbackQuery callbackQuery) {
     final String chatId = callbackQuery.getMessage().getChatId().toString();
 
-    List<PhoneNumberDto> phoneNumber = getNextPageNumbers(
+    List<PhoneNumber> phoneNumber = getNextPageNumbers(
         Long.valueOf(callbackQuery.getData().split(SPACE)[1]));
     long lastId = Long.parseLong(callbackQuery.getData().split(SPACE)[1]);
 
@@ -66,7 +67,7 @@ public class PreviousNumberPageCallBackQueryHandlerImpl implements CallbackQuery
     }
   }
 
-  private StringBuilder formatPhoneNumbers(List<PhoneNumberDto> phoneNumber,
+  private StringBuilder formatPhoneNumbers(List<PhoneNumber> phoneNumber,
       StringBuilder formattedPhones) {
     AtomicInteger i = new AtomicInteger();
     phoneNumber.forEach(
@@ -81,7 +82,7 @@ public class PreviousNumberPageCallBackQueryHandlerImpl implements CallbackQuery
     return formattedPhones;
   }
 
-  private List<PhoneNumberDto> getNextPageNumbers(Long lastId) {
+  private List<PhoneNumber> getNextPageNumbers(Long lastId) {
     return phoneNumberService.getPreviousPage(lastId);
   }
 

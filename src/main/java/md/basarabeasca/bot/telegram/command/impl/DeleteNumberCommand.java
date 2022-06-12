@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.Getter;
+import md.basarabeasca.bot.infrastructure.service.PhoneNumberService;
 import md.basarabeasca.bot.infrastructure.service.impl.PhoneNumberServiceImpl;
 import md.basarabeasca.bot.telegram.command.Command;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,13 @@ public class DeleteNumberCommand implements Command {
   private static final String INCORRECT_NUMBER = "Номер некоректен";
   private static final String NO_ACCESS = "У вас нет подходящих прав для этой команды. Обратитесь к @SaneaV";
 
-  private final PhoneNumberServiceImpl phoneNumberService;
+  private final PhoneNumberService phoneNumberService;
   private final String adminId;
 
   @Autowired
   public DeleteNumberCommand(
       @Value("${telegrambot.adminId}") String adminId,
-      PhoneNumberServiceImpl phoneNumberService) {
+      PhoneNumberService phoneNumberService) {
     this.phoneNumberService = phoneNumberService;
     this.adminId = adminId;
   }

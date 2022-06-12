@@ -7,9 +7,10 @@ import static org.apache.commons.lang3.StringUtils.LF;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import md.basarabeasca.bot.infrastructure.service.PhoneNumberService;
 import md.basarabeasca.bot.infrastructure.service.impl.PhoneNumberServiceImpl;
 import md.basarabeasca.bot.telegram.command.Command;
-import md.basarabeasca.bot.web.dto.PhoneNumberDto;
+import md.basarabeasca.bot.dao.domain.PhoneNumber;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
@@ -26,7 +27,7 @@ public class SearchNumberCommand implements Command {
   public final static String POINT = ". ";
   public final static String HYPHEN = " - ";
 
-  private final PhoneNumberServiceImpl phoneNumberService;
+  private final PhoneNumberService phoneNumberService;
 
   @Override
   public List<? super PartialBotApiMethod<?>> execute(Update update) {
@@ -34,16 +35,16 @@ public class SearchNumberCommand implements Command {
   }
 
   private BotApiMethod<?> sendSearchNumber(Message message) {
-    final List<PhoneNumberDto> phoneNumberDtos = phoneNumberService.findByDescription(
+    final List<PhoneNumber> phoneNumbers = phoneNumberService.findByDescription(
         message.getText());
 
     final StringBuilder stringBuilder = new StringBuilder();
-    if (phoneNumberDtos.isEmpty()) {
+    if (phoneNumbers.isEmpty()) {
       stringBuilder.append(PHONE_NUMBER_LIST_IS_EMPTY_OR_NUMBER_WAS_NOT_FOUND);
     } else {
       int i = 0;
-      for (PhoneNumberDto phone :
-          phoneNumberDtos) {
+      for (PhoneNumber phone :
+          phoneNumbers) {
         stringBuilder
             .append(++i)
             .append(POINT)

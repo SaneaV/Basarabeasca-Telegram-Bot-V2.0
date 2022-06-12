@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.dao.domain.Weather;
 import md.basarabeasca.bot.infrastructure.parser.WeatherParser;
 import md.basarabeasca.bot.infrastructure.service.WeatherService;
-import md.basarabeasca.bot.web.converter.WeatherStringConverter;
+import md.basarabeasca.bot.web.converter.WeatherConverter;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,14 +16,14 @@ import org.springframework.stereotype.Component;
 public class WeatherServiceImpl implements WeatherService {
 
   private final WeatherParser weatherParser;
-  private final WeatherStringConverter weatherStringConverter;
+  private final WeatherConverter weatherConverter;
 
   @Override
   public String getWeather() {
     try {
       final List<Weather> forecast = weatherParser.getWeather();
       return forecast.stream()
-          .map(weatherStringConverter::toString)
+          .map(weatherConverter::toString)
           .collect(joining(EMPTY));
     } catch (Exception e) {
       throw new RuntimeException();

@@ -1,15 +1,15 @@
 package md.basarabeasca.bot.infrastructure.service.impl;
 
+import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 
-import java.util.Comparator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import md.basarabeasca.bot.dao.domain.PhoneNumber;
+import md.basarabeasca.bot.dao.mapper.impl.PhoneNumberMapper;
 import md.basarabeasca.bot.dao.repository.PhoneNumberRepository;
 import md.basarabeasca.bot.dao.repository.model.PhoneNumberJpa;
 import md.basarabeasca.bot.infrastructure.service.PhoneNumberService;
-import md.basarabeasca.bot.web.converter.PhoneNumberMapper;
-import md.basarabeasca.bot.web.dto.PhoneNumberDto;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -23,16 +23,16 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
   private final PhoneNumberMapper phoneNumberMapper;
 
   @Override
-  public List<PhoneNumberDto> getNextPage(Long lastId) {
+  public List<PhoneNumber> getNextPage(Long lastId) {
     return phoneNumberRepository.getNextPage(lastId).stream()
-        .map(phoneNumberMapper::toDto)
+        .map(phoneNumberMapper::toEntity)
         .collect(toList());
   }
 
   @Override
-  public List<PhoneNumberDto> getPreviousPage(Long lastId) {
+  public List<PhoneNumber> getPreviousPage(Long lastId) {
     return phoneNumberRepository.getPreviousPage(lastId).stream()
-        .map(phoneNumberMapper::toDto)
+        .map(phoneNumberMapper::toEntity)
         .collect(toList());
   }
 
@@ -62,12 +62,12 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
   }
 
   @Override
-  public List<PhoneNumberDto> findByDescription(String description) {
+  public List<PhoneNumber> findByDescription(String description) {
     try {
       return phoneNumberRepository.findByDescriptionIgnoreCaseContaining(description)
           .stream()
-          .map(phoneNumberMapper::toDto)
-          .sorted(Comparator.comparing(PhoneNumberDto::getDescription))
+          .map(phoneNumberMapper::toEntity)
+          .sorted(comparing(PhoneNumber::getDescription))
           .collect(toList());
     } catch (Exception exception) {
       return null;
