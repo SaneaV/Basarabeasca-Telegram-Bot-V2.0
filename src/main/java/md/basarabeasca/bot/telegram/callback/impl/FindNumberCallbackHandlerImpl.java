@@ -5,7 +5,6 @@ import static md.basarabeasca.bot.telegram.callback.CallbackQueryType.FIND_NUMBE
 import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageToFindAPhoneNumber;
 
 import java.util.List;
-import lombok.Getter;
 import md.basarabeasca.bot.telegram.callback.CallbackHandler;
 import md.basarabeasca.bot.telegram.callback.CallbackQueryType;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,6 @@ import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
-@Getter
 @Component
 public class FindNumberCallbackHandlerImpl implements CallbackHandler {
 

@@ -1,8 +1,10 @@
 package md.basarabeasca.bot.telegram.util.message;
 
+import static lombok.AccessLevel.PRIVATE;
 import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup;
 import static org.telegram.telegrambots.meta.api.methods.ParseMode.MARKDOWN;
 
+import lombok.RequiredArgsConstructor;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
@@ -11,6 +13,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ForceReplyKeyboa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 
+@RequiredArgsConstructor(access = PRIVATE)
 public class MessageUtil {
 
   public static SendMessage getSendMessage(Message message, String text) {

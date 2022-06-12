@@ -1,12 +1,10 @@
 package md.basarabeasca.bot.infrastructure.service;
 
-import java.time.LocalDate;
+import md.basarabeasca.bot.dao.domain.UpdateDate;
 
 public interface UpdateDateService {
 
-  LocalDate getDate();
-
-  void deleteDate(LocalDate lastUpdateDate);
+  UpdateDate getUpdateDate();
 
   void updateDate();
 }

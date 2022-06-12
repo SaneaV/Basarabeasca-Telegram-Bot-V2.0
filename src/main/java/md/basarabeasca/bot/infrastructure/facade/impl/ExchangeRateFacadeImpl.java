@@ -25,7 +25,8 @@ public class ExchangeRateFacadeImpl implements ExchangeRateFacade {
 
   @Override
   public String getBNMExchangeRates() {
-    if (!updateDateService.getDate().isEqual(LocalDate.now(ZoneId.of(ZONE_EUROPE_CHISINAU)))) {
+    final LocalDate lastUpdateDate = updateDateService.getUpdateDate().getLastUpdateDate();
+    if (!lastUpdateDate.isEqual(LocalDate.now(ZoneId.of(ZONE_EUROPE_CHISINAU)))) {
       updateDateService.updateDate();
       exchangeRateService.updateExchangeRates();
     }
