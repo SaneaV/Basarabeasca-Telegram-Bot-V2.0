@@ -28,7 +28,6 @@ public class TransportTimetableParserImpl implements TransportTimetableParser {
     return requireNonNull(getDocument().select(ENTRY_CONTENT).first()).wholeText();
   }
 
-  @Override
   public Document getDocument() {
     try {
       return Jsoup.connect(site).get();
