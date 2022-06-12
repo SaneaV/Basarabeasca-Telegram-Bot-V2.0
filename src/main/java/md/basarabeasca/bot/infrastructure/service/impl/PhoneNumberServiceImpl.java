@@ -6,7 +6,7 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.dao.domain.PhoneNumber;
-import md.basarabeasca.bot.dao.mapper.impl.PhoneNumberMapper;
+import md.basarabeasca.bot.dao.mapper.PhoneNumberMapper;
 import md.basarabeasca.bot.dao.repository.PhoneNumberRepository;
 import md.basarabeasca.bot.dao.repository.model.PhoneNumberJpa;
 import md.basarabeasca.bot.infrastructure.service.PhoneNumberService;

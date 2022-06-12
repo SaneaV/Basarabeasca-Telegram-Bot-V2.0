@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.web.converter.impl;
+package md.basarabeasca.bot.infrastructure.converter.impl;
 
 import static java.util.stream.Collectors.joining;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
@@ -6,7 +6,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import md.basarabeasca.bot.dao.domain.PhoneNumber;
-import md.basarabeasca.bot.web.converter.PhoneNumberConverter;
+import md.basarabeasca.bot.infrastructure.converter.PhoneNumberConverter;
 import org.springframework.stereotype.Component;
 
 @Component

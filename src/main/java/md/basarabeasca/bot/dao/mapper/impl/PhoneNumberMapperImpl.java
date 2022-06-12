@@ -1,6 +1,7 @@
 package md.basarabeasca.bot.dao.mapper.impl;
 
 import md.basarabeasca.bot.dao.domain.PhoneNumber;
+import md.basarabeasca.bot.dao.mapper.PhoneNumberMapper;
 import md.basarabeasca.bot.dao.repository.model.PhoneNumberJpa;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.dao.mapper.impl;
+package md.basarabeasca.bot.dao.mapper;
 
 import md.basarabeasca.bot.dao.repository.model.PhoneNumberJpa;
 import md.basarabeasca.bot.dao.domain.PhoneNumber;

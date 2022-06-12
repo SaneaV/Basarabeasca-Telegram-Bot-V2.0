@@ -1,10 +1,10 @@
-package md.basarabeasca.bot.web.converter.impl;
+package md.basarabeasca.bot.infrastructure.converter.impl;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import md.basarabeasca.bot.dao.domain.ExchangeRate;
-import md.basarabeasca.bot.web.converter.ExchangeRateConverter;
+import md.basarabeasca.bot.infrastructure.converter.ExchangeRateConverter;
 import org.springframework.stereotype.Component;
 
 @Component

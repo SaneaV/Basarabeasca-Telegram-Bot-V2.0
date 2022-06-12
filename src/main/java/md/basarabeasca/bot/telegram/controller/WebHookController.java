@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.web.controller;
+package md.basarabeasca.bot.telegram.controller;
 
 import static org.springframework.http.ResponseEntity.ok;
 

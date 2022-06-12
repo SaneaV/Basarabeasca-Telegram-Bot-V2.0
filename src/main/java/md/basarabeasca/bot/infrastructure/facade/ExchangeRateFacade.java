@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.web.facade;
+package md.basarabeasca.bot.infrastructure.facade;
 
 import java.util.Map;
 

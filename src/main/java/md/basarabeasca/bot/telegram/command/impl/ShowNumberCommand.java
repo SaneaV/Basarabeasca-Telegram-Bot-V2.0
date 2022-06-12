@@ -9,7 +9,7 @@ import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessa
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.telegram.command.Command;
-import md.basarabeasca.bot.web.facade.PhoneNumberFacade;
+import md.basarabeasca.bot.infrastructure.facade.PhoneNumberFacade;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;

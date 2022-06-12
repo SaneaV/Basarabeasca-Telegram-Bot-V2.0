@@ -1,11 +1,11 @@
-package md.basarabeasca.bot.web.facade.impl;
+package md.basarabeasca.bot.infrastructure.facade.impl;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.dao.domain.PhoneNumber;
 import md.basarabeasca.bot.infrastructure.service.PhoneNumberService;
-import md.basarabeasca.bot.web.converter.PhoneNumberConverter;
-import md.basarabeasca.bot.web.facade.PhoneNumberFacade;
+import md.basarabeasca.bot.infrastructure.converter.PhoneNumberConverter;
+import md.basarabeasca.bot.infrastructure.facade.PhoneNumberFacade;
 import org.springframework.stereotype.Component;
 
 @Component

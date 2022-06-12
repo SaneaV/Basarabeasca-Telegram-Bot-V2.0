@@ -1,4 +1,4 @@
-package md.basarabeasca.bot.web.facade.impl;
+package md.basarabeasca.bot.infrastructure.facade.impl;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -9,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.dao.domain.ExchangeRate;
 import md.basarabeasca.bot.infrastructure.service.ExchangeRateService;
 import md.basarabeasca.bot.infrastructure.service.UpdateDateService;
-import md.basarabeasca.bot.web.converter.ExchangeRateConverter;
-import md.basarabeasca.bot.web.facade.ExchangeRateFacade;
+import md.basarabeasca.bot.infrastructure.converter.ExchangeRateConverter;
+import md.basarabeasca.bot.infrastructure.facade.ExchangeRateFacade;
 import org.springframework.stereotype.Component;
 
 @Component
