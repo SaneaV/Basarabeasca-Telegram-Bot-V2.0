@@ -1,12 +1,8 @@
 package md.basarabeasca.bot.telegram.callback.impl;
 
-import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
-import static md.basarabeasca.bot.telegram.callback.CallbackQueryType.FIND_NUMBER;
 import static md.basarabeasca.bot.telegram.callback.CallbackQueryType.NEXT_PAGE;
-import static md.basarabeasca.bot.telegram.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardForShowNumber;
 import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageError;
-import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageWithInlineKeyboardMarkup;
 import static org.apache.commons.lang3.StringUtils.SPACE;
 
 import java.util.List;
@@ -16,15 +12,11 @@ import md.basarabeasca.bot.telegram.callback.CallbackQueryHandler;
 import md.basarabeasca.bot.telegram.callback.CallbackQueryType;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
 @Component
 @RequiredArgsConstructor
 public class NextNumberPageCallBackQueryHandlerImpl implements CallbackQueryHandler {
-
-  public final static String TO_MUCH_REQUESTS = "Слишком много запросов. Повторите попытку позже.";
 
   private final PhoneNumberFacade phoneNumberFacade;
   private Integer lastDeletion;
@@ -41,12 +33,7 @@ public class NextNumberPageCallBackQueryHandlerImpl implements CallbackQueryHand
       final Integer currentMessageId = callbackQuery.getMessage().getMessageId();
       if (!currentMessageId.equals(lastDeletion)) {
         lastDeletion = currentMessageId;
-
-        final DeleteMessage deleteMessage = new DeleteMessage(chatId, currentMessageId);
-        final SendMessage sendMessage = getSendMessageWithInlineKeyboardMarkup(chatId, phoneNumbers,
-            getSendInlineKeyboardForShowNumber(SEARCH_NUMBER, FIND_NUMBER.name(), lastId));
-
-        return asList(deleteMessage, sendMessage);
+        return sendPhoneNumberMessage(currentMessageId, chatId, phoneNumbers, lastId);
       } else {
         throw new RuntimeException();
       }
