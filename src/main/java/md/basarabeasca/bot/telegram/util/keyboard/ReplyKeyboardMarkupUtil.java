@@ -52,10 +52,10 @@ public class ReplyKeyboardMarkupUtil {
     final KeyboardRow keyboardRowFour = new KeyboardRow();
     final KeyboardRow keyboardRowFive = new KeyboardRow();
 
-    keyboardRowOne.addAll(List.of(SHOW_NUMBERS));
+    keyboardRowOne.addAll(List.of(MONEY));
     keyboardRowTwo.addAll(List.of(WEATHER));
-    keyboardRowThree.addAll(List.of(PUBLIC_TRANSPORT_TIMETABLE));
-    keyboardRowFour.addAll(List.of(MONEY));
+    keyboardRowThree.addAll(List.of(SHOW_NUMBERS));
+    keyboardRowFour.addAll(List.of(PUBLIC_TRANSPORT_TIMETABLE));
     keyboardRowFive.addAll(List.of(BACK_TO_MAIN_MENU));
 
     return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree,
