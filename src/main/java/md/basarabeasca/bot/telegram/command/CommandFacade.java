@@ -1,7 +1,6 @@
 package md.basarabeasca.bot.telegram.command;
 
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
@@ -17,19 +16,25 @@ public class CommandFacade {
   public List<? super PartialBotApiMethod<?>> processCommand(Update update) {
     try {
       final Message message = update.getMessage();
-      final Optional<Command> userCommand = commands.stream().
-          filter(commandTemp ->
-              commandTemp.getCommand().contains(message.getText()) ||
-                  message.getText().contains(commandTemp.getCommand()) ||
-                  (message.isReply() &&
-                      message.getReplyToMessage().getText().contains(commandTemp.getCommand())))
-          .findFirst();
+      return commands.stream()
+          .filter(c -> {
+            final String command = c.getCommand();
+            return isCommand(command, message.getText()) || isReplyCommand(command, message);
+          })
+          .findFirst()
+          .orElseThrow(RuntimeException::new)
+          .execute(update);
 
-      return userCommand.map(commandTemp -> commandTemp.execute(update))
-          .orElseThrow(RuntimeException::new);
-
-    } catch (Exception exception) {
+    } catch (RuntimeException exception) {
       throw new RuntimeException();
     }
+  }
+
+  private boolean isCommand(String command, String messageText) {
+    return command.contains(messageText) || messageText.contains(command);
+  }
+
+  private boolean isReplyCommand(String command, Message message) {
+    return message.isReply() && message.getReplyToMessage().getText().contains(command);
   }
 }
