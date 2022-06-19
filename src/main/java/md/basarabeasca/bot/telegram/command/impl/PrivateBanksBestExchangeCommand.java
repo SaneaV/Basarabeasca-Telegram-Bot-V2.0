@@ -26,15 +26,26 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @RequiredArgsConstructor
 public class PrivateBanksBestExchangeCommand implements Command {
 
-  private static final String BEST_EXCHANGE = "Купить USD/Продать USD - Купить EUR/Продать EUR - "
-      + "Купить RUB/Продать RUB - Купить RON/Продать RON - Купить UAH/Продать UAH";
+  //Command
+  private static final String BEST_EXCHANGE =
+      "Купить валюту/Продать валюту - Купить USD/Продать USD "
+          + "- Купить EUR/Продать EUR - Купить RUB/Продать RUB - Купить RON/Продать RON - Купить UAH/Продать UAH";
+  private static final String CURRENCY = "валюту";
+
+  //Regex
   private static final String MESSAGE_REGEX = "([a-яА-Я]+)\\s([A-Z]{3})";
+
+  //Response
+  private static final String RESPONSE = "Какую валюту вы хотите %s?";
   private static final String NOT_AVAILABLE_MESSAGE =
       "На данный момент ничего найти не можем. Возможные причины:\n"
           + "1. Все банки уже закрыты или ещё не открывались.\n"
           + "2. Указанная вами валюта, на данный момент, не продаётся/покупается в банках.";
   private static final String EXCHANGE_RATE_ONLY_IN_MAIN_OFFICE = "*Курсы действительны только в "
       + "главном офисе банка и могут отличаться в его территориальных подразделениях.*";
+
+  private static final String BUY = "Купить";
+  private static final String SELL = "Продать";
 
   private final ExchangeRateFacade exchangeRateFacade;
   private final LocationService locationService;
@@ -45,6 +56,10 @@ public class PrivateBanksBestExchangeCommand implements Command {
   }
 
   private List<? super PartialBotApiMethod<?>> sendBestExchange(Message message) {
+    if (isActionMessage(message.getText())) {
+      return singletonList(getActionMessage(message));
+    }
+
     final String action = getPatternGroup(message.getText(), 1);
     final String currency = getPatternGroup(message.getText(), 2);
     final Map<String, String> bestPrivateBankExchangeRateFor = exchangeRateFacade
@@ -80,6 +95,20 @@ public class PrivateBanksBestExchangeCommand implements Command {
       return matcher.group(group);
     }
     throw new RuntimeException();
+  }
+
+  private boolean isActionMessage(String message) {
+    return message.contains(CURRENCY);
+  }
+
+  private String getAction(String action) {
+    return action.contains(BUY) ? BUY : SELL;
+  }
+
+  private SendMessage getActionMessage(Message message) {
+    final String action = getAction(message.getText());
+    return getSendMessageWithReplyKeyboardMarkup(message,
+        String.format(RESPONSE, action.toLowerCase()), getCurrencyReplyKeyboardMarkup(action));
   }
 
   @Override
