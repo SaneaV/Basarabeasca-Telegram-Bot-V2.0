@@ -6,6 +6,8 @@ public interface PhoneNumberFacade {
 
   String getPreviousPage(Long stopId);
 
+  String addNumber(String message);
+
   long getMaxIdOnPage(Long startId);
 
   long getMinIdOnPage(Long stopId);
