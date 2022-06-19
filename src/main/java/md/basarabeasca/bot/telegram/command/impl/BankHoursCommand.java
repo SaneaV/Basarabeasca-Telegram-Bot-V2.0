@@ -1,9 +1,9 @@
 package md.basarabeasca.bot.telegram.command.impl;
 
+import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil.getMoneyReplyKeyboardMarkup;
 import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
-import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.infrastructure.service.BankHoursService;
@@ -11,7 +11,6 @@ import md.basarabeasca.bot.telegram.command.Command;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
@@ -24,12 +23,9 @@ public class BankHoursCommand implements Command {
 
   @Override
   public List<? super PartialBotApiMethod<?>> execute(Update update) {
-    return Collections.singletonList(sendBankHours(update.getMessage()));
-  }
-
-  private SendMessage sendBankHours(Message message) {
-    return getSendMessageWithReplyKeyboardMarkup(message, bankHoursService.getBankHours(),
-        getMoneyReplyKeyboardMarkup());
+    final SendMessage bankHours = getSendMessageWithReplyKeyboardMarkup(update.getMessage(),
+        bankHoursService.getBankHours(), getMoneyReplyKeyboardMarkup());
+    return singletonList(bankHours);
   }
 
   @Override

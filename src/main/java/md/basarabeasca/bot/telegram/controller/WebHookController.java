@@ -19,6 +19,7 @@ public class WebHookController {
 
   @PostMapping(value = "/")
   public ResponseEntity<BotApiMethod<?>> onUpdateReceived(@RequestBody Update update) {
-    return ok().body(basarabeascaBot.onWebhookUpdateReceived(update));
+    final BotApiMethod<?> botApiMethod = basarabeascaBot.onWebhookUpdateReceived(update);
+    return ok().body(botApiMethod);
   }
 }

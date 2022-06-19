@@ -5,16 +5,13 @@ import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil
 import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.telegram.command.Command;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
-@RequiredArgsConstructor
 public class MoneyCommand implements Command {
 
   private static final String MONEY = "Деньги";
@@ -22,11 +19,9 @@ public class MoneyCommand implements Command {
 
   @Override
   public List<? super PartialBotApiMethod<?>> execute(Update update) {
-    return singletonList(sendMoneyActionKeyBoard(update.getMessage()));
-  }
-
-  private SendMessage sendMoneyActionKeyBoard(Message message) {
-    return getSendMessageWithReplyKeyboardMarkup(message, RESPONSE, getMoneyReplyKeyboardMarkup());
+    final SendMessage moneyMessage = getSendMessageWithReplyKeyboardMarkup(
+        update.getMessage(), RESPONSE, getMoneyReplyKeyboardMarkup());
+    return singletonList(moneyMessage);
   }
 
   @Override

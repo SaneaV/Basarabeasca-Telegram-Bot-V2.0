@@ -5,7 +5,6 @@ import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil
 import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.telegram.command.Command;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
@@ -14,7 +13,6 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
-@RequiredArgsConstructor
 public class ExchangeActionCommand implements Command {
 
   private static final String BUY_SELL_CURRENCY = "Купить валюту/Продать валюту";
@@ -24,22 +22,15 @@ public class ExchangeActionCommand implements Command {
 
   @Override
   public List<? super PartialBotApiMethod<?>> execute(Update update) {
-    return singletonList(sendBestExchange(update.getMessage()));
-  }
-
-  private SendMessage sendBestExchange(Message message) {
+    final Message message = update.getMessage();
     final String action = getAction(message.getText());
-    return getSendMessageWithReplyKeyboardMarkup(message,
-        String.format(RESPONSE, action.toLowerCase()),
-        getCurrencyReplyKeyboardMarkup(action));
+    final SendMessage exchangeAction = getSendMessageWithReplyKeyboardMarkup(message,
+        String.format(RESPONSE, action.toLowerCase()), getCurrencyReplyKeyboardMarkup(action));
+    return singletonList(exchangeAction);
   }
 
   private String getAction(String action) {
-    if (action.contains(BUY)) {
-      return BUY;
-    } else {
-      return SELL;
-    }
+    return action.contains(BUY) ? BUY : SELL;
   }
 
   @Override

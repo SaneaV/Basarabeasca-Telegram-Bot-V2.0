@@ -11,12 +11,11 @@ import md.basarabeasca.bot.telegram.command.Command;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
 @RequiredArgsConstructor
-public class TimetablePublicTransportCommand implements Command {
+public class TransportTimetableCommand implements Command {
 
   private static final String PUBLIC_TRANSPORT_TIMETABLE = "Расписание междугородних рейсов";
 
@@ -24,12 +23,10 @@ public class TimetablePublicTransportCommand implements Command {
 
   @Override
   public List<? super PartialBotApiMethod<?>> execute(Update update) {
-    return singletonList(sendTimetable(update.getMessage()));
-  }
-
-  private SendMessage sendTimetable(Message message) {
-    return getSendMessageWithReplyKeyboardMarkup(message, transportTimetableService.getTimetable(),
+    final SendMessage transportTimetable = getSendMessageWithReplyKeyboardMarkup(
+        update.getMessage(), transportTimetableService.getTimetable(),
         getUsefulReplyKeyboardMarkup());
+    return singletonList(transportTimetable);
   }
 
   @Override
