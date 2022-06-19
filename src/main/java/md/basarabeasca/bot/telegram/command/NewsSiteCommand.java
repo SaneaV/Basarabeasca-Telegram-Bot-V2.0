@@ -18,20 +18,15 @@ public interface NewsSiteCommand extends Command {
   String CAPTION = "*%s*\n\n%s";
   String CONTINUE_READING = "Читать продолжение";
 
-  default List<? super PartialBotApiMethod<?>> sendNews(final Message message,
-      final List<News> news,
-      final String lastTenNews) {
+  default List<? super PartialBotApiMethod<?>> sendNews(Message message, List<News> news,
+      String lastTenNews) {
     final List<? super PartialBotApiMethod<?>> messages = new ArrayList<>();
 
-    news.forEach(singleNews -> {
+    news.forEach(n -> {
       final SendPhoto sendPhoto = getSendPhoto(message.getChatId().toString(),
-          String.format(CAPTION, singleNews.getName(), singleNews.getDescription()),
-          singleNews.getImage(),
-          MARKDOWN);
+          String.format(CAPTION, n.getName(), n.getDescription()), n.getImage(), MARKDOWN);
 
-      sendPhoto.setReplyMarkup(
-          getSendInlineKeyboardWithUrl(CONTINUE_READING, singleNews.getLink()));
-
+      sendPhoto.setReplyMarkup(getSendInlineKeyboardWithUrl(CONTINUE_READING, n.getLink()));
       messages.add(sendPhoto);
     });
 
