@@ -8,6 +8,8 @@ public interface PhoneNumberFacade {
 
   String addNumber(String message);
 
+  String deleteNumber(String message);
+
   long getMaxIdOnPage(Long startId);
 
   long getMinIdOnPage(Long stopId);

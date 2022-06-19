@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 public class PhoneNumberFacadeImpl implements PhoneNumberFacade {
 
   private static final String ADD_NUMBER_REGEX = "(/addNumber)\\s(0\\d{8})\\s([A-Za-z0-9-А-Яа-я,.()ĂÂÎȘȚăâîșț\\s]+)";
+  private static final String DELETE_NUMBER_REGEX = "(/deleteNumber)\\s(0\\d{8})";
   private static final String INCORRECT_NUMBER = "Номер некоректен";
 
   private final PhoneNumberService phoneNumberService;
@@ -34,13 +35,24 @@ public class PhoneNumberFacadeImpl implements PhoneNumberFacade {
 
   @Override
   public String addNumber(String message) {
-    final Pattern pattern = Pattern.compile(ADD_NUMBER_REGEX);
-    final Matcher matcher = pattern.matcher(message);
+    final Matcher matcher = getMatcher(ADD_NUMBER_REGEX, message);
 
     if (matcher.find()) {
       final String number = matcher.group(2);
       final String description = matcher.group(3);
       return phoneNumberService.addNumber(number, description);
+    } else {
+      return INCORRECT_NUMBER;
+    }
+  }
+
+  @Override
+  public String deleteNumber(String message) {
+    final Matcher matcher = getMatcher(DELETE_NUMBER_REGEX, message);
+
+    if (matcher.find()) {
+      final String number = matcher.group(2);
+      return phoneNumberService.deleteNumber(number);
     } else {
       return INCORRECT_NUMBER;
     }
@@ -75,5 +87,10 @@ public class PhoneNumberFacadeImpl implements PhoneNumberFacade {
     final List<PhoneNumber> phoneNumbers = phoneNumberService.getPreviousPage(stopId);
 
     return phoneNumbers.isEmpty() ? phoneNumberService.getNextPage(0L) : phoneNumbers;
+  }
+
+  private Matcher getMatcher(String stringPattern, String message) {
+    final Pattern pattern = Pattern.compile(stringPattern);
+    return pattern.matcher(message);
   }
 }

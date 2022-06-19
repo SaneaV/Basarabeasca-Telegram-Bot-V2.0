@@ -9,7 +9,6 @@ import md.basarabeasca.bot.infrastructure.facade.PhoneNumberFacade;
 import md.basarabeasca.bot.telegram.command.Command;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -33,18 +32,15 @@ public class AddNumberCommand implements Command {
 
   @Override
   public List<? super PartialBotApiMethod<?>> execute(Update update) {
-    final String userId = update.getMessage().getFrom().getId().toString();
+    final Message message = update.getMessage();
+    final String userId = message.getFrom().getId().toString();
 
     if (userId.equals(adminId)) {
-      return singletonList(sendAddNumber(update.getMessage()));
-    } else {
-      return singletonList(getSendMessage(update.getMessage(), NO_ACCESS));
+      final String result = phoneNumberFacade.addNumber(message.getText());
+      return singletonList(getSendMessage(message, result));
     }
-  }
 
-  private BotApiMethod<?> sendAddNumber(Message message) {
-    final String result = phoneNumberFacade.addNumber(message.getText());
-    return getSendMessage(message, result);
+    return singletonList(getSendMessage(message, NO_ACCESS));
   }
 
   @Override
