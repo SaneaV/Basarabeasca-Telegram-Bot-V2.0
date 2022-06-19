@@ -4,7 +4,6 @@ import static md.basarabeasca.bot.telegram.callback.CallbackQueryType.valueOf;
 import static org.apache.commons.lang3.StringUtils.SPACE;
 
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
@@ -20,14 +19,13 @@ public class CallbackQueryFacade {
     try {
       final CallbackQueryType usersQueryType = valueOf(usersQuery.getData().split(SPACE)[0]);
 
-      final Optional<CallbackHandler> queryHandler = callbackHandlers.stream()
+      return callbackHandlers.stream()
           .filter(callbackQuery -> callbackQuery.getHandlerQueryType().equals(usersQueryType))
-          .findFirst();
+          .findFirst()
+          .orElseThrow(RuntimeException::new)
+          .handleCallbackQuery(usersQuery);
 
-      return queryHandler.map(handler -> handler.handleCallbackQuery(usersQuery))
-          .orElseThrow(RuntimeException::new);
-
-    } catch (Exception exception) {
+    } catch (RuntimeException exception) {
       throw new RuntimeException();
     }
   }
