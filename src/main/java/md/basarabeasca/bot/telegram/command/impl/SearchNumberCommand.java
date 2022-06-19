@@ -3,16 +3,14 @@ package md.basarabeasca.bot.telegram.command.impl;
 import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup;
 import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
-import static org.apache.commons.lang3.StringUtils.LF;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import md.basarabeasca.bot.dao.domain.PhoneNumber;
-import md.basarabeasca.bot.infrastructure.service.PhoneNumberService;
+import md.basarabeasca.bot.infrastructure.facade.PhoneNumberFacade;
 import md.basarabeasca.bot.telegram.command.Command;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -21,41 +19,16 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 public class SearchNumberCommand implements Command {
 
   public final static String SEARCH_NUMBER = "Введите имя/организацию/заведение, чей номер вы ищите";
-  public final static String PHONE_NUMBER_LIST_IS_EMPTY_OR_NUMBER_WAS_NOT_FOUND =
-      "Список номеров пуст или запрашиваемый вами номер не был найден";
-  public final static String POINT = ". ";
-  public final static String HYPHEN = " - ";
 
-  private final PhoneNumberService phoneNumberService;
+  private final PhoneNumberFacade phoneNumberFacade;
 
   @Override
   public List<? super PartialBotApiMethod<?>> execute(Update update) {
-    return singletonList(sendSearchNumber(update.getMessage()));
-  }
-
-  private BotApiMethod<?> sendSearchNumber(Message message) {
-    final List<PhoneNumber> phoneNumbers = phoneNumberService.findByDescription(
-        message.getText());
-
-    final StringBuilder stringBuilder = new StringBuilder();
-    if (phoneNumbers.isEmpty()) {
-      stringBuilder.append(PHONE_NUMBER_LIST_IS_EMPTY_OR_NUMBER_WAS_NOT_FOUND);
-    } else {
-      int i = 0;
-      for (PhoneNumber phone :
-          phoneNumbers) {
-        stringBuilder
-            .append(++i)
-            .append(POINT)
-            .append(phone.getPhoneNumber())
-            .append(HYPHEN)
-            .append(phone.getDescription())
-            .append(LF);
-      }
-    }
-
-    return getSendMessageWithReplyKeyboardMarkup(message, stringBuilder.toString(),
-        getMainReplyKeyboardMarkup());
+    final Message message = update.getMessage();
+    final String phoneNumbers = phoneNumberFacade.findByDescription(message.getText());
+    final SendMessage phoneNumbersMessage = getSendMessageWithReplyKeyboardMarkup(message,
+        phoneNumbers, getMainReplyKeyboardMarkup());
+    return singletonList(phoneNumbersMessage);
   }
 
   @Override

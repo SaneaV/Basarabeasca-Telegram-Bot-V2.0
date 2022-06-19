@@ -10,6 +10,8 @@ public interface PhoneNumberFacade {
 
   String deleteNumber(String message);
 
+  String findByDescription(String description);
+
   long getMaxIdOnPage(Long startId);
 
   long getMinIdOnPage(Long stopId);

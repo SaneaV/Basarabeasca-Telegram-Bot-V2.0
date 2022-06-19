@@ -5,7 +5,6 @@ import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil
 import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 
 import java.util.List;
-import lombok.Getter;
 import md.basarabeasca.bot.telegram.command.Command;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;

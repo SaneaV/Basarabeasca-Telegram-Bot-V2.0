@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PhoneNumberFacadeImpl implements PhoneNumberFacade {
 
+  public final static String PHONE_NUMBER_LIST_IS_EMPTY_OR_NUMBER_WAS_NOT_FOUND = "Список номеров пуст или запрашиваемый вами номер не был найден";
   private static final String ADD_NUMBER_REGEX = "(/addNumber)\\s(0\\d{8})\\s([A-Za-z0-9-А-Яа-я,.()ĂÂÎȘȚăâîșț\\s]+)";
   private static final String DELETE_NUMBER_REGEX = "(/deleteNumber)\\s(0\\d{8})";
   private static final String INCORRECT_NUMBER = "Номер некоректен";
-
   private final PhoneNumberService phoneNumberService;
   private final PhoneNumberConverter phoneNumberConverter;
 
@@ -56,6 +56,12 @@ public class PhoneNumberFacadeImpl implements PhoneNumberFacade {
     } else {
       return INCORRECT_NUMBER;
     }
+  }
+
+  @Override
+  public String findByDescription(String description) {
+    final List<PhoneNumber> numbers = phoneNumberService.findByDescription(description);
+    return phoneNumberConverter.toMessage(numbers);
   }
 
   @Override

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.dao.domain.News;
 import md.basarabeasca.bot.infrastructure.facade.NewsFacade;

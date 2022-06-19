@@ -4,7 +4,6 @@ import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessage;
 
 import java.util.List;
-import lombok.Getter;
 import md.basarabeasca.bot.infrastructure.facade.PhoneNumberFacade;
 import md.basarabeasca.bot.telegram.command.Command;
 import org.springframework.beans.factory.annotation.Value;
