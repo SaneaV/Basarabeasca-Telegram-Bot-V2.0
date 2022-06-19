@@ -10,29 +10,31 @@ import md.basarabeasca.bot.dao.domain.News;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public interface NewsSiteParser {
+public interface NewsParser {
 
-  Elements getNewsTitle(Document parsedSite);
+  Elements getTitle(Document parsedSite);
 
-  Elements getNewsDescription(Document parsedSite);
+  Elements getDescription(Document parsedSite);
 
-  Elements getNewsLink(Document parsedSite);
+  Elements getLink(Document parsedSite);
 
-  Elements getNewsImage(Document parsedSite);
+  Elements getImage(Document parsedSite);
 
-  Document getDocument() throws IOException;
+  Document getHtml() throws IOException;
 
   List<News> getLastNews();
+
+  String getNewsSource();
 
   default List<Elements> getNewsFromThreads() {
     final Document parsedSite = getParsedSite();
     final ExecutorService executorService = Executors.newFixedThreadPool(4);
 
-    final Future<Elements> newsTitle = executorService.submit(() -> getNewsTitle(parsedSite));
+    final Future<Elements> newsTitle = executorService.submit(() -> getTitle(parsedSite));
     final Future<Elements> newsDescription = executorService.submit(
-        () -> getNewsDescription(parsedSite));
-    final Future<Elements> newsLink = executorService.submit(() -> getNewsLink(parsedSite));
-    final Future<Elements> newsImage = executorService.submit(() -> getNewsImage(parsedSite));
+        () -> getDescription(parsedSite));
+    final Future<Elements> newsLink = executorService.submit(() -> getLink(parsedSite));
+    final Future<Elements> newsImage = executorService.submit(() -> getImage(parsedSite));
 
     executorService.shutdown();
 
@@ -45,7 +47,7 @@ public interface NewsSiteParser {
 
   default Document getParsedSite() {
     try {
-      return getDocument();
+      return getHtml();
     } catch (IOException e) {
       throw new RuntimeException();
     }

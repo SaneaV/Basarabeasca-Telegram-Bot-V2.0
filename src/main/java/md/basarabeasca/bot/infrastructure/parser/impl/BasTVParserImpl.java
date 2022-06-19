@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import md.basarabeasca.bot.dao.domain.News;
-import md.basarabeasca.bot.infrastructure.parser.NewsSiteParser;
+import md.basarabeasca.bot.infrastructure.parser.NewsParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -14,8 +14,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BasTVParserImpl implements NewsSiteParser {
+public class BasTVParserImpl implements NewsParser {
 
+  private static final String BASTV = "Новости BasTV";
   private static final String TITLE = "title";
   private static final String POST_SUMMARY = "post-summary";
   private static final String A = "a";
@@ -30,28 +31,38 @@ public class BasTVParserImpl implements NewsSiteParser {
   }
 
   @Override
-  public Elements getNewsTitle(Document parsedSite) {
+  public Elements getTitle(Document parsedSite) {
     return parsedSite.getElementsByClass(TITLE);
   }
 
   @Override
-  public Elements getNewsDescription(Document parsedSite) {
+  public Elements getDescription(Document parsedSite) {
     return parsedSite.getElementsByClass(POST_SUMMARY);
   }
 
   @Override
-  public Elements getNewsLink(Document parsedSite) {
+  public Elements getLink(Document parsedSite) {
     return parsedSite.getElementsByClass(TITLE).select(A);
   }
 
   @Override
-  public Elements getNewsImage(Document parsedSite) {
+  public Elements getImage(Document parsedSite) {
     return parsedSite.getElementsByClass(FEATURED_CLEARFIX).select(A);
   }
 
   @Override
-  public Document getDocument() throws IOException {
+  public Document getHtml() throws IOException {
     return Jsoup.connect(siteLink).get();
+  }
+
+  @Override
+  public List<News> getLastNews() {
+    return reverse(getListNews());
+  }
+
+  @Override
+  public String getNewsSource() {
+    return BASTV;
   }
 
   private List<News> getListNews() {
@@ -76,10 +87,5 @@ public class BasTVParserImpl implements NewsSiteParser {
     }
 
     return newsList;
-  }
-
-  @Override
-  public List<News> getLastNews() {
-    return reverse(getListNews());
   }
 }

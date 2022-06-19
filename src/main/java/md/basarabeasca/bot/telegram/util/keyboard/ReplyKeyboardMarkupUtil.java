@@ -17,7 +17,7 @@ public class ReplyKeyboardMarkupUtil {
   private static final String MONEY = "Деньги";
 
   private static final String BASTV = "Новости BasTV";
-  private static final String FEEDBACK = "Новости FeedBack";
+  private static final String FEEDBACK = "Новости Feedback";
   private static final String DISTRICT_COUNCIL = "Новости Районного совета";
 
   private static final String EXCHANGE_RATES = "Курс валют BNM";

@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import md.basarabeasca.bot.dao.domain.News;
-import md.basarabeasca.bot.infrastructure.parser.NewsSiteParser;
+import md.basarabeasca.bot.infrastructure.parser.NewsParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -14,8 +14,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FeedBackParserImpl implements NewsSiteParser {
+public class FeedBackParserImpl implements NewsParser {
 
+  private static final String FEEDBACK = "Новости Feedback";
   private static final String TITLE = "entry-title entry-title-big";
   private static final String CONTENT_WRAPPER = "twp-content-wrapper";
   private static final String P = "p";
@@ -32,28 +33,38 @@ public class FeedBackParserImpl implements NewsSiteParser {
   }
 
   @Override
-  public Elements getNewsTitle(Document parsedSite) {
+  public Elements getTitle(Document parsedSite) {
     return parsedSite.getElementsByClass(TITLE);
   }
 
   @Override
-  public Elements getNewsDescription(Document parsedSite) {
+  public Elements getDescription(Document parsedSite) {
     return parsedSite.getElementsByClass(CONTENT_WRAPPER).select(P);
   }
 
   @Override
-  public Elements getNewsLink(Document parsedSite) {
+  public Elements getLink(Document parsedSite) {
     return parsedSite.getElementsByClass(READ_MORE).select(A);
   }
 
   @Override
-  public Elements getNewsImage(Document parsedSite) {
+  public Elements getImage(Document parsedSite) {
     return parsedSite.getElementsByClass(ATTACHEMENT);
   }
 
   @Override
-  public Document getDocument() throws IOException {
+  public Document getHtml() throws IOException {
     return Jsoup.connect(siteLink).get();
+  }
+
+  @Override
+  public List<News> getLastNews() {
+    return reverse(getListNews());
+  }
+
+  @Override
+  public String getNewsSource() {
+    return FEEDBACK;
   }
 
   private List<News> getListNews() {
@@ -78,10 +89,5 @@ public class FeedBackParserImpl implements NewsSiteParser {
     }
 
     return newsList;
-  }
-
-  @Override
-  public List<News> getLastNews() {
-    return reverse(getListNews());
   }
 }

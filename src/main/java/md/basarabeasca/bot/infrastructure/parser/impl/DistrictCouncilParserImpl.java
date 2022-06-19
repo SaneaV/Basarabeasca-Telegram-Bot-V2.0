@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import md.basarabeasca.bot.dao.domain.News;
-import md.basarabeasca.bot.infrastructure.parser.NewsSiteParser;
+import md.basarabeasca.bot.infrastructure.parser.NewsParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -14,8 +14,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DistrictCouncilParserImpl implements NewsSiteParser {
+public class DistrictCouncilParserImpl implements NewsParser {
 
+  private static final String DISTRICT_COUNCIL = "Новости Районного совета";
   private static final String ITEMPROP_NAME = "span[itemprop=\"name\"]";
   private static final String ITEMPROP_ARTICLE_SECTION = "p[itemprop=\"articleSection\"]";
   private static final String THUMB = "thumb";
@@ -31,28 +32,38 @@ public class DistrictCouncilParserImpl implements NewsSiteParser {
   }
 
   @Override
-  public Elements getNewsTitle(Document parsedSite) {
+  public Elements getTitle(Document parsedSite) {
     return parsedSite.select(ITEMPROP_NAME);
   }
 
   @Override
-  public Elements getNewsDescription(Document parsedSite) {
+  public Elements getDescription(Document parsedSite) {
     return parsedSite.select(ITEMPROP_ARTICLE_SECTION).next();
   }
 
   @Override
-  public Elements getNewsLink(Document parsedSite) {
+  public Elements getLink(Document parsedSite) {
     return parsedSite.getElementsByClass(THUMB).select(A);
   }
 
   @Override
-  public Elements getNewsImage(Document parsedSite) {
+  public Elements getImage(Document parsedSite) {
     return parsedSite.getElementsByClass(THUMB).select(A).select(IMG);
   }
 
   @Override
-  public Document getDocument() throws IOException {
+  public Document getHtml() throws IOException {
     return Jsoup.connect(siteLink).get();
+  }
+
+  @Override
+  public List<News> getLastNews() {
+    return reverse(getListNews());
+  }
+
+  @Override
+  public String getNewsSource() {
+    return DISTRICT_COUNCIL;
   }
 
   private List<News> getListNews() {
@@ -77,10 +88,5 @@ public class DistrictCouncilParserImpl implements NewsSiteParser {
     }
 
     return newsList;
-  }
-
-  @Override
-  public List<News> getLastNews() {
-    return reverse(getListNews());
   }
 }
