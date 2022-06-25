@@ -73,14 +73,13 @@ public class ExchangeRateParserImpl implements ExchangeRateParser {
     final Elements listRates = Objects.requireNonNull(
         getDocument(bnmSite).getElementsByClass(VIEW_RATES).first()).select(LI);
 
-    final List<ExchangeRate> exchangeRates = new ArrayList<>();
-    listRates.forEach(exchangeRate -> {
-      final String price = getValue(exchangeRate);
-      exchangeRates.add(
-          new ExchangeRate(BNM, exchangeRate.getElementsByClass(CURRENCY).text(), price, price));
-    });
-
-    return exchangeRates;
+    return listRates.stream()
+        .map(e -> {
+          final String price = getValue(e);
+          final String currency = e.getElementsByClass(CURRENCY).text();
+          return new ExchangeRate(BNM, currency, price, price);
+        })
+        .collect(Collectors.toList());
   }
 
   private List<ExchangeRate> getPrivateBanksRates() {
