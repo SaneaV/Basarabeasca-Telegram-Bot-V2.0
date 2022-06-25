@@ -71,8 +71,8 @@ public class ReplyKeyboardMarkupUtil {
     final KeyboardRow keyboardRowFive = new KeyboardRow();
 
     keyboardRowOne.addAll(List.of(EXCHANGE_RATES));
-    keyboardRowTwo.addAll(List.of(BEST_EXCHANGE));
-    keyboardRowThree.addAll(List.of(ALL_EXCHANGES));
+    keyboardRowTwo.addAll(List.of(ALL_EXCHANGES));
+    keyboardRowThree.addAll(List.of(BEST_EXCHANGE));
     keyboardRowFour.addAll(List.of(BANK_HOURS));
     keyboardRowFive.addAll(List.of(BACK_TO_MAIN_MENU));
 

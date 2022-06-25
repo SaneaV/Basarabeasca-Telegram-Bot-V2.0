@@ -21,11 +21,8 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 public class AllExchangeRatesCommand implements Command {
 
   private static final String ALL_EXCHANGES = "Все курсы валют";
-  private static final String NOT_AVAILABLE_MESSAGE =
-      "Все банки в городе Басарабяска сейчас закрыты"
-          + "или ещё не обновили курсы валют на текущий день.";
-  private static final String EXCHANGE_RATE_ONLY_IN_MAIN_OFFICE = "*Курсы действительны только в "
-      + "главном офисе банка и могут отличаться в его территориальных подразделениях.*";
+  private static final String NOT_AVAILABLE_MESSAGE = "Все банки в городе Басарабяска сейчас закрыты или ещё не обновили курсы валют на текущий день.";
+  private static final String EXCHANGE_RATE_ONLY_IN_MAIN_OFFICE = "*Курсы действительны только в главном офисе банка и могут отличаться в его территориальных подразделениях.*";
 
   private final ExchangeRateFacade exchangeRateFacade;
 
