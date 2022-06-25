@@ -5,6 +5,7 @@ import static com.google.common.collect.Lists.reverse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 import md.basarabeasca.bot.dao.domain.News;
 import md.basarabeasca.bot.infrastructure.parser.NewsParser;
 import org.jsoup.Jsoup;
@@ -66,26 +67,31 @@ public class BasTVParserImpl implements NewsParser {
   }
 
   private List<News> getListNews() {
-    final List<Elements> list = getNewsFromThreads();
+    final List<Elements> newsFromThreads = getNewsFromThreads();
 
-    final Elements names = list.get(0);
-    final Elements descriptions = list.get(1);
-    final Elements links = list.get(2);
-    final Elements images = list.get(3);
+    final Elements titles = getElements(newsFromThreads, 0);
+    final Elements descriptions = getElements(newsFromThreads, 1);
+    final Elements links = getElements(newsFromThreads, 2);
+    final Elements images = getElements(newsFromThreads, 3);
 
+    return populateListOfNews(titles, descriptions, links, images);
+  }
+
+  private Elements getElements(List<Elements> elements, int index) {
+    return elements.get(index);
+  }
+
+  private List<News> populateListOfNews(Elements titles, Elements descriptions, Elements links,
+      Elements images) {
     final List<News> newsList = new ArrayList<>();
 
-    for (int i = 0; i < 10; i++) {
-      News news = News.builder()
-          .name(names.get(i).text())
-          .description(descriptions.get(i).text())
-          .image(images.get(i).attr(DATA_SRC))
-          .link(links.get(i).attr(HREF))
-          .build();
-
-      newsList.add(news);
-    }
-
+    IntStream.range(0, 10)
+        .forEach(number -> newsList.add(new News(
+            titles.get(number).text(),
+            descriptions.get(number).text(),
+            images.get(number).attr(DATA_SRC),
+            links.get(number).attr(HREF))
+        ));
     return newsList;
   }
 }
