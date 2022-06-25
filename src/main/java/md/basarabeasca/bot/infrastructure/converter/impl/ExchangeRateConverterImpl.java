@@ -29,13 +29,15 @@ public class ExchangeRateConverterImpl implements ExchangeRateConverter {
 
   @Override
   public String toMessage(List<ExchangeRate> exchangeRate) {
-    return String.format(EXCHANGE_RATES_RESPONSE,
-        LocalDate.now(),
-        exchangeRate.get(0).getCurrency(), exchangeRate.get(0).getPurchase(),
-        exchangeRate.get(1).getCurrency(), exchangeRate.get(1).getPurchase(),
-        exchangeRate.get(2).getCurrency(), exchangeRate.get(2).getPurchase(),
-        exchangeRate.get(3).getCurrency(), exchangeRate.get(3).getPurchase(),
-        exchangeRate.get(4).getCurrency(), exchangeRate.get(4).getPurchase());
+    final ExchangeRate USD = exchangeRate.get(0);
+    final ExchangeRate EUR = exchangeRate.get(1);
+    final ExchangeRate UAH = exchangeRate.get(2);
+    final ExchangeRate RON = exchangeRate.get(3);
+    final ExchangeRate RUB = exchangeRate.get(4);
+    return String.format(EXCHANGE_RATES_RESPONSE, LocalDate.now(),
+        USD.getCurrency(), USD.getPurchase(), EUR.getCurrency(), EUR.getPurchase(),
+        UAH.getCurrency(), UAH.getPurchase(), RON.getCurrency(), RON.getPurchase(),
+        RUB.getCurrency(), RUB.getPurchase());
   }
 
   @Override
@@ -48,10 +50,7 @@ public class ExchangeRateConverterImpl implements ExchangeRateConverter {
   }
 
   private String getPriceByAction(String action, String purchase, String sale) {
-    if (BUY.equalsIgnoreCase(action)) {
-      return purchase;
-    }
-    return sale;
+    return BUY.equalsIgnoreCase(action) ? purchase : sale;
   }
 
   private String getFlag(String currency) {
