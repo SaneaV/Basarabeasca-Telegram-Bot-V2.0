@@ -24,14 +24,14 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
 
   @Override
   public List<PhoneNumber> getNextPage(Long lastId) {
-    return phoneNumberRepository.getNextPage(lastId).stream()
+    return phoneNumberRepository.findTop10ByIdGreaterThan(lastId).stream()
         .map(phoneNumberMapper::toEntity)
         .collect(toList());
   }
 
   @Override
   public List<PhoneNumber> getPreviousPage(Long lastId) {
-    return phoneNumberRepository.getPreviousPage(lastId).stream()
+    return phoneNumberRepository.findTop10ByIdLessThanEqualOrderByIdDesc(lastId).stream()
         .sorted(comparing(PhoneNumberJpa::getId))
         .map(phoneNumberMapper::toEntity)
         .collect(toList());
@@ -76,22 +76,22 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
   }
 
   @Override
-  public Long getMaxIdOnPage(Long page) {
-    return phoneNumberRepository.getMaxIdOnPage(page);
+  public Long getMaxIdOnPage(Long lastId) {
+    return phoneNumberRepository.getMaxIdOnPage(lastId);
   }
 
   @Override
-  public Long getMinIdOnPage(Long page) {
-    return phoneNumberRepository.getMinIdOnPage(page);
+  public Long getMinIdOnPage(Long lastId) {
+    return phoneNumberRepository.getMinIdOnPage(lastId);
   }
 
   @Override
   public Long getLastId() {
-    return phoneNumberRepository.getLastId();
+    return phoneNumberRepository.findFirstIdByOrderByIdDesc().getId();
   }
 
   @Override
   public Long getFirstId() {
-    return phoneNumberRepository.getFirstId();
+    return phoneNumberRepository.findFirstIdByOrderByIdAsc().getId();
   }
 }

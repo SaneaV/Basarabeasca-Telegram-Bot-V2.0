@@ -8,11 +8,9 @@ import org.springframework.data.repository.query.Param;
 
 public interface PhoneNumberRepository extends JpaRepository<PhoneNumberJpa, Long> {
 
-  @Query(value = "SELECT * FROM phone_numbers WHERE phone_id > :lastId LIMIT 10", nativeQuery = true)
-  List<PhoneNumberJpa> getNextPage(@Param("lastId") Long lastId);
+  List<PhoneNumberJpa> findTop10ByIdGreaterThan(Long id);
 
-  @Query(value = "SELECT * FROM phone_numbers WHERE phone_id <= :lastId ORDER BY (phone_id) DESC LIMIT 10 ", nativeQuery = true)
-  List<PhoneNumberJpa> getPreviousPage(@Param("lastId") Long lastId);
+  List<PhoneNumberJpa> findTop10ByIdLessThanEqualOrderByIdDesc(Long id);
 
   @Query(value = "SELECT MAX(phone_id)\n"
       + "FROM phone_numbers\n"
@@ -24,13 +22,16 @@ public interface PhoneNumberRepository extends JpaRepository<PhoneNumberJpa, Lon
       + "WHERE phone_id IN (SELECT phone_id FROM phone_numbers WHERE phone_id < :lastId ORDER BY phone_id DESC LIMIT 10)", nativeQuery = true)
   Long getMinIdOnPage(@Param("lastId") Long lastId);
 
-  @Query(value = "SELECT MAX(phone_id) FROM phone_numbers", nativeQuery = true)
-  Long getLastId();
+  IdOnly findFirstIdByOrderByIdDesc();
 
-  @Query(value = "SELECT MIN(phone_id) FROM phone_numbers", nativeQuery = true)
-  Long getFirstId();
+  IdOnly findFirstIdByOrderByIdAsc();
 
   PhoneNumberJpa findByPhoneNumber(String number);
 
   List<PhoneNumberJpa> findByDescriptionIgnoreCaseContaining(String description);
+
+  interface IdOnly {
+
+    Long getId();
+  }
 }

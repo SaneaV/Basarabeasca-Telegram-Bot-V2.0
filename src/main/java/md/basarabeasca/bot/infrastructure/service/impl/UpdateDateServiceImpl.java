@@ -27,13 +27,13 @@ public class UpdateDateServiceImpl implements UpdateDateService {
 
   @Override
   public void updateDate() {
-    final UpdateDateJpa updateDate = updateDateRepository.getUpdateDate();
+    final UpdateDateJpa updateDate = updateDateRepository.findTopByOrderByIdAsc();
     updateDate.setLastUpdateDate(LocalDate.now());
     updateDateRepository.save(updateDate);
   }
 
   private UpdateDateJpa getUpdateDateJpas() {
-    final UpdateDateJpa updateDate = updateDateRepository.getUpdateDate();
+    final UpdateDateJpa updateDate = updateDateRepository.findTopByOrderByIdAsc();
 
     if (updateDate == null) {
       return addFirstDate();

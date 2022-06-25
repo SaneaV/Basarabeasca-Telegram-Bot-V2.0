@@ -13,6 +13,6 @@ public interface ExchangeRateRepository extends JpaRepository<ExchangeRateJpa, L
   List<ExchangeRateJpa> findAllByOrderByIdAsc();
 
   @Modifying
-  @Query(value = "UPDATE exchange_rates SET value = ?2 WHERE currency = ?1", nativeQuery = true)
+  @Query(value = "UPDATE exchange_rates SET value = :exchangeRate WHERE currency = :currency", nativeQuery = true)
   void updateExchangeRate(String currency, String exchangeRate);
 }
