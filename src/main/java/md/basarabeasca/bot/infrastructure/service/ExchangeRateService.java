@@ -7,6 +7,8 @@ public interface ExchangeRateService {
 
   List<ExchangeRate> getBNMExchangeRates();
 
+  List<ExchangeRate> getAllExchangeRates();
+
   List<ExchangeRate> getBestPrivateBankExchangeRateFor(String currency, String action);
 
   void updateExchangeRates();

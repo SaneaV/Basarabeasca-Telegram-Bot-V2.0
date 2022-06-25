@@ -22,6 +22,7 @@ public class ReplyKeyboardMarkupUtil {
 
   private static final String EXCHANGE_RATES = "Курс валют BNM";
   private static final String BEST_EXCHANGE = "Лучший курс обмена";
+  private static final String ALL_EXCHANGES = "Все курсы валют";
   private static final String BANK_HOURS = "График работы банков";
 
   private static final String BUY_CURRENCY = "Купить валюту";
@@ -67,14 +68,16 @@ public class ReplyKeyboardMarkupUtil {
     final KeyboardRow keyboardRowTwo = new KeyboardRow();
     final KeyboardRow keyboardRowThree = new KeyboardRow();
     final KeyboardRow keyboardRowFour = new KeyboardRow();
+    final KeyboardRow keyboardRowFive = new KeyboardRow();
 
     keyboardRowOne.addAll(List.of(EXCHANGE_RATES));
     keyboardRowTwo.addAll(List.of(BEST_EXCHANGE));
-    keyboardRowThree.addAll(List.of(BANK_HOURS));
-    keyboardRowFour.addAll(List.of(BACK_TO_MAIN_MENU));
+    keyboardRowThree.addAll(List.of(ALL_EXCHANGES));
+    keyboardRowFour.addAll(List.of(BANK_HOURS));
+    keyboardRowFive.addAll(List.of(BACK_TO_MAIN_MENU));
 
     return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree,
-        keyboardRowFour));
+        keyboardRowFour, keyboardRowFive));
   }
 
   public static ReplyKeyboardMarkup getCurrencyActionReplyKeyboardMarkup() {

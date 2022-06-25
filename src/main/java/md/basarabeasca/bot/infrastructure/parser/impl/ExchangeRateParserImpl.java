@@ -53,7 +53,21 @@ public class ExchangeRateParserImpl implements ExchangeRateParser {
 
   @Override
   public List<ExchangeRate> getBNMExchangeRates() {
-    return getBNMRates();
+    final Elements listRates = Objects.requireNonNull(
+        getDocument(bnmSite).getElementsByClass(VIEW_RATES).first()).select(LI);
+
+    return listRates.stream()
+        .map(e -> {
+          final String price = getValue(e);
+          final String currency = e.getElementsByClass(CURRENCY).text();
+          return new ExchangeRate(BNM, currency, price, price);
+        })
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<ExchangeRate> getAllExchangeRates() {
+    return getPrivateBanksRates();
   }
 
   @Override
@@ -67,19 +81,6 @@ public class ExchangeRateParserImpl implements ExchangeRateParser {
     } catch (IOException e) {
       throw new RuntimeException();
     }
-  }
-
-  private List<ExchangeRate> getBNMRates() {
-    final Elements listRates = Objects.requireNonNull(
-        getDocument(bnmSite).getElementsByClass(VIEW_RATES).first()).select(LI);
-
-    return listRates.stream()
-        .map(e -> {
-          final String price = getValue(e);
-          final String currency = e.getElementsByClass(CURRENCY).text();
-          return new ExchangeRate(BNM, currency, price, price);
-        })
-        .collect(Collectors.toList());
   }
 
   private List<ExchangeRate> getPrivateBanksRates() {

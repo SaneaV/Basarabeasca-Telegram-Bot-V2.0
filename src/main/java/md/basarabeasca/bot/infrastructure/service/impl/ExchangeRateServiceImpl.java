@@ -36,6 +36,11 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
   }
 
   @Override
+  public List<ExchangeRate> getAllExchangeRates() {
+    return exchangeRateParser.getAllExchangeRates();
+  }
+
+  @Override
   public List<ExchangeRate> getBestPrivateBankExchangeRateFor(String currency, String action) {
     final List<ExchangeRate> allExchangeRates = exchangeRateParser.getPrivateBanksExchangeRates()
         .stream()

@@ -14,7 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @Component
 public class StartCommand implements Command {
 
-  private static final String WELCOME_MESSAGE = "Добро пожаловать в Бессарабка бот V2.0. Воспользуйтесь клавишами меню, чтобы узнать о новостях в нашем городе.";
+  private static final String WELCOME_MESSAGE = "Добро пожаловать в Басарабяска бот V2.0. Воспользуйтесь клавишами меню, чтобы узнать о новостях в нашем городе.";
   private static final String START_COMMAND = "/start";
 
   @Override

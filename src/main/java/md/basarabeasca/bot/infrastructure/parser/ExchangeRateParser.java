@@ -7,5 +7,7 @@ public interface ExchangeRateParser {
 
   List<ExchangeRate> getBNMExchangeRates();
 
+  List<ExchangeRate> getAllExchangeRates();
+
   List<ExchangeRate> getPrivateBanksExchangeRates();
 }
