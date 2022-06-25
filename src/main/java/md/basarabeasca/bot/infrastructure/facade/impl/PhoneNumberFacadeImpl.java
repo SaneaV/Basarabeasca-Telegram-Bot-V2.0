@@ -61,6 +61,9 @@ public class PhoneNumberFacadeImpl implements PhoneNumberFacade {
   @Override
   public String findByDescription(String description) {
     final List<PhoneNumber> numbers = phoneNumberService.findByDescription(description);
+    if (numbers.isEmpty()) {
+      return PHONE_NUMBER_LIST_IS_EMPTY_OR_NUMBER_WAS_NOT_FOUND;
+    }
     return phoneNumberConverter.toMessage(numbers);
   }
 
