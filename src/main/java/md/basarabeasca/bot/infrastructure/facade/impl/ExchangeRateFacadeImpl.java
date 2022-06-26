@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.dao.domain.ExchangeRate;
 import md.basarabeasca.bot.infrastructure.converter.ExchangeRateConverter;
 import md.basarabeasca.bot.infrastructure.facade.ExchangeRateFacade;
 import md.basarabeasca.bot.infrastructure.service.ExchangeRateService;
 import md.basarabeasca.bot.infrastructure.service.UpdateDateService;
+import md.basarabeasca.bot.infrastructure.validators.ExchangeRateValidator;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,11 +25,11 @@ public class ExchangeRateFacadeImpl implements ExchangeRateFacade {
   private static final String MOLDINDCONBANK = "MICB";
   private static final String MAIB = "MAIB";
   private static final String FINCOMBANK = "FinComBank";
-  private static final String DASH = "-";
 
   private final UpdateDateService updateDateService;
   private final ExchangeRateService exchangeRateService;
   private final ExchangeRateConverter exchangeRateConverter;
+  private final ExchangeRateValidator exchangeRateValidator;
 
   @Override
   public String getBNMExchangeRates() {
@@ -47,7 +47,7 @@ public class ExchangeRateFacadeImpl implements ExchangeRateFacade {
   public List<String> getAllExchangeRates() {
     final List<ExchangeRate> allExchangeRates = exchangeRateService.getAllExchangeRates();
 
-    if (isListOfExchangeRatesEmpty(allExchangeRates)) {
+    if (exchangeRateValidator.isListOfExchangeRatesEmpty(allExchangeRates)) {
       return emptyList();
     }
 
@@ -71,13 +71,5 @@ public class ExchangeRateFacadeImpl implements ExchangeRateFacade {
         }
     );
     return exchangeRatesMessages;
-  }
-
-  private boolean isListOfExchangeRatesEmpty(List<ExchangeRate> exchangeRates) {
-    final List<ExchangeRate> filteredExchangeRates = exchangeRates.stream()
-        .filter(e -> DASH.equals(e.getPurchase()) && DASH.equals(e.getSale()))
-        .collect(Collectors.toList());
-
-    return filteredExchangeRates.size() == 0;
   }
 }

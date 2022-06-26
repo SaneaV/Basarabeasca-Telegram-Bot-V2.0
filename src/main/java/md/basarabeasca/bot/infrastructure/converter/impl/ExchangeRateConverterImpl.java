@@ -4,12 +4,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.dao.domain.ExchangeRate;
 import md.basarabeasca.bot.infrastructure.converter.ExchangeRateConverter;
+import md.basarabeasca.bot.infrastructure.validators.ExchangeRateValidator;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ExchangeRateConverterImpl implements ExchangeRateConverter {
 
   //Flags
@@ -43,7 +45,8 @@ public class ExchangeRateConverterImpl implements ExchangeRateConverter {
 
   //Other
   private static final String BUY = "Купить";
-  private static final String DASH = "-";
+
+  private final ExchangeRateValidator validator;
 
   @Override
   public String toMessage(List<ExchangeRate> exchangeRate) {
@@ -76,7 +79,7 @@ public class ExchangeRateConverterImpl implements ExchangeRateConverter {
   }
 
   private String populatePrivateExchangeMessage(String bankName, List<ExchangeRate> exchangeRates) {
-    if (isListOfExchangeRatesEmpty(exchangeRates)) {
+    if (validator.isListOfExchangeRatesEmpty(exchangeRates)) {
       return String.format(NOT_AVAILABLE_BANK, bankName);
     }
 
@@ -84,7 +87,7 @@ public class ExchangeRateConverterImpl implements ExchangeRateConverter {
         String.format(CURRENCY_VALUE, bankName, LocalDate.now()));
 
     exchangeRates.stream()
-        .filter(e -> !DASH.equals(e.getPurchase()) && !DASH.equals(e.getSale()))
+        .filter(validator::isExchangeRateNotEmpty)
         .forEach(e -> {
           final String flag = FLAGS.get(e.getCurrency());
           final String currency = e.getCurrency();
@@ -94,14 +97,6 @@ public class ExchangeRateConverterImpl implements ExchangeRateConverter {
         });
 
     return message.toString();
-  }
-
-  private boolean isListOfExchangeRatesEmpty(List<ExchangeRate> exchangeRates) {
-    final List<ExchangeRate> filteredExchangeRates = exchangeRates.stream()
-        .filter(e -> DASH.equals(e.getPurchase()) && DASH.equals(e.getSale()))
-        .collect(Collectors.toList());
-
-    return filteredExchangeRates.size() == 0;
   }
 
   private String getPriceByAction(String action, String purchase, String sale) {
