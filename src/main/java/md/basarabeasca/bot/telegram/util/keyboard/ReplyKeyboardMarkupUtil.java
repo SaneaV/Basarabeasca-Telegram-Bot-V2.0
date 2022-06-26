@@ -134,10 +134,12 @@ public class ReplyKeyboardMarkupUtil {
 
   public static ReplyKeyboardMarkup getFuelReplyKeyboardMarkup() {
     final KeyboardRow keyboardRowOne = new KeyboardRow();
+    final KeyboardRow keyboardRowTwo = new KeyboardRow();
 
     keyboardRowOne.addAll(List.of(ANRE_FUEL_PRICE));
+    keyboardRowTwo.addAll(List.of(BACK_TO_MAIN_MENU));
 
-    return createReplyKeyBoardMarkup(asList(keyboardRowOne));
+    return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo));
   }
 
   private static ReplyKeyboardMarkup createReplyKeyBoardMarkup(List<KeyboardRow> keyboardRowList) {
