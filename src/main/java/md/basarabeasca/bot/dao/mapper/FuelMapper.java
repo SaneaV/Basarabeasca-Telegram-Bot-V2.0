@@ -9,5 +9,7 @@ public interface FuelMapper {
 
   List<Fuel> toEntity(JSONObject jsonObject);
 
+  List<Fuel> toEntity(List<Object> jsonObject);
+
   Fuel toEntity(FuelJpa fuelJpa);
 }

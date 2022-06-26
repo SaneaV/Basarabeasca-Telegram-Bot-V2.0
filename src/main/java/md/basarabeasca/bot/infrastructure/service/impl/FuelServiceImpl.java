@@ -3,7 +3,6 @@ package md.basarabeasca.bot.infrastructure.service.impl;
 import static java.util.stream.Collectors.toList;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
-import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.dao.domain.Fuel;
@@ -30,13 +29,14 @@ public class FuelServiceImpl implements FuelService {
   }
 
   @Override
+  public List<Fuel> getAllFuelPriceList() {
+    return fuelParser.getAllFuelPriceList();
+  }
+
+  @Override
   public void updateANREFuelPrice() {
-    try {
-      final List<Fuel> fuelList = fuelParser.getANREFuelPrice();
-      fuelList.forEach(f -> fuelRepository.updateANREFuelPrice(f.getType(), f.getPrice()));
-    } catch (IOException e) {
-      throw new RuntimeException();
-    }
+    final List<Fuel> fuelList = fuelParser.getANREFuelPrice();
+    fuelList.forEach(f -> fuelRepository.updateANREFuelPrice(f.getType(), f.getPrice()));
   }
 
   private List<FuelJpa> getANREFuelPriceJpas() {

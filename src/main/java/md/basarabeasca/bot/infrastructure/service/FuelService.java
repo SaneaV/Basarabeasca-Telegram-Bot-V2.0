@@ -7,5 +7,7 @@ public interface FuelService {
 
   List<Fuel> getANREFuelPrice();
 
+  List<Fuel> getAllFuelPriceList();
+
   void updateANREFuelPrice();
 }

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Fuel {
 
+  private final String station;
   private final String type;
-  private final double price;
+  private final Double price;
 }

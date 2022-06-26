@@ -28,10 +28,10 @@ public class AllExchangeRatesCommand implements Command {
 
   @Override
   public List<? super PartialBotApiMethod<?>> execute(Update update) {
-    return sendBestExchange(update.getMessage());
+    return sendAllExchangeRates(update.getMessage());
   }
 
-  private List<? super PartialBotApiMethod<?>> sendBestExchange(Message message) {
+  private List<? super PartialBotApiMethod<?>> sendAllExchangeRates(Message message) {
     final List<String> allExchangeRates = exchangeRateFacade.getAllExchangeRates();
 
     if (isEmpty(allExchangeRates)) {

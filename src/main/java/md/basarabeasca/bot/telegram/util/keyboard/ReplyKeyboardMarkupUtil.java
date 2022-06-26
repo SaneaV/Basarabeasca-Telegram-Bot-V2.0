@@ -27,6 +27,7 @@ public class ReplyKeyboardMarkupUtil {
   private static final String BANK_HOURS = "График работы банков";
 
   private static final String ANRE_FUEL_PRICE = "Цены на топливо НАРЭ";
+  private static final String PRICES_AT_ALL_STATIONS = "Цены на всех автозаправках";
 
   private static final String BUY_CURRENCY = "Купить валюту";
   private static final String SELL_CURRENCY = "Продать валюту";
@@ -135,11 +136,13 @@ public class ReplyKeyboardMarkupUtil {
   public static ReplyKeyboardMarkup getFuelReplyKeyboardMarkup() {
     final KeyboardRow keyboardRowOne = new KeyboardRow();
     final KeyboardRow keyboardRowTwo = new KeyboardRow();
+    final KeyboardRow keyboardRowThree = new KeyboardRow();
 
     keyboardRowOne.addAll(List.of(ANRE_FUEL_PRICE));
-    keyboardRowTwo.addAll(List.of(BACK_TO_MAIN_MENU));
+    keyboardRowTwo.addAll(List.of(PRICES_AT_ALL_STATIONS));
+    keyboardRowThree.addAll(List.of(BACK_TO_MAIN_MENU));
 
-    return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo));
+    return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree));
   }
 
   private static ReplyKeyboardMarkup createReplyKeyBoardMarkup(List<KeyboardRow> keyboardRowList) {
