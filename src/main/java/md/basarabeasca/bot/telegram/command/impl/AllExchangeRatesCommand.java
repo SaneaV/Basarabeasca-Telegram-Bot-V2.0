@@ -1,6 +1,7 @@
 package md.basarabeasca.bot.telegram.command.impl;
 
 import static java.util.Collections.singletonList;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.EXCHANGE_RATE_ONLY_IN_MAIN_OFFICE;
 import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil.getMoneyReplyKeyboardMarkup;
 import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 import static org.springframework.util.CollectionUtils.isEmpty;
@@ -22,7 +23,6 @@ public class AllExchangeRatesCommand implements Command {
 
   private static final String ALL_EXCHANGES = "Все курсы валют";
   private static final String NOT_AVAILABLE_MESSAGE = "Все банки в городе Басарабяска сейчас закрыты или ещё не обновили курсы валют на текущий день.";
-  private static final String EXCHANGE_RATE_ONLY_IN_MAIN_OFFICE = "*Курсы действительны только в главном офисе банка и могут отличаться в его территориальных подразделениях.*";
 
   private final ExchangeRateFacade exchangeRateFacade;
 

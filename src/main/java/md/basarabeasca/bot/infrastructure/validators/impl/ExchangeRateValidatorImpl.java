@@ -1,5 +1,7 @@
 package md.basarabeasca.bot.infrastructure.validators.impl;
 
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.DASH;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import md.basarabeasca.bot.dao.domain.ExchangeRate;
@@ -8,8 +10,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ExchangeRateValidatorImpl implements ExchangeRateValidator {
-
-  private static final String DASH = "-";
 
   @Override
   public boolean isListOfExchangeRatesEmpty(List<ExchangeRate> exchangeRates) {

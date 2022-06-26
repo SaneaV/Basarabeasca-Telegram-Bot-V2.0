@@ -3,6 +3,8 @@ package md.basarabeasca.bot.infrastructure.service.impl;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.BUY;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.DASH;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 import java.util.ArrayList;
@@ -20,9 +22,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class ExchangeRateServiceImpl implements ExchangeRateService {
-
-  private static final String PURCHASE = "Купить";
-  private static final String DASH = "-";
 
   private final ExchangeRateRepository exchangeRateRepository;
   private final ExchangeRateParser exchangeRateParser;
@@ -73,7 +72,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
     if (isEmpty(allExchangeRates)) {
       return emptyList();
     }
-    if (PURCHASE.equalsIgnoreCase(action)) {
+    if (BUY.equalsIgnoreCase(action)) {
       return new ArrayList<>(allExchangeRates.stream()
           .collect(groupingBy(ExchangeRate::getPurchase, TreeMap::new, toList()))
           .firstEntry().getValue());

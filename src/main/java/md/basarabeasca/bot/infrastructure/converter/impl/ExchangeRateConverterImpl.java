@@ -1,5 +1,15 @@
 package md.basarabeasca.bot.infrastructure.converter.impl;
 
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.BUY;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.EUR;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.FINCOMBANK;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.MAIB;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.MOLDINDCONBANK;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.RON;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.RUB;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.UAH;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.USD;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +31,10 @@ public class ExchangeRateConverterImpl implements ExchangeRateConverter {
   private static final String RON_FLAG = "\uD83C\uDDF7\uD83C\uDDF4";
   private static final String RUB_FLAG = "\uD83C\uDDF7\uD83C\uDDFA";
   private static final String MDL_FLAG = "\uD83C\uDDF2\uD83C\uDDE9";
-  private static final Map<String, String> FLAGS = Map.of("USD", USD_FLAG,
-      "EUR", EUR_FLAG, "RUB", RUB_FLAG, "RON", RON_FLAG, "UAH", UAH_FLAG);
+  private static final Map<String, String> FLAGS = Map.of(USD, USD_FLAG, EUR, EUR_FLAG, RUB,
+      RUB_FLAG, RON, RON_FLAG, UAH, UAH_FLAG);
 
   //Banks
-  private static final String MOLDINDCONBANK = "MICB";
-  private static final String MAIB = "MAIB";
-  private static final String FINCOMBANK = "FinComBank";
   private static final String BNM = "Banca Nationala a Moldovei";
   private static final Map<String, String> BANK_FULL_NAME = Map.of(MOLDINDCONBANK, "Moldindconbank",
       MAIB, MAIB, FINCOMBANK, FINCOMBANK);
@@ -35,16 +42,12 @@ public class ExchangeRateConverterImpl implements ExchangeRateConverter {
   //Messages
   private static final String CURRENCY_VALUE = "Курс валют %s (%s):\n";
   private static final String BNM_EXCHANGE_RATES_RESPONSE = "%s %s - %s MDL\n";
-  private static final String PRIVATE_EXCHANGE_RATES_RESPONSE =
-      "%s Банк продаёт %s - %s MDL\n" +
-          "%s Банк покупает %s - %s MDL\n";
+  private static final String PRIVATE_EXCHANGE_RATES_RESPONSE = "%s Банк продаёт %s - %s MDL\n" +
+      "%s Банк покупает %s - %s MDL\n";
   private static final String BEST_EXCHANGE_MESSAGE =
       "Лучше всего сегодня (%s) можно %s %s в городе Басарабяска в банке %s:"
           + "\n%s MDL" + MDL_FLAG + " - 1 %s%s";
   private static final String NOT_AVAILABLE_BANK = "Банк %s ещё/уже закрыт или ещё не обновил курс валют на сегодня";
-
-  //Other
-  private static final String BUY = "Купить";
 
   private final ExchangeRateValidator validator;
 

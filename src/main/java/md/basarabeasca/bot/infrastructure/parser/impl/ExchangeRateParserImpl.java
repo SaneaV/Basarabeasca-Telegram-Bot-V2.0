@@ -1,6 +1,15 @@
 package md.basarabeasca.bot.infrastructure.parser.impl;
 
 import static java.util.Collections.emptyList;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.BNM;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.EUR;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.FINCOMBANK;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.MAIB;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.MOLDINDCONBANK;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.RON;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.RUB;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.UAH;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.USD;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import java.io.IOException;
@@ -34,13 +43,7 @@ public class ExchangeRateParserImpl implements ExchangeRateParser {
   private static final String COLUMN_COLUMN_IND = "column-%s column-ind-%s";
   private static final String COLUMN_UAH_COLUMN_IND_HIDDEN = "column-UAH column-ind-hidden";
 
-  private static final String BNM = "BNM";
-  private static final String MOLDINDCONBANK = "MICB";
-  private static final String MAIB = "MAIB";
-  private static final String FINCOMBANK = "FinComBank";
-
-  private static final String UAH = "UAH";
-  private static final List<String> CURRENCY_INDEX = List.of("USD", "EUR", "RUB", "RON", UAH);
+  private static final List<String> CURRENCY_INDEX = List.of(USD, EUR, RUB, RON, UAH);
 
   private final String bnmSite;
   private final String cursMdSite;

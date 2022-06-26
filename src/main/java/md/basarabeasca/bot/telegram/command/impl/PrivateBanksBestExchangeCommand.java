@@ -1,6 +1,8 @@
 package md.basarabeasca.bot.telegram.command.impl;
 
 import static java.util.Collections.singletonList;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.BUY;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.EXCHANGE_RATE_ONLY_IN_MAIN_OFFICE;
 import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil.getCurrencyReplyKeyboardMarkup;
 import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
 import static org.springframework.util.CollectionUtils.isEmpty;
@@ -41,10 +43,7 @@ public class PrivateBanksBestExchangeCommand implements Command {
       "На данный момент ничего найти не можем. Возможные причины:\n"
           + "1. Все банки уже закрыты или ещё не открывались.\n"
           + "2. Указанная вами валюта, на данный момент, не продаётся/покупается в банках.";
-  private static final String EXCHANGE_RATE_ONLY_IN_MAIN_OFFICE = "*Курсы действительны только в "
-      + "главном офисе банка и могут отличаться в его территориальных подразделениях.*";
 
-  private static final String BUY = "Купить";
   private static final String SELL = "Продать";
 
   private final ExchangeRateFacade exchangeRateFacade;

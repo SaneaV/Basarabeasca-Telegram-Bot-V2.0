@@ -1,6 +1,9 @@
 package md.basarabeasca.bot.infrastructure.facade.impl;
 
 import static java.util.Collections.emptyList;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.FINCOMBANK;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.MAIB;
+import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.MOLDINDCONBANK;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -22,9 +25,6 @@ import org.springframework.stereotype.Component;
 public class ExchangeRateFacadeImpl implements ExchangeRateFacade {
 
   private static final String ZONE_EUROPE_CHISINAU = "Europe/Chisinau";
-  private static final String MOLDINDCONBANK = "MICB";
-  private static final String MAIB = "MAIB";
-  private static final String FINCOMBANK = "FinComBank";
 
   private final UpdateDateService updateDateService;
   private final ExchangeRateService exchangeRateService;
