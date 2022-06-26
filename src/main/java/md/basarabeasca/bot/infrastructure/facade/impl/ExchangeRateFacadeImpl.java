@@ -24,8 +24,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ExchangeRateFacadeImpl implements ExchangeRateFacade {
 
-  private static final String ZONE_EUROPE_CHISINAU = "Europe/Chisinau";
-
   private final UpdateDateService updateDateService;
   private final ExchangeRateService exchangeRateService;
   private final ExchangeRateConverter exchangeRateConverter;
@@ -33,11 +31,7 @@ public class ExchangeRateFacadeImpl implements ExchangeRateFacade {
 
   @Override
   public String getBNMExchangeRates() {
-    final LocalDate lastUpdateDate = updateDateService.getUpdateDate().getLastUpdateDate();
-    if (!lastUpdateDate.isEqual(LocalDate.now(ZoneId.of(ZONE_EUROPE_CHISINAU)))) {
-      updateDateService.updateDate();
-      exchangeRateService.updateExchangeRates();
-    }
+    updateDateService.checkUpToDateInformation();
 
     final List<ExchangeRate> bnmExchangeRates = exchangeRateService.getBNMExchangeRates();
     return exchangeRateConverter.toMessage(bnmExchangeRates);
