@@ -20,7 +20,7 @@ public class FuelParserImpl implements FuelParser {
   private final FuelMapper fuelMapper;
 
   public FuelParserImpl(
-      @Value("${site.anre.fuel-price}") String site,
+      @Value("${site.fuel-price.anre}") String site,
       FuelMapper fuelMapper) {
     this.site = site;
     this.fuelMapper = fuelMapper;
