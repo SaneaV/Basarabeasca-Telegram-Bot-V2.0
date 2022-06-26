@@ -87,10 +87,10 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
     final List<ExchangeRate> exchangeRates = exchangeRateParser.getBNMExchangeRates();
 
     final List<ExchangeRateJpa> exchangeRateJpas = exchangeRates.stream().map(
-            exchangeRate -> exchangeRateRepository.save(ExchangeRateJpa.builder()
+            exchangeRate -> ExchangeRateJpa.builder()
                 .currency(exchangeRate.getCurrency())
                 .value(exchangeRate.getPurchase())
-                .build()))
+                .build())
         .collect(toList());
 
     return exchangeRateRepository.saveAll(exchangeRateJpas);

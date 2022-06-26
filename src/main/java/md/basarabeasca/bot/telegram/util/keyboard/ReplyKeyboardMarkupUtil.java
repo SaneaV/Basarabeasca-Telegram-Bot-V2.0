@@ -15,15 +15,18 @@ public class ReplyKeyboardMarkupUtil {
   private static final String WEATHER = "Погода на неделю";
   private static final String PUBLIC_TRANSPORT_TIMETABLE = "Расписание междугородних рейсов";
   private static final String MONEY = "Деньги";
+  private static final String FUEL = "Топливо";
 
   private static final String BASTV = "Новости BasTV";
   private static final String FEEDBACK = "Новости Feedback";
   private static final String DISTRICT_COUNCIL = "Новости Районного совета";
 
-  private static final String EXCHANGE_RATES = "Курс валют BNM";
+  private static final String BNM_EXCHANGE_RATES = "Курс валют BNM";
   private static final String BEST_EXCHANGE = "Лучший курс обмена";
   private static final String ALL_EXCHANGES = "Все курсы валют";
   private static final String BANK_HOURS = "График работы банков";
+
+  private static final String ANRE_FUEL_PRICE = "Цены на топливо НАРЭ";
 
   private static final String BUY_CURRENCY = "Купить валюту";
   private static final String SELL_CURRENCY = "Продать валюту";
@@ -52,15 +55,17 @@ public class ReplyKeyboardMarkupUtil {
     final KeyboardRow keyboardRowThree = new KeyboardRow();
     final KeyboardRow keyboardRowFour = new KeyboardRow();
     final KeyboardRow keyboardRowFive = new KeyboardRow();
+    final KeyboardRow keyboardRowSix = new KeyboardRow();
 
     keyboardRowOne.addAll(List.of(MONEY));
-    keyboardRowTwo.addAll(List.of(WEATHER));
-    keyboardRowThree.addAll(List.of(SHOW_NUMBERS));
-    keyboardRowFour.addAll(List.of(PUBLIC_TRANSPORT_TIMETABLE));
-    keyboardRowFive.addAll(List.of(BACK_TO_MAIN_MENU));
+    keyboardRowTwo.addAll(List.of(FUEL));
+    keyboardRowThree.addAll(List.of(WEATHER));
+    keyboardRowFour.addAll(List.of(SHOW_NUMBERS));
+    keyboardRowFive.addAll(List.of(PUBLIC_TRANSPORT_TIMETABLE));
+    keyboardRowSix.addAll(List.of(BACK_TO_MAIN_MENU));
 
     return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree,
-        keyboardRowFour, keyboardRowFive));
+        keyboardRowFour, keyboardRowFive, keyboardRowSix));
   }
 
   public static ReplyKeyboardMarkup getMoneyReplyKeyboardMarkup() {
@@ -70,7 +75,7 @@ public class ReplyKeyboardMarkupUtil {
     final KeyboardRow keyboardRowFour = new KeyboardRow();
     final KeyboardRow keyboardRowFive = new KeyboardRow();
 
-    keyboardRowOne.addAll(List.of(EXCHANGE_RATES));
+    keyboardRowOne.addAll(List.of(BNM_EXCHANGE_RATES));
     keyboardRowTwo.addAll(List.of(ALL_EXCHANGES));
     keyboardRowThree.addAll(List.of(BEST_EXCHANGE));
     keyboardRowFour.addAll(List.of(BANK_HOURS));
@@ -125,6 +130,14 @@ public class ReplyKeyboardMarkupUtil {
 
     return createReplyKeyBoardMarkup(
         asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree, keyboardRowFour));
+  }
+
+  public static ReplyKeyboardMarkup getFuelReplyKeyboardMarkup() {
+    final KeyboardRow keyboardRowOne = new KeyboardRow();
+
+    keyboardRowOne.addAll(List.of(ANRE_FUEL_PRICE));
+
+    return createReplyKeyBoardMarkup(asList(keyboardRowOne));
   }
 
   private static ReplyKeyboardMarkup createReplyKeyBoardMarkup(List<KeyboardRow> keyboardRowList) {

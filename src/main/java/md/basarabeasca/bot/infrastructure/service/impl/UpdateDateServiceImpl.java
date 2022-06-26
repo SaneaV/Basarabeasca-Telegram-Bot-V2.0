@@ -8,6 +8,7 @@ import md.basarabeasca.bot.dao.mapper.UpdateDateMapper;
 import md.basarabeasca.bot.dao.repository.UpdateDateRepository;
 import md.basarabeasca.bot.dao.repository.model.UpdateDateJpa;
 import md.basarabeasca.bot.infrastructure.service.ExchangeRateService;
+import md.basarabeasca.bot.infrastructure.service.FuelService;
 import md.basarabeasca.bot.infrastructure.service.UpdateDateService;
 import org.springframework.stereotype.Component;
 
@@ -21,12 +22,14 @@ public class UpdateDateServiceImpl implements UpdateDateService {
   private final UpdateDateMapper updateDateMapper;
 
   private final ExchangeRateService exchangeRateService;
+  private final FuelService fuelService;
 
   @Override
   public void checkUpToDateInformation() {
     final LocalDate lastUpdateDate = getUpdateDate().getLastUpdateDate();
     if (!lastUpdateDate.isEqual(LocalDate.now(ZoneId.of(ZONE_EUROPE_CHISINAU)))) {
       exchangeRateService.updateExchangeRates();
+      fuelService.updateANREFuelPrice();
       updateDate();
     }
   }

@@ -5,8 +5,6 @@ import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.FINCOMBAN
 import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.MAIB;
 import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.MOLDINDCONBANK;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
