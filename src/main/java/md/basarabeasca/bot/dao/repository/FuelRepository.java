@@ -4,7 +4,9 @@ import md.basarabeasca.bot.dao.repository.model.FuelJpa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 public interface FuelRepository extends JpaRepository<FuelJpa, Long> {
 
   @Modifying
