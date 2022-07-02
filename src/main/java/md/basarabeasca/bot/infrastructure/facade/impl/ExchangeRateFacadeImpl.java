@@ -58,6 +58,7 @@ public class ExchangeRateFacadeImpl implements ExchangeRateFacade {
     final Map<String, String> exchangeRatesMessages = new HashMap<>();
     exchangeRates.forEach(
         e -> {
+          //TODO: Remove currency, there is no need in this parameter cause we have currency in each exchange rate and in was already filtered on service layer
           final String message = exchangeRateConverter.toMessage(e, action, currency);
           exchangeRatesMessages.put(e.getBankName(), message);
         }

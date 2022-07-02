@@ -31,6 +31,8 @@ public class FuelConverterImpl implements FuelConverter {
   private static final String FULL_PRICE_START_MESSAGE = "⛽ Автозаправка %s (%s):\n";
   private static final String FULL_PRICE_MESSAGE = "\uD83D\uDFE2 %s - %s лей\n";
   private static final String NOT_AVAILABLE_STATION = "На данный момент заправка %s недоступна для проверки цены";
+  private static final String BEST_FUEL_PRICE_MESSAGE =
+      "Лучше всего сегодня (%s) можно купить %s в городе Басарабяска на автозаправке:\n⛽%s - %s лей";
 
   @Override
   public String toMessage(List<Fuel> fuelList) {
@@ -46,6 +48,12 @@ public class FuelConverterImpl implements FuelConverter {
     fuelList.forEach((k, v) -> messages.add(populateFuelPriceMessage(k, v)));
 
     return messages;
+  }
+
+  @Override
+  public String toMessage(Fuel fuel) {
+    return String.format(BEST_FUEL_PRICE_MESSAGE, LocalDate.now(),
+        FUEL_TYPE_TRANSLATION.get(fuel.getType()), fuel.getStation(), fuel.getPrice());
   }
 
 

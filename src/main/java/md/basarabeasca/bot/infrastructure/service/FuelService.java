@@ -9,5 +9,7 @@ public interface FuelService {
 
   List<Fuel> getAllFuelPriceList();
 
+  List<Fuel> getBestFuelPriceFor(String fuelType);
+
   void updateANREFuelPrice();
 }

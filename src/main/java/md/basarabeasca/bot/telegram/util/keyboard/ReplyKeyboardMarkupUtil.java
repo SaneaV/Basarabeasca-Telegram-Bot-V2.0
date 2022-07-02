@@ -27,6 +27,7 @@ public class ReplyKeyboardMarkupUtil {
   private static final String BANK_HOURS = "График работы банков";
 
   private static final String ANRE_FUEL_PRICE = "Цены на топливо НАРЭ";
+  private static final String BEST_FUEL_PRICE = "Лучшая цена на топливо";
   private static final String PRICES_AT_ALL_STATIONS = "Цены на всех автозаправках";
 
   private static final String BUY_CURRENCY = "Купить валюту";
@@ -37,6 +38,10 @@ public class ReplyKeyboardMarkupUtil {
   private static final String RUB = "%s RUB";
   private static final String RON = "%s RON";
   private static final String UAH = "%s UAH";
+
+  private static final String PETROL = "Бензин 95";
+  private static final String DIESEL = "Дизель";
+  private static final String GAS = "Газ";
 
   private static final String BACK_TO_MAIN_MENU = "Вернуться в главное меню";
 
@@ -137,12 +142,30 @@ public class ReplyKeyboardMarkupUtil {
     final KeyboardRow keyboardRowOne = new KeyboardRow();
     final KeyboardRow keyboardRowTwo = new KeyboardRow();
     final KeyboardRow keyboardRowThree = new KeyboardRow();
+    final KeyboardRow keyboardRowFour = new KeyboardRow();
 
     keyboardRowOne.addAll(List.of(ANRE_FUEL_PRICE));
-    keyboardRowTwo.addAll(List.of(PRICES_AT_ALL_STATIONS));
-    keyboardRowThree.addAll(List.of(BACK_TO_MAIN_MENU));
+    keyboardRowTwo.addAll(List.of(BEST_FUEL_PRICE));
+    keyboardRowThree.addAll(List.of(PRICES_AT_ALL_STATIONS));
+    keyboardRowFour.addAll(List.of(BACK_TO_MAIN_MENU));
 
-    return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree));
+    return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree,
+        keyboardRowFour));
+  }
+
+  public static ReplyKeyboardMarkup getBestFuelPriceReplyKeyboardMarkup() {
+    final KeyboardRow keyboardRowOne = new KeyboardRow();
+    final KeyboardRow keyboardRowTwo = new KeyboardRow();
+    final KeyboardRow keyboardRowThree = new KeyboardRow();
+    final KeyboardRow keyboardRowFour = new KeyboardRow();
+
+    keyboardRowOne.addAll(List.of(PETROL));
+    keyboardRowTwo.addAll(List.of(DIESEL));
+    keyboardRowThree.addAll(List.of(GAS));
+    keyboardRowFour.addAll(List.of(BACK_TO_MAIN_MENU));
+
+    return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree,
+        keyboardRowFour));
   }
 
   private static ReplyKeyboardMarkup createReplyKeyBoardMarkup(List<KeyboardRow> keyboardRowList) {

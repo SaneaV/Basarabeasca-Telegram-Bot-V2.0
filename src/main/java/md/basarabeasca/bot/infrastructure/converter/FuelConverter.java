@@ -9,4 +9,6 @@ public interface FuelConverter {
   String toMessage(List<Fuel> fuelList);
 
   List<String> toMessage(Map<String, List<Fuel>> fuelList);
+
+  String toMessage(Fuel fuel);
 }

@@ -40,6 +40,19 @@ public class FuelFacadeImpl implements FuelFacade {
     return fuelConverter.toMessage(stationsMap);
   }
 
+  @Override
+  public Map<String, String> getBestFuelPriceFor(String fuelType) {
+    final List<Fuel> bestFuelPrice = fuelService.getBestFuelPriceFor(fuelType);
+    final Map<String, String> bestFuelPriceMessages = new HashMap<>();
+    bestFuelPrice.forEach(
+        f -> {
+          final String message = fuelConverter.toMessage(f);
+          bestFuelPriceMessages.put(f.getStation(), message);
+        }
+    );
+    return bestFuelPriceMessages;
+  }
+
   private List<String> getStations(List<Fuel> fuelList) {
     return fuelList.stream()
         .map(Fuel::getStation)

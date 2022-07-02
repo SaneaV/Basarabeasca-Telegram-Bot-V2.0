@@ -1,9 +1,13 @@
 package md.basarabeasca.bot.infrastructure.service.impl;
 
+import static java.util.Collections.emptyList;
+import static java.util.Objects.nonNull;
+import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 import java.util.List;
+import java.util.TreeMap;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.dao.domain.Fuel;
 import md.basarabeasca.bot.dao.mapper.FuelMapper;
@@ -31,6 +35,22 @@ public class FuelServiceImpl implements FuelService {
   @Override
   public List<Fuel> getAllFuelPriceList() {
     return fuelParser.getAllFuelPriceList();
+  }
+
+  @Override
+  public List<Fuel> getBestFuelPriceFor(String fuelType) {
+    final List<Fuel> filteredFuelList = fuelParser.getAllFuelPriceList()
+        .stream()
+        .filter(f -> fuelType.equalsIgnoreCase(f.getType()) && nonNull(f.getPrice()))
+        .collect(toList());
+
+    if (isEmpty(filteredFuelList)) {
+      return emptyList();
+    }
+
+    return filteredFuelList.stream()
+        .collect(groupingBy(Fuel::getPrice, TreeMap::new, toList()))
+        .firstEntry().getValue();
   }
 
   @Override
