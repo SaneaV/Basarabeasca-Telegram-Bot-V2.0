@@ -49,9 +49,9 @@ public class BestFuelPriceCommand implements Command {
   private static final Map<String, String> FUEL_TYPE_TRANSLATION = new HashMap<>();
 
   static {
-    FUEL_TYPE_TRANSLATION.put(DIESEL_ENG, DIESEL_RUS);
-    FUEL_TYPE_TRANSLATION.put(PETROL_ENG, PETROL_RUS);
-    FUEL_TYPE_TRANSLATION.put(GAS_ENG, GAS_RUS);
+    FUEL_TYPE_TRANSLATION.put(DIESEL_RUS, DIESEL_ENG);
+    FUEL_TYPE_TRANSLATION.put(PETROL_RUS, PETROL_ENG);
+    FUEL_TYPE_TRANSLATION.put(GAS_RUS, GAS_ENG);
   }
 
   private final FuelFacade fuelFacade;
