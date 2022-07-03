@@ -1,7 +1,7 @@
 CREATE TABLE phone_numbers (
                 phone_id BIGSERIAL NOT NULL,
                 description VARCHAR(255),
-                phone_number VARCHAR(255),
+                phone_number VARCHAR(10),
                 PRIMARY KEY (phone_id)
 );
 
