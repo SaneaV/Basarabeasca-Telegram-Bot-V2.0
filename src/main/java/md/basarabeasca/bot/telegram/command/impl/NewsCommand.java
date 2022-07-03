@@ -8,6 +8,7 @@ import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendPhoto
 import static org.telegram.telegrambots.meta.api.methods.ParseMode.MARKDOWN;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -44,8 +45,13 @@ public class NewsCommand implements Command {
   private static final String CAPTION = "*%s*\n\n%s";
   private static final String CONTINUE_READING = "Читать продолжение";
 
-  private static final Map<String, String> FINAL_MESSAGE_MAP = Map.of(BASTV, LAST_10_NEWS_BASTV,
-      FEEDBACK, LAST_10_NEWS_FEEDBACK, DISTRICT_COUNCIL, LAST_10_NEWS_DISTRICT_COUNCIL);
+  private static final Map<String, String> FINAL_MESSAGE_MAP = new HashMap<>();
+
+  static {
+    FINAL_MESSAGE_MAP.put(BASTV, LAST_10_NEWS_BASTV);
+    FINAL_MESSAGE_MAP.put(FEEDBACK, LAST_10_NEWS_FEEDBACK);
+    FINAL_MESSAGE_MAP.put(DISTRICT_COUNCIL, LAST_10_NEWS_DISTRICT_COUNCIL);
+  }
 
   private final NewsFacade newsFacade;
 

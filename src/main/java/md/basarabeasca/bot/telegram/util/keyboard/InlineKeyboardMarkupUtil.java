@@ -1,7 +1,7 @@
 package md.basarabeasca.bot.telegram.util.keyboard;
 
+import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
-import static java.util.List.of;
 import static md.basarabeasca.bot.telegram.callback.CallbackQueryType.NEXT_PAGE;
 import static md.basarabeasca.bot.telegram.callback.CallbackQueryType.PREVIOUS_PAGE;
 
@@ -51,10 +51,11 @@ public class InlineKeyboardMarkupUtil {
         .text(text)
         .build();
 
-    final List<InlineKeyboardButton> rowInlineFirst = new ArrayList<>(of(previousPage, nextPage));
-    final List<InlineKeyboardButton> rowInlineSecond = new ArrayList<>(of(findNumber));
+    final List<InlineKeyboardButton> rowInlineFirst = new ArrayList<>(
+        asList(previousPage, nextPage));
+    final List<InlineKeyboardButton> rowInlineSecond = new ArrayList<>(singletonList(findNumber));
     final List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>(
-        of(rowInlineFirst, rowInlineSecond));
+        asList(rowInlineFirst, rowInlineSecond));
 
     markupInline.setKeyboard(rowsInline);
     return markupInline;

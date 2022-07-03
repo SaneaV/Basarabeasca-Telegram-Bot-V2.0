@@ -1,5 +1,6 @@
 package md.basarabeasca.bot.infrastructure.parser.impl;
 
+import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.BNM;
 import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.EUR;
@@ -43,7 +44,7 @@ public class ExchangeRateParserImpl implements ExchangeRateParser {
   private static final String COLUMN_COLUMN_IND = "column-%s column-ind-%s";
   private static final String COLUMN_UAH_COLUMN_IND_HIDDEN = "column-UAH column-ind-hidden";
 
-  private static final List<String> CURRENCY_INDEX = List.of(USD, EUR, RUB, RON, UAH);
+  private static final List<String> CURRENCY_INDEX = asList(USD, EUR, RUB, RON, UAH);
 
   private final String bnmSite;
   private final String cursMdSite;

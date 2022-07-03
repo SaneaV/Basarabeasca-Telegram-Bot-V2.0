@@ -6,6 +6,7 @@ import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessa
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -45,8 +46,13 @@ public class BestFuelPriceCommand implements Command {
   private static final String DIESEL_ENG = "Diesel";
   private static final String PETROL_ENG = "Petrol";
   private static final String GAS_ENG = "Gas";
-  private static final Map<String, String> FUEL_TYPE_TRANSLATION = Map.of(DIESEL_RUS, DIESEL_ENG,
-      PETROL_RUS, PETROL_ENG, GAS_RUS, GAS_ENG);
+  private static final Map<String, String> FUEL_TYPE_TRANSLATION = new HashMap<>();
+
+  static {
+    FUEL_TYPE_TRANSLATION.put(DIESEL_ENG, DIESEL_RUS);
+    FUEL_TYPE_TRANSLATION.put(PETROL_ENG, PETROL_RUS);
+    FUEL_TYPE_TRANSLATION.put(GAS_ENG, GAS_RUS);
+  }
 
   private final FuelFacade fuelFacade;
   private final LocationService locationService;

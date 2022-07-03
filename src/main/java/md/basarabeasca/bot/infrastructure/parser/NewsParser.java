@@ -1,5 +1,7 @@
 package md.basarabeasca.bot.infrastructure.parser;
 
+import static java.util.Arrays.asList;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -39,7 +41,7 @@ public interface NewsParser {
     executorService.shutdown();
 
     try {
-      return List.of(newsTitle.get(), newsDescription.get(), newsLink.get(), newsImage.get());
+      return asList(newsTitle.get(), newsDescription.get(), newsLink.get(), newsImage.get());
     } catch (InterruptedException | ExecutionException e) {
       throw new RuntimeException();
     }

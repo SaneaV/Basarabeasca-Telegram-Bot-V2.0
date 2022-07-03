@@ -12,6 +12,7 @@ import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.USD;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -31,13 +32,11 @@ public class ExchangeRateConverterImpl implements ExchangeRateConverter {
   private static final String RON_FLAG = "\uD83C\uDDF7\uD83C\uDDF4";
   private static final String RUB_FLAG = "\uD83C\uDDF7\uD83C\uDDFA";
   private static final String MDL_FLAG = "\uD83C\uDDF2\uD83C\uDDE9";
-  private static final Map<String, String> FLAGS = Map.of(USD, USD_FLAG, EUR, EUR_FLAG, RUB,
-      RUB_FLAG, RON, RON_FLAG, UAH, UAH_FLAG);
+  private static final Map<String, String> FLAGS = new HashMap<>();
 
   //Banks
   private static final String BNM = "Banca Nationala a Moldovei";
-  private static final Map<String, String> BANK_FULL_NAME = Map.of(MOLDINDCONBANK, "Moldindconbank",
-      MAIB, MAIB, FINCOMBANK, FINCOMBANK);
+  private static final Map<String, String> BANK_FULL_NAME = new HashMap<>();
 
   //Messages
   private static final String CURRENCY_VALUE = "Курс валют %s (%s):\n";
@@ -48,6 +47,18 @@ public class ExchangeRateConverterImpl implements ExchangeRateConverter {
       "Лучше всего сегодня (%s) можно %s %s в городе Басарабяска в банке %s:"
           + "\n%s MDL" + MDL_FLAG + " - 1 %s%s";
   private static final String NOT_AVAILABLE_BANK = "Банк %s ещё/уже закрыт или ещё не обновил курс валют на сегодня";
+
+  static {
+    FLAGS.put(USD, USD_FLAG);
+    FLAGS.put(EUR, EUR_FLAG);
+    FLAGS.put(RUB, RUB_FLAG);
+    FLAGS.put(RON, RON_FLAG);
+    FLAGS.put(UAH, UAH_FLAG);
+
+    BANK_FULL_NAME.put(MOLDINDCONBANK, "Moldindconbank");
+    BANK_FULL_NAME.put(MAIB, MAIB);
+    BANK_FULL_NAME.put(FINCOMBANK, FINCOMBANK);
+  }
 
   private final ExchangeRateValidator validator;
 

@@ -43,8 +43,13 @@ public class ExchangeRateFacadeImpl implements ExchangeRateFacade {
       return emptyList();
     }
 
-    final Map<String, List<ExchangeRate>> banksAndExchangeRates = Map.of(MOLDINDCONBANK,
-        new ArrayList<>(), MAIB, new ArrayList<>(), FINCOMBANK, new ArrayList<>());
+    final Map<String, List<ExchangeRate>> banksAndExchangeRates = new HashMap<String, List<ExchangeRate>>() {
+      {
+        put(MOLDINDCONBANK, new ArrayList<>());
+        put(MAIB, new ArrayList<>());
+        put(FINCOMBANK, new ArrayList<>());
+      }
+    };
 
     allExchangeRates.forEach(e -> banksAndExchangeRates.get(e.getBankName()).add(e));
     return exchangeRateConverter.toMessage(banksAndExchangeRates);

@@ -1,6 +1,7 @@
 package md.basarabeasca.bot.telegram.util.keyboard;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 
 import java.util.List;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
@@ -49,8 +50,8 @@ public class ReplyKeyboardMarkupUtil {
     final KeyboardRow keyboardRowOne = new KeyboardRow();
     final KeyboardRow keyboardRowTwo = new KeyboardRow();
 
-    keyboardRowOne.addAll(List.of(NEWS));
-    keyboardRowTwo.addAll(List.of(USEFUL));
+    keyboardRowOne.addAll(singletonList(NEWS));
+    keyboardRowTwo.addAll(singletonList(USEFUL));
 
     return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo));
   }
@@ -63,12 +64,12 @@ public class ReplyKeyboardMarkupUtil {
     final KeyboardRow keyboardRowFive = new KeyboardRow();
     final KeyboardRow keyboardRowSix = new KeyboardRow();
 
-    keyboardRowOne.addAll(List.of(MONEY));
-    keyboardRowTwo.addAll(List.of(FUEL));
-    keyboardRowThree.addAll(List.of(WEATHER));
-    keyboardRowFour.addAll(List.of(SHOW_NUMBERS));
-    keyboardRowFive.addAll(List.of(PUBLIC_TRANSPORT_TIMETABLE));
-    keyboardRowSix.addAll(List.of(BACK_TO_MAIN_MENU));
+    keyboardRowOne.addAll(singletonList(MONEY));
+    keyboardRowTwo.addAll(singletonList(FUEL));
+    keyboardRowThree.addAll(singletonList(WEATHER));
+    keyboardRowFour.addAll(singletonList(SHOW_NUMBERS));
+    keyboardRowFive.addAll(singletonList(PUBLIC_TRANSPORT_TIMETABLE));
+    keyboardRowSix.addAll(singletonList(BACK_TO_MAIN_MENU));
 
     return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree,
         keyboardRowFour, keyboardRowFive, keyboardRowSix));
@@ -81,11 +82,11 @@ public class ReplyKeyboardMarkupUtil {
     final KeyboardRow keyboardRowFour = new KeyboardRow();
     final KeyboardRow keyboardRowFive = new KeyboardRow();
 
-    keyboardRowOne.addAll(List.of(BNM_EXCHANGE_RATES));
-    keyboardRowTwo.addAll(List.of(ALL_EXCHANGES));
-    keyboardRowThree.addAll(List.of(BEST_EXCHANGE));
-    keyboardRowFour.addAll(List.of(BANK_HOURS));
-    keyboardRowFive.addAll(List.of(BACK_TO_MAIN_MENU));
+    keyboardRowOne.addAll(singletonList(BNM_EXCHANGE_RATES));
+    keyboardRowTwo.addAll(singletonList(ALL_EXCHANGES));
+    keyboardRowThree.addAll(singletonList(BEST_EXCHANGE));
+    keyboardRowFour.addAll(singletonList(BANK_HOURS));
+    keyboardRowFive.addAll(singletonList(BACK_TO_MAIN_MENU));
 
     return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree,
         keyboardRowFour, keyboardRowFive));
@@ -96,9 +97,9 @@ public class ReplyKeyboardMarkupUtil {
     final KeyboardRow keyboardRowTwo = new KeyboardRow();
     final KeyboardRow keyboardRowThree = new KeyboardRow();
 
-    keyboardRowOne.addAll(List.of(BUY_CURRENCY));
-    keyboardRowTwo.addAll(List.of(SELL_CURRENCY));
-    keyboardRowThree.addAll(List.of(BACK_TO_MAIN_MENU));
+    keyboardRowOne.addAll(singletonList(BUY_CURRENCY));
+    keyboardRowTwo.addAll(singletonList(SELL_CURRENCY));
+    keyboardRowThree.addAll(singletonList(BACK_TO_MAIN_MENU));
 
     return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree));
   }
@@ -111,12 +112,12 @@ public class ReplyKeyboardMarkupUtil {
     final KeyboardRow keyboardRowFive = new KeyboardRow();
     final KeyboardRow keyboardRowSix = new KeyboardRow();
 
-    keyboardRowOne.addAll(List.of(String.format(USD, action)));
-    keyboardRowTwo.addAll(List.of(String.format(EUR, action)));
-    keyboardRowThree.addAll(List.of(String.format(RUB, action)));
-    keyboardRowFour.addAll(List.of(String.format(RON, action)));
-    keyboardRowFive.addAll(List.of(String.format(UAH, action)));
-    keyboardRowSix.addAll(List.of(BACK_TO_MAIN_MENU));
+    keyboardRowOne.addAll(singletonList(String.format(USD, action)));
+    keyboardRowTwo.addAll(singletonList(String.format(EUR, action)));
+    keyboardRowThree.addAll(singletonList(String.format(RUB, action)));
+    keyboardRowFour.addAll(singletonList(String.format(RON, action)));
+    keyboardRowFive.addAll(singletonList(String.format(UAH, action)));
+    keyboardRowSix.addAll(singletonList(BACK_TO_MAIN_MENU));
 
     return createReplyKeyBoardMarkup(
         asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree, keyboardRowFour,
@@ -129,10 +130,10 @@ public class ReplyKeyboardMarkupUtil {
     final KeyboardRow keyboardRowThree = new KeyboardRow();
     final KeyboardRow keyboardRowFour = new KeyboardRow();
 
-    keyboardRowOne.addAll(List.of(BASTV));
-    keyboardRowTwo.addAll(List.of(FEEDBACK));
-    keyboardRowThree.addAll(List.of(DISTRICT_COUNCIL));
-    keyboardRowFour.addAll(List.of(BACK_TO_MAIN_MENU));
+    keyboardRowOne.addAll(singletonList(BASTV));
+    keyboardRowTwo.addAll(singletonList(FEEDBACK));
+    keyboardRowThree.addAll(singletonList(DISTRICT_COUNCIL));
+    keyboardRowFour.addAll(singletonList(BACK_TO_MAIN_MENU));
 
     return createReplyKeyBoardMarkup(
         asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree, keyboardRowFour));
@@ -144,10 +145,10 @@ public class ReplyKeyboardMarkupUtil {
     final KeyboardRow keyboardRowThree = new KeyboardRow();
     final KeyboardRow keyboardRowFour = new KeyboardRow();
 
-    keyboardRowOne.addAll(List.of(ANRE_FUEL_PRICE));
-    keyboardRowTwo.addAll(List.of(BEST_FUEL_PRICE));
-    keyboardRowThree.addAll(List.of(PRICES_AT_ALL_STATIONS));
-    keyboardRowFour.addAll(List.of(BACK_TO_MAIN_MENU));
+    keyboardRowOne.addAll(singletonList(ANRE_FUEL_PRICE));
+    keyboardRowTwo.addAll(singletonList(BEST_FUEL_PRICE));
+    keyboardRowThree.addAll(singletonList(PRICES_AT_ALL_STATIONS));
+    keyboardRowFour.addAll(singletonList(BACK_TO_MAIN_MENU));
 
     return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree,
         keyboardRowFour));
@@ -159,10 +160,10 @@ public class ReplyKeyboardMarkupUtil {
     final KeyboardRow keyboardRowThree = new KeyboardRow();
     final KeyboardRow keyboardRowFour = new KeyboardRow();
 
-    keyboardRowOne.addAll(List.of(PETROL));
-    keyboardRowTwo.addAll(List.of(DIESEL));
-    keyboardRowThree.addAll(List.of(GAS));
-    keyboardRowFour.addAll(List.of(BACK_TO_MAIN_MENU));
+    keyboardRowOne.addAll(singletonList(PETROL));
+    keyboardRowTwo.addAll(singletonList(DIESEL));
+    keyboardRowThree.addAll(singletonList(GAS));
+    keyboardRowFour.addAll(singletonList(BACK_TO_MAIN_MENU));
 
     return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree,
         keyboardRowFour));
