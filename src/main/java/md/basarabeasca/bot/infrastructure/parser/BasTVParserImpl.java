@@ -1,11 +1,13 @@
 package md.basarabeasca.bot.infrastructure.parser;
 
 import static com.google.common.collect.Lists.reverse;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+
 import md.basarabeasca.bot.domain.news.News;
 import md.basarabeasca.bot.infrastructure.parser.api.NewsParser;
 import org.jsoup.Jsoup;
@@ -18,12 +20,12 @@ import org.springframework.stereotype.Component;
 public class BasTVParserImpl implements NewsParser {
 
   private static final String BASTV = "Новости BasTV";
-  private static final String TITLE = "title";
-  private static final String POST_SUMMARY = "post-summary";
-  private static final String A = "a";
-  private static final String FEATURED_CLEARFIX = "featured clearfix";
-  private static final String DATA_SRC = "data-src";
-  private static final String HREF = "href";
+  private static final String TITLE_CLASS = "elementor-post__title";
+  private static final String IMAGE_CLASS = "elementor-post__thumbnail";
+  private static final String DATA_SRC_ATTR = "data-src";
+  private static final String HREF_ATTR = "href";
+  private static final String A_ATTR = "a";
+  private static final String IMG_ATTR = "img";
 
   private final String siteLink;
 
@@ -33,22 +35,22 @@ public class BasTVParserImpl implements NewsParser {
 
   @Override
   public Elements getTitle(Document parsedSite) {
-    return parsedSite.getElementsByClass(TITLE);
+    return parsedSite.getElementsByClass(TITLE_CLASS);
   }
 
   @Override
   public Elements getDescription(Document parsedSite) {
-    return parsedSite.getElementsByClass(POST_SUMMARY);
+    return new Elements();
   }
 
   @Override
   public Elements getLink(Document parsedSite) {
-    return parsedSite.getElementsByClass(TITLE).select(A);
+    return getTitle(parsedSite).select(A_ATTR);
   }
 
   @Override
   public Elements getImage(Document parsedSite) {
-    return parsedSite.getElementsByClass(FEATURED_CLEARFIX).select(A);
+    return parsedSite.getElementsByClass(IMAGE_CLASS).select(IMG_ATTR);
   }
 
   @Override
@@ -70,28 +72,27 @@ public class BasTVParserImpl implements NewsParser {
     final List<Elements> newsFromThreads = getNewsFromThreads();
 
     final Elements titles = getElements(newsFromThreads, 0);
-    final Elements descriptions = getElements(newsFromThreads, 1);
     final Elements links = getElements(newsFromThreads, 2);
     final Elements images = getElements(newsFromThreads, 3);
 
-    return populateListOfNews(titles, descriptions, links, images);
+    return populateListOfNews(titles, links, images);
   }
 
   private Elements getElements(List<Elements> elements, int index) {
     return elements.get(index);
   }
 
-  private List<News> populateListOfNews(Elements titles, Elements descriptions, Elements links,
-      Elements images) {
+  private List<News> populateListOfNews(Elements titles, Elements links, Elements images) {
     final List<News> newsList = new ArrayList<>();
 
-    IntStream.range(0, 10)
-        .forEach(number -> newsList.add(new News(
-            titles.get(number).text(),
-            descriptions.get(number).text(),
-            images.get(number).attr(DATA_SRC),
-            links.get(number).attr(HREF))
-        ));
+    int maxSizeOfElements = getMaxSizeOfElements(titles.size(), 0, links.size(),
+        images.size());
+
+    IntStream.range(0, maxSizeOfElements).forEach(number -> newsList.add(new News(
+        titles.size() >= maxSizeOfElements ? titles.get(number).text() : EMPTY,
+        EMPTY,
+        images.size() >= maxSizeOfElements ? images.get(number).attr(DATA_SRC_ATTR) : EMPTY,
+        links.size() >= maxSizeOfElements ? links.get(number).attr(HREF_ATTR) : EMPTY)));
     return newsList;
   }
 }

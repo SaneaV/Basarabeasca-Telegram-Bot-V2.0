@@ -36,9 +36,10 @@ public class NewsCommand implements Command {
   //Response
   private static final String WELCOME_MESSAGE = "Воспользуйтесь клавишами ниже, чтобы получить новости с нужного вам сайта.";
 
-  private static final String LAST_10_NEWS_BASTV = "Последние 10 новостей с сайта [Bas-TV](https://bas-tv.md)";
-  private static final String LAST_10_NEWS_FEEDBACK = "Последние 10 новостей с сайта [FeedBack](http://feedback.md)";
-  private static final String LAST_10_NEWS_DISTRICT_COUNCIL = "Последние 10 новостей с сайта [Районный Совет Басарабяска](https://basarabeasca.md/ru)";
+  private static final String LAST_10_NEWS_BASTV = "Последние новости с сайта [Bas-TV](https://bas-tv.md)";
+  private static final String LAST_10_NEWS_FEEDBACK = "Последние новости с сайта [FeedBack](http://feedback.md)";
+  private static final String LAST_10_NEWS_DISTRICT_COUNCIL = "Последние новости с сайта [Районный Совет Басарабяска]"
+      + "(https://basarabeasca.md/ru)";
 
   //Message construction
   private static final String CAPTION = "*%s*\n\n%s";
@@ -99,7 +100,8 @@ public class NewsCommand implements Command {
     });
 
     messages.add(
-        MessageUtil.getSendMessageWithReplyKeyboardMarkup(message, lastTenNews, ReplyKeyboardMarkupUtil.getNewsReplyKeyboardMarkup()));
+        MessageUtil.getSendMessageWithReplyKeyboardMarkup(message, lastTenNews,
+            ReplyKeyboardMarkupUtil.getNewsReplyKeyboardMarkup()));
 
     return messages;
   }

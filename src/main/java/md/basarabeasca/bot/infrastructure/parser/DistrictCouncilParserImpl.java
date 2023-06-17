@@ -10,6 +10,7 @@ import md.basarabeasca.bot.domain.news.News;
 import md.basarabeasca.bot.infrastructure.parser.api.NewsParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,7 @@ public class DistrictCouncilParserImpl implements NewsParser {
   private static final String IMG = "img";
   private static final String SRC = "src";
   private static final String HREF = "href";
+  private static final String ARTICLE = "article";
 
   private final String siteLink;
 
@@ -34,12 +36,12 @@ public class DistrictCouncilParserImpl implements NewsParser {
 
   @Override
   public Elements getTitle(Document parsedSite) {
-    return parsedSite.select(ITEMPROP_NAME);
+    return filterArticles(parsedSite).select(ITEMPROP_NAME);
   }
 
   @Override
   public Elements getDescription(Document parsedSite) {
-    return parsedSite.select(ITEMPROP_ARTICLE_SECTION).next();
+    return filterArticles(parsedSite).select(ITEMPROP_ARTICLE_SECTION).next();
   }
 
   @Override
@@ -82,17 +84,28 @@ public class DistrictCouncilParserImpl implements NewsParser {
     return elements.get(index);
   }
 
-  private List<News> populateListOfNews(Elements titles, Elements descriptions, Elements links,
-      Elements images) {
+  private List<News> populateListOfNews(Elements titles, Elements descriptions, Elements links, Elements images) {
     final List<News> newsList = new ArrayList<>();
 
-    IntStream.range(0, 10)
+    int maxSizeOfElements = getMaxSizeOfElements(titles.size(), descriptions.size(), links.size(), images.size());
+
+    IntStream.range(0, maxSizeOfElements)
         .forEach(number -> newsList.add(new News(
             titles.get(number).text(),
             descriptions.get(number).text(),
             images.get(number).attr(SRC),
-            links.get(number).attr(HREF))
-        ));
+            links.get(number).attr(HREF))));
     return newsList;
+  }
+
+  private Elements filterArticles(Document parsedSite) {
+    final Elements articles = parsedSite.select(ARTICLE);
+    final Elements filteredElements = new Elements();
+    for (Element article : articles) {
+      if (article.getElementsByClass(THUMB).size() == 1) {
+        filteredElements.add(article);
+      }
+    }
+    return filteredElements;
   }
 }

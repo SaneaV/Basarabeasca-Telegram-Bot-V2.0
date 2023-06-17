@@ -1,6 +1,8 @@
 package md.basarabeasca.bot.infrastructure.parser.api;
 
+import java.util.List;
+
 public interface TransportTimetableParser {
 
-  String getTimetable();
+    List<String> getTimetable();
 }

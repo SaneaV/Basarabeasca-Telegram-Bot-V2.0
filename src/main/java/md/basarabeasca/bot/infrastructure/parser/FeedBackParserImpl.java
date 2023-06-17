@@ -1,6 +1,7 @@
 package md.basarabeasca.bot.infrastructure.parser;
 
 import static com.google.common.collect.Lists.reverse;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -83,17 +84,17 @@ public class FeedBackParserImpl implements NewsParser {
     return elements.get(index);
   }
 
-  private List<News> populateListOfNews(Elements titles, Elements descriptions, Elements links,
-      Elements images) {
+  private List<News> populateListOfNews(Elements titles, Elements descriptions, Elements links, Elements images) {
     final List<News> newsList = new ArrayList<>();
 
-    IntStream.range(0, 10)
-        .forEach(number -> newsList.add(new News(
-            titles.get(number).text(),
-            descriptions.get(number).text(),
-            images.get(number).attr(SRC),
-            links.get(number).attr(HREF))
-        ));
+    int maxSizeOfElements = getMaxSizeOfElements(titles.size(), descriptions.size(), links.size(), images.size());
+
+    IntStream.range(0, maxSizeOfElements).forEach(number -> newsList.add(new News(
+        titles.size() >= maxSizeOfElements ? titles.get(number).text() : EMPTY,
+        descriptions.size() >= maxSizeOfElements ? descriptions.get(number).text() : EMPTY,
+        images.size() >= maxSizeOfElements ? images.get(number).attr(SRC) : EMPTY,
+        links.size() >= maxSizeOfElements ? links.get(number).attr(HREF) : EMPTY)
+    ));
     return newsList;
   }
 }
