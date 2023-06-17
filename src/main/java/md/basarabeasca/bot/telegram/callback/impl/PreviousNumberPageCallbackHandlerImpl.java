@@ -7,7 +7,7 @@ import static org.apache.commons.lang3.StringUtils.SPACE;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import md.basarabeasca.bot.infrastructure.facade.PhoneNumberFacade;
+import md.basarabeasca.bot.facade.api.PhoneNumberFacade;
 import md.basarabeasca.bot.telegram.callback.CallbackHandler;
 import md.basarabeasca.bot.telegram.callback.CallbackQueryType;
 import org.springframework.stereotype.Component;

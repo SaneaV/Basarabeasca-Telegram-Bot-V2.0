@@ -2,7 +2,7 @@ package md.basarabeasca.bot.telegram.bot;
 
 import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageError;
 
-import md.basarabeasca.bot.telegram.DispatcherCommand;
+import md.basarabeasca.bot.telegram.command.DispatcherCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

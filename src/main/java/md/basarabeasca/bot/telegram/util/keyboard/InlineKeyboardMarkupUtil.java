@@ -2,11 +2,11 @@ package md.basarabeasca.bot.telegram.util.keyboard;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
-import static md.basarabeasca.bot.telegram.callback.CallbackQueryType.NEXT_PAGE;
-import static md.basarabeasca.bot.telegram.callback.CallbackQueryType.PREVIOUS_PAGE;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import md.basarabeasca.bot.telegram.callback.CallbackQueryType;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
@@ -37,12 +37,12 @@ public class InlineKeyboardMarkupUtil {
     final InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
 
     final InlineKeyboardButton previousPage = InlineKeyboardButton.builder()
-        .callbackData(PREVIOUS_PAGE.name() + SPACE + page)
+        .callbackData(CallbackQueryType.PREVIOUS_PAGE.name() + SPACE + page)
         .text(LEFT_ARROW)
         .build();
 
     final InlineKeyboardButton nextPage = InlineKeyboardButton.builder()
-        .callbackData(NEXT_PAGE.name() + SPACE + page)
+        .callbackData(CallbackQueryType.NEXT_PAGE.name() + SPACE + page)
         .text(RIGHT_ARROW)
         .build();
 

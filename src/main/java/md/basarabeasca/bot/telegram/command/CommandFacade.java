@@ -2,6 +2,7 @@ package md.basarabeasca.bot.telegram.command;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import md.basarabeasca.bot.telegram.command.api.Command;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Message;
