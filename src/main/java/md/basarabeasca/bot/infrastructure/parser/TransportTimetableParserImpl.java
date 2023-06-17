@@ -15,8 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class TransportTimetableParserImpl implements TransportTimetableParser {
 
-  private static final String ENTRY_CONTENT = "div[class=\"elementor-element elementor-element-5fc6b9d elementor-widget "
+  private static final String CONTENT = "div[class=\"elementor-element elementor-element-5fc6b9d elementor-widget "
       + "elementor-widget-theme-post-content\"]";
+  private static final String P_ATTR = "p";
 
   private final String site;
 
@@ -28,8 +29,7 @@ public class TransportTimetableParserImpl implements TransportTimetableParser {
   @Override
   public List<String> getTimetable() {
     return requireNonNull(
-        requireNonNull(getDocument().select("div[class=\"elementor-element elementor-element-5fc6b9d elementor-widget "
-            + "elementor-widget-theme-post-content\"]").first()).child(0).select("p")).eachText();
+        requireNonNull(getDocument().select(CONTENT).first()).child(0).select(P_ATTR)).eachText();
   }
 
   public Document getDocument() {

@@ -12,7 +12,7 @@ public class TransportTimetableServiceImpl implements TransportTimetableService 
 
   private static final String TWO_NEW_LINES = "\n\n";
   private static final String ACTUAL_TIME_TABLE = "Актуальное расписание рейсов в и из Басарабяски:";
-  private static final String ACTUAL_TIME_TABLE_REPLACE = "Актуальное расписание междугородних рейсов:";
+  private static final String ACTUAL_TIME_TABLE_REPLACE = "Расписание междугородних рейсов (уточняйте по номеру +37322542185):";
   private static final String TYPO_TIPASPAOL = "Типасполь";
   private static final String TYPO_CHISINAU_PRIMORSKOE = "Кишинев Приморское";
   private static final String TIRASPOL = "Тирасполь";
