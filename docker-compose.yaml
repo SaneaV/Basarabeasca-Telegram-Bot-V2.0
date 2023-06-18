@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  bot:
+    container_name: basarabeasca-bot
+    build:
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      DB: ${DB}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      BOT_TOKEN: ${BOT_TOKEN}
+      ADMIN_ID: ${ADMIN_ID}
+      APP_ID: ${APP_ID}
+#      SPRING_PROFILES_ACTIVE: test
+    ports:
+      - "5000:5000"
+    depends_on:
+      - bot-db
+
+  bot-db:
+    container_name: basarabeasca-bot-db
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
