@@ -35,8 +35,7 @@ public class BestFuelPriceCommand implements Command {
       "На данный момент ничего найти не можем. Возможные причины:\n"
           + "1. Все автозаправочные станции сейчас закрыты.\n"
           + "2. Топливо, которые вас интересует на данный момент не продаётся.";
-  private static final String FINAL_MESSAGE = "*В сравнение цен не участвовала автозаправка CANON, так как не было получено данных о стоимости топлива.*";
-
+  private static final String FINAL_MESSAGE = "*Цены получены с сайта: anre.md*";
 
   //Util
   //TODO: Create util class for Fuel flow
@@ -68,12 +67,11 @@ public class BestFuelPriceCommand implements Command {
     }
 
     final String fuelType = FUEL_TYPE_TRANSLATION.get(message.getText());
-    final Map<String, String> bestFuelPriceFor = fuelFacade.getBestFuelPriceFor(
-        fuelType);
+    final Map<String, String> bestFuelPriceFor = fuelFacade.getBestFuelPriceFor(fuelType);
 
     if (isEmpty(bestFuelPriceFor)) {
-      return singletonList(getSendMessageWithReplyKeyboardMarkup(message, NOT_AVAILABLE_MESSAGE,
-          getBestFuelPriceReplyKeyboardMarkup()));
+      return singletonList(
+          getSendMessageWithReplyKeyboardMarkup(message, NOT_AVAILABLE_MESSAGE, getBestFuelPriceReplyKeyboardMarkup()));
     }
 
     final List<? super PartialBotApiMethod<?>> messages = new ArrayList<>();
@@ -87,9 +85,7 @@ public class BestFuelPriceCommand implements Command {
               Double.valueOf(location.getLongitude()))));
     });
 
-    messages.add(getSendMessageWithReplyKeyboardMarkup(message, FINAL_MESSAGE,
-        getBestFuelPriceReplyKeyboardMarkup()));
-
+    messages.add(getSendMessageWithReplyKeyboardMarkup(message, FINAL_MESSAGE, getBestFuelPriceReplyKeyboardMarkup()));
     return messages;
   }
 

@@ -31,7 +31,9 @@ public class FuelFacadeImpl implements FuelFacade {
 
   @Override
   public List<String> getAllFuelPriceList() {
-    final List<Fuel> allFuelPriceList = fuelService.getAllFuelPriceList();
+    final List<Fuel> allFuelPriceList = fuelService.getAllFuelPriceList().stream()
+        .filter(fuel -> fuel.getPrice() != null)
+        .collect(toList());
 
     final Map<String, List<Fuel>> stationsMap = new HashMap<>();
     getStations(allFuelPriceList).forEach(s -> stationsMap.put(s, new ArrayList<>()));

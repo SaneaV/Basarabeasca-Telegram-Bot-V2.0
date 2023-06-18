@@ -1,3 +1,5 @@
+-- ${flyway:timestamp}
+
 INSERT INTO phone_numbers(phone_id, description, phone_number)
 VALUES(1, 'Председатель района(1)', '029722650');
 
