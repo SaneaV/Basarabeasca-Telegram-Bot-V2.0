@@ -2,6 +2,7 @@ package md.basarabeasca.bot.infrastructure.parser;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
+import static java.util.stream.Collectors.toList;
 import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.BNM;
 import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.EUR;
 import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.FINCOMBANK;
@@ -17,7 +18,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.Getter;
 import md.basarabeasca.bot.domain.currency.ExchangeRate;
@@ -66,7 +66,7 @@ public class ExchangeRateParserImpl implements ExchangeRateParser {
           final String currency = e.getElementsByClass(CURRENCY).text();
           return new ExchangeRate(BNM, currency, price, price);
         })
-        .collect(Collectors.toList());
+        .collect(toList());
   }
 
   @Override
@@ -92,7 +92,7 @@ public class ExchangeRateParserImpl implements ExchangeRateParser {
     return Stream.of(MOLDINDCONBANK, FINCOMBANK, MAIB)
         .map(bank -> getPrivateBankRates(bank, table))
         .flatMap(List::stream)
-        .collect(Collectors.toList());
+        .collect(toList());
   }
 
   private List<ExchangeRate> getPrivateBankRates(String bank, Element table) {

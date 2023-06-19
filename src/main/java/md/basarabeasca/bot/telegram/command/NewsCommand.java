@@ -1,6 +1,9 @@
 package md.basarabeasca.bot.telegram.command;
 
 import static java.util.Collections.singletonList;
+import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil.getNewsReplyKeyboardMarkup;
+import static md.basarabeasca.bot.telegram.util.message.MessageUtil.sendMessageWithReplyKeyboardMarkup;
+import static md.basarabeasca.bot.telegram.util.message.MessageUtil.sendPhoto;
 import static org.telegram.telegrambots.meta.api.methods.ParseMode.MARKDOWN;
 
 import java.util.ArrayList;
@@ -11,10 +14,8 @@ import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.domain.news.News;
 import md.basarabeasca.bot.facade.api.NewsFacade;
-import md.basarabeasca.bot.telegram.util.keyboard.InlineKeyboardMarkupUtil;
-import md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil;
-import md.basarabeasca.bot.telegram.util.message.MessageUtil;
 import md.basarabeasca.bot.telegram.command.api.Command;
+import md.basarabeasca.bot.telegram.util.keyboard.InlineKeyboardMarkupUtil;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -70,8 +71,8 @@ public class NewsCommand implements Command {
 
   private List<? super PartialBotApiMethod<?>> sendStartMessage(Message message, String source) {
     if (source.equals(CITY_NEWS)) {
-      final SendMessage welcomeMessage = MessageUtil.getSendMessageWithReplyKeyboardMarkup(
-          message, WELCOME_MESSAGE, ReplyKeyboardMarkupUtil.getNewsReplyKeyboardMarkup());
+      final SendMessage welcomeMessage = sendMessageWithReplyKeyboardMarkup(
+          message, WELCOME_MESSAGE, getNewsReplyKeyboardMarkup());
       return singletonList(welcomeMessage);
     }
 
@@ -92,7 +93,7 @@ public class NewsCommand implements Command {
     final List<? super PartialBotApiMethod<?>> messages = new ArrayList<>();
 
     news.forEach(n -> {
-      final SendPhoto sendPhoto = MessageUtil.getSendPhoto(message.getChatId().toString(),
+      final SendPhoto sendPhoto = sendPhoto(message.getChatId().toString(),
           String.format(CAPTION, n.getName(), n.getDescription()), n.getImage(), MARKDOWN);
 
       sendPhoto.setReplyMarkup(InlineKeyboardMarkupUtil.getSendInlineKeyboardWithUrl(CONTINUE_READING, n.getLink()));
@@ -100,8 +101,8 @@ public class NewsCommand implements Command {
     });
 
     messages.add(
-        MessageUtil.getSendMessageWithReplyKeyboardMarkup(message, lastTenNews,
-            ReplyKeyboardMarkupUtil.getNewsReplyKeyboardMarkup()));
+        sendMessageWithReplyKeyboardMarkup(message, lastTenNews,
+            getNewsReplyKeyboardMarkup()));
 
     return messages;
   }

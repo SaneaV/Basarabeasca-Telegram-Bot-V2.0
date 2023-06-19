@@ -1,6 +1,6 @@
 package md.basarabeasca.bot.telegram.bot;
 
-import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageError;
+import static md.basarabeasca.bot.telegram.util.message.MessageUtil.sendMessageError;
 
 import md.basarabeasca.bot.telegram.command.DispatcherCommand;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +58,7 @@ public class BasarabeascaBot extends TelegramWebhookBot {
             }
           } catch (Exception exception) {
             try {
-              execute(getSendMessageError(update.getMessage(), ERROR_MESSAGE));
+              execute(sendMessageError(update.getMessage(), ERROR_MESSAGE));
             } catch (TelegramApiException e) {
               e.printStackTrace();
             }
@@ -66,7 +66,7 @@ public class BasarabeascaBot extends TelegramWebhookBot {
         });
       } catch (Exception e) {
         try {
-          execute(getSendMessageError(update.getMessage(), ERROR_MESSAGE));
+          execute(sendMessageError(update.getMessage(), ERROR_MESSAGE));
         } catch (TelegramApiException ex) {
           ex.printStackTrace();
         }

@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface TransportTimetableParser {
 
-    List<String> getTimetable();
+  List<String> getTimetable();
 }

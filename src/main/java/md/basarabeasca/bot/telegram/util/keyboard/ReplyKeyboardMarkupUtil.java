@@ -71,8 +71,8 @@ public class ReplyKeyboardMarkupUtil {
     keyboardRowFive.addAll(singletonList(PUBLIC_TRANSPORT_TIMETABLE));
     keyboardRowSix.addAll(singletonList(BACK_TO_MAIN_MENU));
 
-    return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree,
-        keyboardRowFour, keyboardRowFive, keyboardRowSix));
+    return createReplyKeyBoardMarkup(
+        asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree, keyboardRowFour, keyboardRowFive, keyboardRowSix));
   }
 
   public static ReplyKeyboardMarkup getMoneyReplyKeyboardMarkup() {
@@ -88,8 +88,7 @@ public class ReplyKeyboardMarkupUtil {
     keyboardRowFour.addAll(singletonList(BANK_HOURS));
     keyboardRowFive.addAll(singletonList(BACK_TO_MAIN_MENU));
 
-    return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree,
-        keyboardRowFour, keyboardRowFive));
+    return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree, keyboardRowFour, keyboardRowFive));
   }
 
   public static ReplyKeyboardMarkup getCurrencyActionReplyKeyboardMarkup() {
@@ -120,8 +119,7 @@ public class ReplyKeyboardMarkupUtil {
     keyboardRowSix.addAll(singletonList(BACK_TO_MAIN_MENU));
 
     return createReplyKeyBoardMarkup(
-        asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree, keyboardRowFour,
-            keyboardRowFive, keyboardRowSix));
+        asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree, keyboardRowFour, keyboardRowFive, keyboardRowSix));
   }
 
   public static ReplyKeyboardMarkup getNewsReplyKeyboardMarkup() {
@@ -135,8 +133,7 @@ public class ReplyKeyboardMarkupUtil {
     keyboardRowThree.addAll(singletonList(DISTRICT_COUNCIL));
     keyboardRowFour.addAll(singletonList(BACK_TO_MAIN_MENU));
 
-    return createReplyKeyBoardMarkup(
-        asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree, keyboardRowFour));
+    return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree, keyboardRowFour));
   }
 
   public static ReplyKeyboardMarkup getFuelReplyKeyboardMarkup() {
@@ -150,8 +147,7 @@ public class ReplyKeyboardMarkupUtil {
     keyboardRowThree.addAll(singletonList(PRICES_AT_ALL_STATIONS));
     keyboardRowFour.addAll(singletonList(BACK_TO_MAIN_MENU));
 
-    return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree,
-        keyboardRowFour));
+    return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree, keyboardRowFour));
   }
 
   public static ReplyKeyboardMarkup getBestFuelPriceReplyKeyboardMarkup() {
@@ -165,8 +161,7 @@ public class ReplyKeyboardMarkupUtil {
     keyboardRowThree.addAll(singletonList(GAS));
     keyboardRowFour.addAll(singletonList(BACK_TO_MAIN_MENU));
 
-    return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree,
-        keyboardRowFour));
+    return createReplyKeyBoardMarkup(asList(keyboardRowOne, keyboardRowTwo, keyboardRowThree, keyboardRowFour));
   }
 
   private static ReplyKeyboardMarkup createReplyKeyBoardMarkup(List<KeyboardRow> keyboardRowList) {

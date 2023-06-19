@@ -2,7 +2,7 @@ package md.basarabeasca.bot.telegram.callback.impl;
 
 import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.telegram.callback.CallbackQueryType.FIND_NUMBER;
-import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageToFindAPhoneNumber;
+import static md.basarabeasca.bot.telegram.util.message.MessageUtil.sendMessageToFindAPhoneNumber;
 
 import java.util.List;
 import md.basarabeasca.bot.telegram.callback.CallbackHandler;
@@ -21,7 +21,7 @@ public class FindNumberCallbackHandlerImpl implements CallbackHandler {
   public List<? super PartialBotApiMethod<?>> handleCallbackQuery(CallbackQuery callbackQuery) {
     final String chatId = callbackQuery.getMessage().getChatId().toString();
     final Integer messageIdForReply = callbackQuery.getMessage().getMessageId();
-    final SendMessage sendMessage = getSendMessageToFindAPhoneNumber(chatId,
+    final SendMessage sendMessage = sendMessageToFindAPhoneNumber(chatId,
         SEARCH_NUMBER_CALLBACK_DATA, messageIdForReply);
 
     return singletonList(sendMessage);

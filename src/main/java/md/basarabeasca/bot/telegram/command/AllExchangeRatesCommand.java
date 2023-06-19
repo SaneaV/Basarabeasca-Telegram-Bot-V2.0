@@ -2,14 +2,14 @@ package md.basarabeasca.bot.telegram.command;
 
 import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.EXCHANGE_RATE_ONLY_IN_MAIN_OFFICE;
-import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
+import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil.getMoneyReplyKeyboardMarkup;
+import static md.basarabeasca.bot.telegram.util.message.MessageUtil.sendMessageWithReplyKeyboardMarkup;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.facade.api.ExchangeRateFacade;
-import md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil;
 import md.basarabeasca.bot.telegram.command.api.Command;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
@@ -35,16 +35,15 @@ public class AllExchangeRatesCommand implements Command {
     final List<String> allExchangeRates = exchangeRateFacade.getAllExchangeRates();
 
     if (isEmpty(allExchangeRates)) {
-      return singletonList(getSendMessageWithReplyKeyboardMarkup(message, NOT_AVAILABLE_MESSAGE,
-          ReplyKeyboardMarkupUtil.getMoneyReplyKeyboardMarkup()));
+      return singletonList(sendMessageWithReplyKeyboardMarkup(message, NOT_AVAILABLE_MESSAGE, getMoneyReplyKeyboardMarkup()));
     }
 
     final List<? super PartialBotApiMethod<?>> messages = allExchangeRates.stream()
         .map(msg -> new SendMessage(message.getChatId().toString(), msg))
         .collect(Collectors.toList());
 
-    messages.add(getSendMessageWithReplyKeyboardMarkup(message, EXCHANGE_RATE_ONLY_IN_MAIN_OFFICE,
-        ReplyKeyboardMarkupUtil.getMoneyReplyKeyboardMarkup()));
+    messages.add(
+        sendMessageWithReplyKeyboardMarkup(message, EXCHANGE_RATE_ONLY_IN_MAIN_OFFICE, getMoneyReplyKeyboardMarkup()));
 
     return messages;
   }

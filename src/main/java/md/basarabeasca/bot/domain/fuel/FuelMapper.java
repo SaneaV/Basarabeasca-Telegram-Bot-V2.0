@@ -1,7 +1,6 @@
 package md.basarabeasca.bot.domain.fuel;
 
 import java.util.List;
-
 import md.basarabeasca.bot.infrastructure.jpa.FuelJpa;
 import org.json.JSONObject;
 

@@ -3,7 +3,6 @@ package md.basarabeasca.bot.telegram.command;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.telegram.callback.CallbackQueryFacade;
-import md.basarabeasca.bot.telegram.command.CommandFacade;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.Update;

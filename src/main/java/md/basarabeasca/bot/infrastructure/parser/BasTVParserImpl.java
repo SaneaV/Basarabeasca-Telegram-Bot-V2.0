@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
-
 import md.basarabeasca.bot.domain.news.News;
 import md.basarabeasca.bot.infrastructure.parser.api.NewsParser;
 import org.jsoup.Jsoup;

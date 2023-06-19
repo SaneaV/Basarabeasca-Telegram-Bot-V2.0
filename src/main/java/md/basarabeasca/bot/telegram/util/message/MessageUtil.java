@@ -1,10 +1,10 @@
 package md.basarabeasca.bot.telegram.util.message;
 
 import static lombok.AccessLevel.PRIVATE;
+import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup;
 import static org.telegram.telegrambots.meta.api.methods.ParseMode.MARKDOWN;
 
 import lombok.RequiredArgsConstructor;
-import md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
@@ -16,7 +16,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 @RequiredArgsConstructor(access = PRIVATE)
 public class MessageUtil {
 
-  public static SendMessage getSendMessage(Message message, String text) {
+  public static SendMessage sendMessage(Message message, String text) {
     final String chatId = message.getChatId().toString();
     return SendMessage.builder()
         .chatId(chatId)
@@ -25,8 +25,7 @@ public class MessageUtil {
         .build();
   }
 
-  public static SendMessage getSendMessageWithReplyKeyboardMarkup(Message message, String text,
-      ReplyKeyboardMarkup keyboardMarkup) {
+  public static SendMessage sendMessageWithReplyKeyboardMarkup(Message message, String text, ReplyKeyboardMarkup keyboardMarkup) {
     final String chatId = message.getChatId().toString();
     return SendMessage.builder()
         .chatId(chatId)
@@ -36,8 +35,7 @@ public class MessageUtil {
         .build();
   }
 
-  public static SendMessage getSendMessageWithInlineKeyboardMarkup(String chatId, String text,
-      InlineKeyboardMarkup keyboardMarkup) {
+  public static SendMessage sendMessageWithInlineKeyboardMarkup(String chatId, String text, InlineKeyboardMarkup keyboardMarkup) {
     return SendMessage.builder()
         .chatId(chatId)
         .text(text)
@@ -46,8 +44,7 @@ public class MessageUtil {
         .build();
   }
 
-  public static SendPhoto getSendPhoto(String chatId, String caption,
-      String photo, String parseMode) {
+  public static SendPhoto sendPhoto(String chatId, String caption, String photo, String parseMode) {
     return SendPhoto.builder()
         .chatId(chatId)
         .photo(new InputFile(photo))
@@ -56,8 +53,7 @@ public class MessageUtil {
         .build();
   }
 
-  public static SendMessage getSendMessageToFindAPhoneNumber(String chatId, String text,
-      Integer messageIdForReply) {
+  public static SendMessage sendMessageToFindAPhoneNumber(String chatId, String text, Integer messageIdForReply) {
     final ForceReplyKeyboard forceReplyKeyboard = ForceReplyKeyboard.builder()
         .forceReply(true)
         .build();
@@ -70,7 +66,7 @@ public class MessageUtil {
         .build();
   }
 
-  public static SendMessage getSendMessageError(Message message, String text) {
-    return getSendMessageWithReplyKeyboardMarkup(message, text, ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
+  public static SendMessage sendMessageError(Message message, String text) {
+    return sendMessageWithReplyKeyboardMarkup(message, text, getMainReplyKeyboardMarkup());
   }
 }

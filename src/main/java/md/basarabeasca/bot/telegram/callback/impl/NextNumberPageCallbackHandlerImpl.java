@@ -2,7 +2,7 @@ package md.basarabeasca.bot.telegram.callback.impl;
 
 import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.telegram.callback.CallbackQueryType.NEXT_PAGE;
-import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageError;
+import static md.basarabeasca.bot.telegram.util.message.MessageUtil.sendMessageError;
 import static org.apache.commons.lang3.StringUtils.SPACE;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class NextNumberPageCallbackHandlerImpl implements CallbackHandler {
         throw new RuntimeException();
       }
     } catch (RuntimeException exception) {
-      return singletonList(getSendMessageError(callbackQuery.getMessage(), TO_MUCH_REQUESTS));
+      return singletonList(sendMessageError(callbackQuery.getMessage(), TO_MUCH_REQUESTS));
     }
   }
 

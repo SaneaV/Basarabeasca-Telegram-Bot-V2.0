@@ -2,8 +2,8 @@ package md.basarabeasca.bot.telegram.command;
 
 import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.telegram.util.keyboard.InlineKeyboardMarkupUtil.getSendInlineKeyboardForShowNumber;
-import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessage;
-import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageWithInlineKeyboardMarkup;
+import static md.basarabeasca.bot.telegram.util.message.MessageUtil.sendMessage;
+import static md.basarabeasca.bot.telegram.util.message.MessageUtil.sendMessageWithInlineKeyboardMarkup;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -35,10 +35,10 @@ public class ShowNumberCommand implements Command {
     final String phoneNumbers = phoneNumberFacade.getNextPage(0L);
 
     if (phoneNumbers.isEmpty()) {
-      return getSendMessage(message, PHONE_NUMBER_LIST_IS_EMPTY);
+      return sendMessage(message, PHONE_NUMBER_LIST_IS_EMPTY);
     } else {
       final long lastId = phoneNumberFacade.getMaxIdOnPage(0L);
-      return getSendMessageWithInlineKeyboardMarkup(message.getChatId().toString(), phoneNumbers,
+      return sendMessageWithInlineKeyboardMarkup(message.getChatId().toString(), phoneNumbers,
           getSendInlineKeyboardForShowNumber(SEARCH_NUMBER, CallbackQueryType.FIND_NUMBER.name(), lastId));
     }
   }

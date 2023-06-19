@@ -3,7 +3,7 @@ package md.basarabeasca.bot.telegram.command;
 import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil.getFuelReplyKeyboardMarkup;
-import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
+import static md.basarabeasca.bot.telegram.util.message.MessageUtil.sendMessageWithReplyKeyboardMarkup;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 import java.util.List;
@@ -35,14 +35,14 @@ public class PricesAtAllStationsCommand implements Command {
     final List<String> fuelPriceList = fuelFacade.getAllFuelPriceList();
 
     if (isEmpty(fuelPriceList)) {
-      return singletonList(getSendMessageWithReplyKeyboardMarkup(message, NOT_AVAILABLE_MESSAGE, getFuelReplyKeyboardMarkup()));
+      return singletonList(sendMessageWithReplyKeyboardMarkup(message, NOT_AVAILABLE_MESSAGE, getFuelReplyKeyboardMarkup()));
     }
 
     final List<? super PartialBotApiMethod<?>> messages = fuelPriceList.stream()
         .map(msg -> new SendMessage(message.getChatId().toString(), msg))
         .collect(toList());
 
-    messages.add(getSendMessageWithReplyKeyboardMarkup(message, FINAL_MESSAGE, getFuelReplyKeyboardMarkup()));
+    messages.add(sendMessageWithReplyKeyboardMarkup(message, FINAL_MESSAGE, getFuelReplyKeyboardMarkup()));
     return messages;
   }
 

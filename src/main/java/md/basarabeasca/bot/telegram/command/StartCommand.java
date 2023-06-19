@@ -1,11 +1,10 @@
 package md.basarabeasca.bot.telegram.command;
 
 import static java.util.Collections.singletonList;
-import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
+import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup;
+import static md.basarabeasca.bot.telegram.util.message.MessageUtil.sendMessageWithReplyKeyboardMarkup;
 
 import java.util.List;
-
-import md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil;
 import md.basarabeasca.bot.telegram.command.api.Command;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
@@ -20,8 +19,8 @@ public class StartCommand implements Command {
 
   @Override
   public List<? super PartialBotApiMethod<?>> execute(Update update) {
-    final SendMessage startMessage = getSendMessageWithReplyKeyboardMarkup(update.getMessage(),
-        WELCOME_MESSAGE, ReplyKeyboardMarkupUtil.getMainReplyKeyboardMarkup());
+    final SendMessage startMessage = sendMessageWithReplyKeyboardMarkup(update.getMessage(),
+        WELCOME_MESSAGE, getMainReplyKeyboardMarkup());
     return singletonList(startMessage);
   }
 

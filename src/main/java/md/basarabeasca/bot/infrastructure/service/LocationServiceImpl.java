@@ -1,7 +1,8 @@
 package md.basarabeasca.bot.infrastructure.service;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.domain.location.Location;
 import md.basarabeasca.bot.domain.location.LocationMapper;
@@ -22,6 +23,6 @@ public class LocationServiceImpl implements LocationService {
     final List<LocationJpa> location = locationRepository.findByName(name);
     return location.stream()
         .map(locationMapper::toEntity)
-        .collect(Collectors.toList());
+        .collect(toList());
   }
 }

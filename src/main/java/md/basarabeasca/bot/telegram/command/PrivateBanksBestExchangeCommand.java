@@ -3,6 +3,8 @@ package md.basarabeasca.bot.telegram.command;
 import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.BUY;
 import static md.basarabeasca.bot.infrastructure.util.ExchangeRateUtil.EXCHANGE_RATE_ONLY_IN_MAIN_OFFICE;
+import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil.getCurrencyReplyKeyboardMarkup;
+import static md.basarabeasca.bot.telegram.util.message.MessageUtil.sendMessageWithReplyKeyboardMarkup;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 import java.util.ArrayList;
@@ -15,8 +17,6 @@ import md.basarabeasca.bot.domain.location.Location;
 import md.basarabeasca.bot.facade.api.ExchangeRateFacade;
 import md.basarabeasca.bot.infrastructure.service.api.LocationService;
 import md.basarabeasca.bot.telegram.command.api.Command;
-import md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil;
-import md.basarabeasca.bot.telegram.util.message.MessageUtil;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendLocation;
@@ -65,8 +65,8 @@ public class PrivateBanksBestExchangeCommand implements Command {
         .getBestPrivateBankExchangeRateFor(currency, action);
 
     if (isEmpty(bestPrivateBankExchangeRateFor)) {
-      return singletonList(MessageUtil.getSendMessageWithReplyKeyboardMarkup(message, NOT_AVAILABLE_MESSAGE,
-          ReplyKeyboardMarkupUtil.getCurrencyReplyKeyboardMarkup(action)));
+      return singletonList(sendMessageWithReplyKeyboardMarkup(message, NOT_AVAILABLE_MESSAGE,
+          getCurrencyReplyKeyboardMarkup(action)));
     }
 
     final List<? super PartialBotApiMethod<?>> messages = new ArrayList<>();
@@ -80,8 +80,8 @@ public class PrivateBanksBestExchangeCommand implements Command {
               Double.valueOf(location.getLongitude()))));
     });
 
-    messages.add(MessageUtil.getSendMessageWithReplyKeyboardMarkup(message, EXCHANGE_RATE_ONLY_IN_MAIN_OFFICE,
-        ReplyKeyboardMarkupUtil.getCurrencyReplyKeyboardMarkup(action)));
+    messages.add(sendMessageWithReplyKeyboardMarkup(message, EXCHANGE_RATE_ONLY_IN_MAIN_OFFICE,
+        getCurrencyReplyKeyboardMarkup(action)));
 
     return messages;
   }
@@ -106,8 +106,8 @@ public class PrivateBanksBestExchangeCommand implements Command {
 
   private SendMessage getActionMessage(Message message) {
     final String action = getAction(message.getText());
-    return MessageUtil.getSendMessageWithReplyKeyboardMarkup(message,
-        String.format(RESPONSE, action.toLowerCase()), ReplyKeyboardMarkupUtil.getCurrencyReplyKeyboardMarkup(action));
+    return sendMessageWithReplyKeyboardMarkup(message,
+        String.format(RESPONSE, action.toLowerCase()), getCurrencyReplyKeyboardMarkup(action));
   }
 
   @Override

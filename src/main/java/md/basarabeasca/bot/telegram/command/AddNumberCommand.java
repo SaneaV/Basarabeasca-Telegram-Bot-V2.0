@@ -1,7 +1,7 @@
 package md.basarabeasca.bot.telegram.command;
 
 import static java.util.Collections.singletonList;
-import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessage;
+import static md.basarabeasca.bot.telegram.util.message.MessageUtil.sendMessage;
 
 import java.util.List;
 import md.basarabeasca.bot.facade.api.PhoneNumberFacade;
@@ -35,10 +35,10 @@ public class AddNumberCommand implements Command {
 
     if (userId.equals(adminId)) {
       final String result = phoneNumberFacade.addNumber(message.getText());
-      return singletonList(getSendMessage(message, result));
+      return singletonList(sendMessage(message, result));
     }
 
-    return singletonList(getSendMessage(message, NO_ACCESS));
+    return singletonList(sendMessage(message, NO_ACCESS));
   }
 
   @Override

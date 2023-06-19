@@ -2,7 +2,7 @@ package md.basarabeasca.bot.telegram.command;
 
 import static java.util.Collections.singletonList;
 import static md.basarabeasca.bot.telegram.util.keyboard.ReplyKeyboardMarkupUtil.getBestFuelPriceReplyKeyboardMarkup;
-import static md.basarabeasca.bot.telegram.util.message.MessageUtil.getSendMessageWithReplyKeyboardMarkup;
+import static md.basarabeasca.bot.telegram.util.message.MessageUtil.sendMessageWithReplyKeyboardMarkup;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class BestFuelPriceCommand implements Command {
 
     if (isEmpty(bestFuelPriceFor)) {
       return singletonList(
-          getSendMessageWithReplyKeyboardMarkup(message, NOT_AVAILABLE_MESSAGE, getBestFuelPriceReplyKeyboardMarkup()));
+          sendMessageWithReplyKeyboardMarkup(message, NOT_AVAILABLE_MESSAGE, getBestFuelPriceReplyKeyboardMarkup()));
     }
 
     final List<? super PartialBotApiMethod<?>> messages = new ArrayList<>();
@@ -85,7 +85,7 @@ public class BestFuelPriceCommand implements Command {
               Double.valueOf(location.getLongitude()))));
     });
 
-    messages.add(getSendMessageWithReplyKeyboardMarkup(message, FINAL_MESSAGE, getBestFuelPriceReplyKeyboardMarkup()));
+    messages.add(sendMessageWithReplyKeyboardMarkup(message, FINAL_MESSAGE, getBestFuelPriceReplyKeyboardMarkup()));
     return messages;
   }
 
@@ -94,7 +94,7 @@ public class BestFuelPriceCommand implements Command {
   }
 
   private List<? super PartialBotApiMethod<?>> sendBestFuelPriceMenuMessage(Message message) {
-    final SendMessage response = getSendMessageWithReplyKeyboardMarkup(
+    final SendMessage response = sendMessageWithReplyKeyboardMarkup(
         message, MENU_RESPONSE, getBestFuelPriceReplyKeyboardMarkup());
     return singletonList(response);
   }
