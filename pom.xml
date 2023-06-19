@@ -3,17 +3,20 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.5.0</version>
+    <version>2.6.6</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
+
   <groupId>md.basarabeasca.bot</groupId>
   <artifactId>basarabeascabot</artifactId>
   <version>1.0.0</version>
   <name>Basarabeasca Bot</name>
   <description>Basarabeasca Telegram Bot. Spring Boot application.</description>
+
   <properties>
     <java.version>8</java.version>
     <telegrambots.version>6.0.1</telegrambots.version>
@@ -21,6 +24,8 @@
     <gson.version>2.9.0</gson.version>
     <postgresql.version>42.3.6</postgresql.version>
     <flyway.version>8.5.12</flyway.version>
+    <javax.cache.version>1.1.1</javax.cache.version>
+    <org.ehcache.version>3.7.1</org.ehcache.version>
   </properties>
 
   <dependencies>
@@ -71,6 +76,22 @@
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <scope>runtime</scope>
+    </dependency>
+
+    <!--CACHING -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-cache</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.cache</groupId>
+      <artifactId>cache-api</artifactId>
+      <version>${javax.cache.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.ehcache</groupId>
+      <artifactId>ehcache</artifactId>
+      <version>${org.ehcache.version}</version>
     </dependency>
   </dependencies>
 

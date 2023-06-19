@@ -1,6 +1,7 @@
 package md.basarabeasca.bot.infrastructure.parser;
 
-import static com.google.common.collect.Lists.reverse;
+import static java.util.Collections.reverse;
+import static md.basarabeasca.bot.infrastructure.config.EhcacheConfig.BAS_TV;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import java.io.IOException;
@@ -13,6 +14,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -58,8 +60,11 @@ public class BasTVParserImpl implements NewsParser {
   }
 
   @Override
+  @Cacheable(value = BAS_TV, cacheManager = "jCacheCacheManager")
   public List<News> getLastNews() {
-    return reverse(getListNews());
+    final List<News> listNews = getListNews();
+    reverse((listNews));
+    return listNews;
   }
 
   @Override
