@@ -4,6 +4,8 @@ import static java.util.Collections.emptyList;
 import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
+import static md.basarabeasca.bot.infrastructure.config.EhcacheConfig.ANRE_FUEL_PRICE;
+import static md.basarabeasca.bot.infrastructure.config.EhcacheConfig.J_CACHE_CACHE_MANAGER;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import md.basarabeasca.bot.domain.fuel.FuelRepository;
 import md.basarabeasca.bot.infrastructure.jpa.FuelJpa;
 import md.basarabeasca.bot.infrastructure.parser.api.FuelParser;
 import md.basarabeasca.bot.infrastructure.service.api.FuelService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,6 +29,7 @@ public class FuelServiceImpl implements FuelService {
   private final FuelMapper fuelMapper;
 
   @Override
+  @Cacheable(value = ANRE_FUEL_PRICE, cacheManager = J_CACHE_CACHE_MANAGER)
   public List<Fuel> getANREFuelPrice() {
     return getANREFuelPriceJpas().stream()
         .map(fuelMapper::toEntity)

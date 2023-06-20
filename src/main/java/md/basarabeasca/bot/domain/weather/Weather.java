@@ -1,5 +1,6 @@
 package md.basarabeasca.bot.domain.weather;
 
+import java.io.Serializable;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class Weather {
+public class Weather implements Serializable {
 
   private final String date;
   private final String daytimeTemperature;

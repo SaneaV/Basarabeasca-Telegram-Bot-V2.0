@@ -1,9 +1,13 @@
 package md.basarabeasca.bot.infrastructure.service;
 
+import static md.basarabeasca.bot.infrastructure.config.EhcacheConfig.J_CACHE_CACHE_MANAGER;
+import static md.basarabeasca.bot.infrastructure.config.EhcacheConfig.PUBLIC_TRANSPORT_TIMETABLE;
+
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import md.basarabeasca.bot.infrastructure.parser.api.TransportTimetableParser;
 import md.basarabeasca.bot.infrastructure.service.api.TransportTimetableService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,6 +26,7 @@ public class TransportTimetableServiceImpl implements TransportTimetableService 
   private final TransportTimetableParser transportTimetableParser;
 
   @Override
+  @Cacheable(value = PUBLIC_TRANSPORT_TIMETABLE, cacheManager = J_CACHE_CACHE_MANAGER)
   public String getTimetable() {
     return improveText(transportTimetableParser.getTimetable());
   }

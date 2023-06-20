@@ -2,6 +2,7 @@ package md.basarabeasca.bot.infrastructure.parser;
 
 import static java.util.Collections.reverse;
 import static md.basarabeasca.bot.infrastructure.config.EhcacheConfig.BAS_TV;
+import static md.basarabeasca.bot.infrastructure.config.EhcacheConfig.J_CACHE_CACHE_MANAGER;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import java.io.IOException;
@@ -60,7 +61,7 @@ public class BasTVParserImpl implements NewsParser {
   }
 
   @Override
-  @Cacheable(value = BAS_TV, cacheManager = "jCacheCacheManager")
+  @Cacheable(value = BAS_TV, cacheManager = J_CACHE_CACHE_MANAGER)
   public List<News> getLastNews() {
     final List<News> listNews = getListNews();
     reverse((listNews));

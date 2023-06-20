@@ -2,6 +2,7 @@ package md.basarabeasca.bot.infrastructure.parser;
 
 import static java.util.Collections.reverse;
 import static md.basarabeasca.bot.infrastructure.config.EhcacheConfig.FEED_BACK;
+import static md.basarabeasca.bot.infrastructure.config.EhcacheConfig.J_CACHE_CACHE_MANAGER;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import java.io.IOException;
@@ -62,7 +63,7 @@ public class FeedBackParserImpl implements NewsParser {
   }
 
   @Override
-  @Cacheable(value = FEED_BACK, cacheManager = "jCacheCacheManager")
+  @Cacheable(value = FEED_BACK, cacheManager = J_CACHE_CACHE_MANAGER)
   public List<News> getLastNews() {
     final List<News> listNews = getListNews();
     reverse((listNews));

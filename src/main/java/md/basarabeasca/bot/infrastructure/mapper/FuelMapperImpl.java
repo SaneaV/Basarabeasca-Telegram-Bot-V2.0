@@ -1,7 +1,9 @@
 package md.basarabeasca.bot.infrastructure.mapper;
 
 import static java.util.Arrays.asList;
+import static java.util.Objects.isNull;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,9 +52,9 @@ public class FuelMapperImpl implements FuelMapper {
         .map(f -> (HashMap<String, Object>) f)
         .forEach(f -> {
           final String stationName = (String) f.get(STATION_NAME);
-          final Fuel petrol = new Fuel(stationName, PETROL, (Double) f.get(GASOLINE));
-          final Fuel diesel = new Fuel(stationName, DIESEL, (Double) f.get(DIESEL.toLowerCase()));
-          final Fuel gas = new Fuel(stationName, GAS, (Double) f.get(GPL));
+          final Fuel petrol = new Fuel(stationName, PETROL, getFossilFuelPrice(f.get(GASOLINE)));
+          final Fuel diesel = new Fuel(stationName, DIESEL, getFossilFuelPrice(f.get(DIESEL.toLowerCase())));
+          final Fuel gas = new Fuel(stationName, GAS, getFossilFuelPrice(f.get(GPL)));
           fuelList.addAll(asList(petrol, diesel, gas));
         });
 
@@ -65,5 +67,10 @@ public class FuelMapperImpl implements FuelMapper {
         .type(fuelJpa.getType())
         .price(fuelJpa.getPrice())
         .build();
+  }
+
+  private Double getFossilFuelPrice(Object fossilFuelPrice) {
+    final BigDecimal price = (BigDecimal) fossilFuelPrice;
+    return isNull(price) ? null : price.doubleValue();
   }
 }

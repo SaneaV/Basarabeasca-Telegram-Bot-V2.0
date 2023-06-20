@@ -1,5 +1,6 @@
 package md.basarabeasca.bot.domain.fuel;
 
+import java.io.Serializable;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class Fuel {
+public class Fuel implements Serializable {
 
   private final String station;
   private final String type;

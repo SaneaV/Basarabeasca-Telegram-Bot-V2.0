@@ -1,6 +1,7 @@
 package md.basarabeasca.bot.infrastructure.parser;
 
 import static java.util.Collections.reverse;
+import static md.basarabeasca.bot.infrastructure.config.EhcacheConfig.J_CACHE_CACHE_MANAGER;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class DistrictCouncilParserImpl implements NewsParser {
   }
 
   @Override
-  @Cacheable(value = EhcacheConfig.DISTRICT_COUNCIL, cacheManager = "jCacheCacheManager")
+  @Cacheable(value = EhcacheConfig.DISTRICT_COUNCIL, cacheManager = J_CACHE_CACHE_MANAGER)
   public List<News> getLastNews() {
     final List<News> listNews = getListNews();
     reverse((listNews));
